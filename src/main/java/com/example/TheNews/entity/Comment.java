@@ -1,7 +1,12 @@
-package com.example.TheNews;
+package com.example.TheNews.entity;
 
 import jakarta.persistence.*;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConctructor
+@Builder
 @Entity
 @Table(name = "comments")
 public class Comment {
