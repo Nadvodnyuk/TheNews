@@ -1,11 +1,10 @@
 package com.example.TheNews.entity;
-
 import jakarta.persistence.*;
-
+import lombok.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConctructor
+@AllArgsConstructor
 @Builder
 @Entity
 @Table(name = "articles")
