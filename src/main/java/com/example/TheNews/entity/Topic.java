@@ -17,7 +17,7 @@ public class Topic {
 	@Column(name = "name")
 	private String name;
 
-//	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+//	@ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 //	@JoinTable(name="article_topic",
 //			joinColumns={ @JoinColumn(name="articleId", referencedColumnName="article_id",
 //					nullable = false, updatable = false)},

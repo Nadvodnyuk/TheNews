@@ -44,6 +44,6 @@ public class Article {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "article_c")
 	private List<Comment> comments;
 
-//	@ManyToMany(mappedBy = "topics", fetch = FetchType.LAZY)
+//	@ManyToMany(mappedBy = "articles", fetch = FetchType.LAZY)
 //	private Topic topics;
 }
