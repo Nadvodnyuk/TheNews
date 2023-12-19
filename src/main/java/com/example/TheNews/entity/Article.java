@@ -1,6 +1,9 @@
 package com.example.TheNews.entity;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -30,4 +33,17 @@ public class Article {
 
     @Column(name = "publication_date")
 	private java.sql.Timestamp publication_date;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id")
+	private User user_a;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "article_l")
+	private List<Like> likes;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "article_c")
+	private List<Comment> comments;
+
+//	@ManyToMany(mappedBy = "topics", fetch = FetchType.LAZY)
+//	private Topic topics;
 }

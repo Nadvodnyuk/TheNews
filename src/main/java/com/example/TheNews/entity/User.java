@@ -1,6 +1,7 @@
 package com.example.TheNews.entity;
 import jakarta.persistence.*;
 import lombok.*;
+import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
@@ -27,4 +28,13 @@ public class User {
 
     @Column(name = "password")
 	private String password;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user_l")
+	private List<Like> likes;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user_a")
+	private List<Article> articles;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user_c")
+	private List<Comment> comments;
 }

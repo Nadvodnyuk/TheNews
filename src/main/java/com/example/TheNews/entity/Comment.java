@@ -18,4 +18,12 @@ public class Comment {
 
     @Column(name = "comment_date")
 	private java.sql.Timestamp comment_date;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id")
+	private User user_c;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "article_id")
+	private Article article_c;
 }
