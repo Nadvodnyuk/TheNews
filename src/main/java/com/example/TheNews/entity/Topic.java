@@ -29,4 +29,21 @@ public class Topic {
 					nullable = false, updatable = false)})
 	@Builder.Default 
 	Set<Article> articles = new HashSet<>();
+
+	public long getId() {
+		return topic_id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + topic_id + ", name=" + name +"]";
+	}
 }

@@ -49,4 +49,64 @@ public class Article {
 	@ManyToMany(mappedBy = "articles", fetch = FetchType.LAZY)
 	@Builder.Default 
 	private Set<Topic> topics = new HashSet<>();
+
+	public long getId() {
+		return article_id;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public String getText() {
+		return article_text;
+	}
+
+	public String getImage() {
+		return image_url;
+	}
+
+	public Integer getLikeNum() {
+		return like_num;
+	}
+
+	public Integer getCommentNum() {
+		return comment_num;
+	}
+
+	public java.sql.Timestamp getDate() {
+		return publication_date;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public void setText(String article_text) {
+		this.article_text = article_text;
+	}
+
+	public void setImage(String image_url) {
+		this.image_url = image_url;
+	}
+
+	public void setLikeNum(Integer like_num) {
+		this.like_num = like_num;
+	}
+
+	public void setPassword(Integer comment_num) {
+		this.comment_num = comment_num;
+	}
+
+	public void setTimestamp(java.sql.Timestamp publication_date) {
+		this.publication_date = publication_date;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + article_id + ", title=" + title + 
+		", article text=" + article_text + ", image=" + image_url + 
+		", number of likes=" + like_num +", number of comments=" + comment_num +
+		", publication date=" + publication_date +"]";
+	}
 }

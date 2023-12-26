@@ -21,4 +21,12 @@ public class Like {
 	@JoinColumn(name = "article_id")
 	private Article article_l;
     
+	public long getId() {
+		return like_id;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + like_id +"]";
+	}
 }

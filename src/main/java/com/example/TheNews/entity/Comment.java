@@ -26,4 +26,21 @@ public class Comment {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "article_id")
 	private Article article_c;
+
+	public long getId() {
+		return comment_id;
+	}
+
+	public java.sql.Timestamp getTimestamp() {
+		return comment_date;
+	}
+
+	public void setTimestamp(java.sql.Timestamp comment_date) {
+		this.comment_date = comment_date;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + comment_id + ", date=" + comment_date + "]";
+	}
 }
