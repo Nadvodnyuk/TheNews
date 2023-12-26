@@ -1,7 +1,11 @@
 package com.example.TheNews.entity;
 
+import java.util.HashSet;
+
 import jakarta.persistence.*;
 import lombok.*;
+import java.util.Set;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -17,11 +21,12 @@ public class Topic {
 	@Column(name = "name")
 	private String name;
 
-//	@ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-//	@JoinTable(name="article_topic",
-//			joinColumns={ @JoinColumn(name="articleId", referencedColumnName="article_id",
-//					nullable = false, updatable = false)},
-//			inverseJoinColumns={ @JoinColumn(name="topicId", referencedColumnName="topic_id",
-//					nullable = false, updatable = false)})
-//	private Article articles;
+	@ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@JoinTable(name="article_topic",
+			joinColumns={ @JoinColumn(name="topicId", referencedColumnName="topic_id",
+					nullable = false, updatable = false)},
+			inverseJoinColumns={ @JoinColumn(name="articleId", referencedColumnName="article_id",
+					nullable = false, updatable = false)})
+	@Builder.Default 
+	Set<Article> articles = new HashSet<>();
 }

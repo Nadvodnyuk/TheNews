@@ -2,6 +2,8 @@ package com.example.TheNews.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.List;
 
 @Getter
@@ -44,6 +46,7 @@ public class Article {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "article_c")
 	private List<Comment> comments;
 
-//	@ManyToMany(mappedBy = "articles", fetch = FetchType.LAZY)
-//	private Topic topics;
+	@ManyToMany(mappedBy = "articles", fetch = FetchType.LAZY)
+	@Builder.Default 
+	private Set<Topic> topics = new HashSet<>();
 }
