@@ -1,6 +1,6 @@
 package com.example.TheNews;
 
-import com.example.TheNews.entity.User;
+import com.example.TheNews.entity.UserEntity;
 import com.example.TheNews.repository.UserRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ public class TheNewsApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		User user1 = User.builder()
+		UserEntity user1 = UserEntity.builder()
 			.first_name("Markus")
 			.last_name("Revazov")
 			.role("Admin")

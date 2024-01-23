@@ -38,7 +38,7 @@ public class Article {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
-	private User user_a;
+	private UserEntity user_a;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "article_l")
 	private List<Like> likes;

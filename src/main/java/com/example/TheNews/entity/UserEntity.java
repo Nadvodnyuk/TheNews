@@ -9,7 +9,7 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "users")
-public class User {
+public class UserEntity {
     @Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long user_id;
@@ -39,7 +39,7 @@ public class User {
 	private List<Comment> comments;
 
 
-	public User(String first_name, String last_name, String role, String username, String password) {
+	public UserEntity(String first_name, String last_name, String role, String username, String password) {
 		this.first_name = first_name;
 		this.last_name = last_name;
 		this.role = role;
