@@ -2,6 +2,7 @@ package com.example.TheNews.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "articles")
-public class Article {
+public class ArticleEntity {
     @Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long article_id;
@@ -41,65 +42,101 @@ public class Article {
 	private UserEntity user_a;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "article_l")
-	private List<Like> likes;
+	private List<LikeEntity> likes;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "article_c")
-	private List<Comment> comments;
+	private List<CommentEntity> comments;
 
 	@ManyToMany(mappedBy = "articles", fetch = FetchType.LAZY)
 	@Builder.Default 
-	private Set<Topic> topics = new HashSet<>();
+	private Set<TopicEntity> topics = new HashSet<>();
 
-	public long getId() {
+	public long getArticle_id() {
 		return article_id;
+	}
+
+	public void setArticle_id(long article_id) {
+		this.article_id = article_id;
 	}
 
 	public String getTitle() {
 		return title;
 	}
 
-	public String getText() {
-		return article_text;
-	}
-
-	public String getImage() {
-		return image_url;
-	}
-
-	public Integer getLikeNum() {
-		return like_num;
-	}
-
-	public Integer getCommentNum() {
-		return comment_num;
-	}
-
-	public java.sql.Timestamp getDate() {
-		return publication_date;
-	}
-
 	public void setTitle(String title) {
 		this.title = title;
 	}
 
-	public void setText(String article_text) {
+	public String getArticle_text() {
+		return article_text;
+	}
+
+	public void setArticle_text(String article_text) {
 		this.article_text = article_text;
 	}
 
-	public void setImage(String image_url) {
+	public String getImage_url() {
+		return image_url;
+	}
+
+	public void setImage_url(String image_url) {
 		this.image_url = image_url;
 	}
 
-	public void setLikeNum(Integer like_num) {
+	public Integer getLike_num() {
+		return like_num;
+	}
+
+	public void setLike_num(Integer like_num) {
 		this.like_num = like_num;
 	}
 
-	public void setPassword(Integer comment_num) {
+	public Integer getComment_num() {
+		return comment_num;
+	}
+
+	public void setComment_num(Integer comment_num) {
 		this.comment_num = comment_num;
 	}
 
-	public void setTimestamp(java.sql.Timestamp publication_date) {
+	public Timestamp getPublication_date() {
+		return publication_date;
+	}
+
+	public void setPublication_date(Timestamp publication_date) {
 		this.publication_date = publication_date;
+	}
+
+	public UserEntity getUser_a() {
+		return user_a;
+	}
+
+	public void setUser_a(UserEntity user_a) {
+		this.user_a = user_a;
+	}
+
+	public List<LikeEntity> getLikes() {
+		return likes;
+	}
+
+	public void setLikes(List<LikeEntity> likes) {
+		this.likes = likes;
+	}
+
+	public List<CommentEntity> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<CommentEntity> comments) {
+		this.comments = comments;
+	}
+
+	public Set<TopicEntity> getTopics() {
+		return topics;
+	}
+
+	public void setTopics(Set<TopicEntity> topics) {
+		this.topics = topics;
 	}
 
 	@Override

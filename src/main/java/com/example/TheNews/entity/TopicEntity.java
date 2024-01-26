@@ -13,7 +13,7 @@ import java.util.Set;
 @Builder
 @Entity
 @Table(name = "topics")
-public class Topic {
+public class TopicEntity {
     @Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long topic_id;
@@ -28,10 +28,14 @@ public class Topic {
 			inverseJoinColumns={ @JoinColumn(name="articleId", referencedColumnName="article_id",
 					nullable = false, updatable = false)})
 	@Builder.Default 
-	Set<Article> articles = new HashSet<>();
+	Set<ArticleEntity> articles = new HashSet<>();
 
-	public long getId() {
+	public long getTopic_id() {
 		return topic_id;
+	}
+
+	public void setTopic_id(long topic_id) {
+		this.topic_id = topic_id;
 	}
 
 	public String getName() {
@@ -40,6 +44,14 @@ public class Topic {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Set<ArticleEntity> getArticles() {
+		return articles;
+	}
+
+	public void setArticles(Set<ArticleEntity> articles) {
+		this.articles = articles;
 	}
 
 	@Override

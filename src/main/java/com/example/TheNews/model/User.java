@@ -1,7 +1,6 @@
 package com.example.TheNews.model;
 
 import com.example.TheNews.entity.UserEntity;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -11,20 +10,20 @@ public class User {
 	private String last_name;
 	private String role;
 	private String username;
-//	 private List<Like> likes;
-//	 private List<Article> articles;
-//	 private List<Comment> comments;
+    private List<Like> likes;
+    private List<Article> articles;
+    private List<Comment> comments;
 
     public static User toModel(UserEntity entity) {
         User model = new User();
-        model.setUser_id(entity.getId());
-        model.setFirst_name(entity.getFirstName());
-        model.setLast_name(entity.getLastName());
+        model.setUser_id(entity.getUser_id());
+        model.setFirst_name(entity.getFirst_name());
+        model.setLast_name(entity.getLast_name());
         model.setRole(entity.getRole());
         model.setUsername(entity.getUsername());
-        // model.setTodos(entity.getTodos().stream().map(Todo::toModel).collect(Collectors.toList()));
-        // model.setTodos(entity.getTodos().stream().map(Todo::toModel).collect(Collectors.toList()));
-        // model.setTodos(entity.getTodos().stream().map(Todo::toModel).collect(Collectors.toList()));
+        model.setLikes(entity.getLikes().stream().map(Like::toModel).collect(Collectors.toList()));
+        model.setArticles(entity.getArticles().stream().map(Article::toModel).collect(Collectors.toList()));
+        model.setComments(entity.getComments().stream().map(Comment::toModel).collect(Collectors.toList()));
         return model;
     }
 
@@ -71,11 +70,27 @@ public class User {
         this.username = username;
     }
 
-    // public List<Todo> getTodos() {
-    //     return todos;
-    // }
+    public List<Like> getLikes() {
+        return likes;
+    }
 
-    // public void setTodos(List<Todo> todos) {
-    //     this.todos = todos;
-    // }
+    public void setLikes(List<Like> likes) {
+        this.likes = likes;
+    }
+
+    public List<Article> getArticles() {
+        return articles;
+    }
+
+    public void setArticles(List<Article> articles) {
+        this.articles = articles;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
 }
