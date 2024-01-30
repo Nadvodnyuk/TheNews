@@ -29,7 +29,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping
+    @PostMapping("/users")
     public ResponseEntity registration(@RequestBody UserEntity username) {
         try {
             userService.registration(username);
