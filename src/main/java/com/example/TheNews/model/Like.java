@@ -1,7 +1,6 @@
 package com.example.TheNews.model;
 
 import com.example.TheNews.entity.LikeEntity;
-import com.example.TheNews.entity.UserEntity;
 
 public class Like {
     private long like_id;
