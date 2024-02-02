@@ -14,22 +14,22 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/users")
 //@CrossOrigin("http://localhost:3000")
 
 public class UserController {
     @Autowired
     private UserRepo userRepo;
 
-    @GetMapping("/users")
-    public List<UserEntity> fetchUsers(){
-        return userRepo.findAll();
-    }
+//    @GetMapping
+//    public List<UserEntity> fetchUsers(){
+//        return userRepo.findAll();
+//    }
 
     @Autowired
     private UserService userService;
 
-    @PostMapping("/users")
+    @PostMapping
     public ResponseEntity registration(@RequestBody UserEntity username) {
         try {
             userService.registration(username);
@@ -42,7 +42,7 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity getOneUser(@RequestParam Long user_id) {
+    public ResponseEntity getUserById(@RequestParam Long user_id) {
         try {
             return ResponseEntity.ok(userService.getOne(user_id));
         } catch (UserNotFoundException e) {
