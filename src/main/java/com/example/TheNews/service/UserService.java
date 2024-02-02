@@ -23,16 +23,15 @@ public class UserService {
     }
 
     public User getOne(Long user_id) throws UserNotFoundException {
-        UserEntity username = userRepo.findById(user_id).get();
-        if (username == null) {
+        UserEntity user = userRepo.findById(user_id).get();
+        if (user == null) {
             throw new UserNotFoundException("Пользователь не найден");
         }
-        return User.toModel(username);
+        return User.toModel(user);
     }
 
     public Long delete(Long user_id) {
         userRepo.deleteById(user_id);
         return user_id;
     }
-
 }
