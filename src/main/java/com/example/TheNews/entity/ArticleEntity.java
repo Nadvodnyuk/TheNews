@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.List;
+import java.util.Collections;
 
 @Getter
 @Setter
@@ -116,7 +117,7 @@ public class ArticleEntity {
 	}
 
 	public List<LikeEntity> getLikes() {
-		return likes;
+		return likes != null ? likes : Collections.emptyList();
 	}
 
 	public void setLikes(List<LikeEntity> likes) {
@@ -124,7 +125,7 @@ public class ArticleEntity {
 	}
 
 	public List<CommentEntity> getComments() {
-		return comments;
+		return comments != null ? comments : Collections.emptyList();
 	}
 
 	public void setComments(List<CommentEntity> comments) {

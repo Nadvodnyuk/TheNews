@@ -1,13 +1,15 @@
 package com.example.TheNews.service;
 
 import com.example.TheNews.entity.ArticleEntity;
-import com.example.TheNews.entity.LikeEntity;
 import com.example.TheNews.entity.UserEntity;
 import com.example.TheNews.exception.UserNotFoundException;
 import com.example.TheNews.model.Article;
 import com.example.TheNews.repository.ArticleRepo;
 import com.example.TheNews.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
 
 public class ArticleService {
     @Autowired
@@ -15,8 +17,8 @@ public class ArticleService {
     @Autowired
     private ArticleRepo articleRepo;
 
-    public Article createArticle(ArticleEntity art, Long userId) {
-        UserEntity user = userRepo.findById(userId).get();
+    public Article createArticle(ArticleEntity art, Long user_id) {
+        UserEntity user = userRepo.findById(user_id).get();
         art.setUser_a(user);
         return Article.toModel(articleRepo.save(art));
     }
