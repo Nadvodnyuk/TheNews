@@ -37,7 +37,7 @@ public class LikeService {
     }
 
     public Long delete(Long like_id) {
-        userRepo.deleteById(like_id);
+        likeRepo.deleteById(like_id);
         return like_id;
     }
 }
