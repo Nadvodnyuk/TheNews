@@ -3,8 +3,6 @@ package com.example.TheNews.controller;
 import com.example.TheNews.entity.ArticleEntity;
 import com.example.TheNews.exception.UserNotFoundException;
 import com.example.TheNews.service.ArticleService;
-
-// import org.hibernate.mapping.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +19,7 @@ public class ArticleController {
         try {
             return ResponseEntity.ok(articleService.createArticle(art, user_id));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Произошла ошибка" + e.getMessage());
+            return ResponseEntity.badRequest().body("Произошла ошибка, статья" + e.getMessage());
         }
     }
     @GetMapping
@@ -31,16 +29,16 @@ public class ArticleController {
         } catch (UserNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Произошла ошибка");
+            return ResponseEntity.badRequest().body("Произошла ошибка, статья");
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{user_id}")
     public ResponseEntity deleteArticle(@PathVariable Long user_id) {
         try {
             return ResponseEntity.ok(articleService.delete(user_id));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Произошла ошибка");
+            return ResponseEntity.badRequest().body("Произошла ошибка, статья");
         }
     }
 }

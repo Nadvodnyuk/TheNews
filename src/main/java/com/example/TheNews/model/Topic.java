@@ -2,7 +2,7 @@ package com.example.TheNews.model;
 
 import com.example.TheNews.entity.TopicEntity;
 
-import java.util.List;
+//import java.util.List;
 
 public class Topic {
     private long topic_id;

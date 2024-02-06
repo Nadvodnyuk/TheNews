@@ -26,7 +26,7 @@ public class ArticleService {
     public Article getOne(Long art_id) throws UserNotFoundException {
         ArticleEntity art = articleRepo.findById(art_id).get();
         if (art == null) {
-            throw new UserNotFoundException("Пользователь не найден");
+            throw new UserNotFoundException("Статья не найдена");
         }
         return Article.toModel(art);
     }

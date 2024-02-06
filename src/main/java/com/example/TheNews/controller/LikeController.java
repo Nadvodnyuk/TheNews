@@ -4,7 +4,6 @@ package com.example.TheNews.controller;
 import com.example.TheNews.entity.LikeEntity;
 import com.example.TheNews.exception.UserNotFoundException;
 import com.example.TheNews.service.LikeService;
-import com.example.TheNews.repository.LikeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +21,7 @@ public class LikeController {
         try {
             return ResponseEntity.ok(likeService.createLike(like, userId, articleId));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Произошла ошибка");
+            return ResponseEntity.badRequest().body("Произошла ошибка, лайк");
         }
     }
 
@@ -33,16 +32,16 @@ public class LikeController {
         } catch (UserNotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Произошла ошибка");
+            return ResponseEntity.badRequest().body("Произошла ошибка, лайк");
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{user_id}")
     public ResponseEntity deleteLike(@PathVariable Long user_id) {
         try {
             return ResponseEntity.ok(likeService.delete(user_id));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Произошла ошибка");
+            return ResponseEntity.badRequest().body("Произошла ошибка, лайк");
         }
     }
 }

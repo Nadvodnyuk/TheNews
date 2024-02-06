@@ -31,7 +31,7 @@ public class LikeService {
     public Like getOne(Long like_id) throws UserNotFoundException {
         LikeEntity like = likeRepo.findById(like_id).get();
         if (like == null) {
-            throw new UserNotFoundException("Пользователь не найден");
+            throw new UserNotFoundException("Лайк не найден");
         }
         return Like.toModel(like);
     }
