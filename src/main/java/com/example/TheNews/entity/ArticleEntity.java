@@ -1,4 +1,5 @@
 package com.example.TheNews.entity;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,7 +17,7 @@ import java.util.Collections;
 @Entity
 @Table(name = "articles")
 public class ArticleEntity {
-    @Id
+	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long article_id;
 
@@ -26,16 +27,16 @@ public class ArticleEntity {
 	@Column(name = "article_text")
 	private String article_text;
 
-    @Column(name = "image_url")
+	@Column(name = "image_url")
 	private String image_url;
 
 	@Column(name = "like_num")
 	private Integer like_num;
 
-    @Column(name = "comment_num")
+	@Column(name = "comment_num")
 	private Integer comment_num;
 
-    @Column(name = "publication_date")
+	@Column(name = "publication_date")
 	private java.sql.Timestamp publication_date;
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -49,7 +50,7 @@ public class ArticleEntity {
 	private List<CommentEntity> comments;
 
 	@ManyToMany(mappedBy = "articles", fetch = FetchType.LAZY)
-	@Builder.Default 
+	@Builder.Default
 	private Set<TopicEntity> topics = new HashSet<>();
 
 	public long getArticle_id() {
@@ -142,9 +143,9 @@ public class ArticleEntity {
 
 	@Override
 	public String toString() {
-		return "User [id=" + article_id + ", title=" + title + 
-		", article text=" + article_text + ", image=" + image_url + 
-		", number of likes=" + like_num +", number of comments=" + comment_num +
-		", publication date=" + publication_date +"]";
+		return "User [id=" + article_id + ", title=" + title +
+				", article text=" + article_text + ", image=" + image_url +
+				", number of likes=" + like_num + ", number of comments=" + comment_num +
+				", publication date=" + publication_date + "]";
 	}
 }

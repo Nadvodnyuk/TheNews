@@ -1,6 +1,5 @@
 package com.example.TheNews.controller;
 
-
 import com.example.TheNews.entity.LikeEntity;
 import com.example.TheNews.exception.UserNotFoundException;
 import com.example.TheNews.service.LikeService;
@@ -16,8 +15,8 @@ public class LikeController {
 
     @PostMapping
     public ResponseEntity createLike(@RequestBody LikeEntity like,
-                                     @RequestParam Long user_id,
-                                     @RequestParam Long article_id) {
+            @RequestParam Long user_id,
+            @RequestParam Long article_id) {
         try {
             return ResponseEntity.ok(likeService.createLike(like, user_id, article_id));
         } catch (Exception e) {

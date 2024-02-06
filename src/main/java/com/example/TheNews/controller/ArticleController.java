@@ -13,15 +13,17 @@ public class ArticleController {
 
     @Autowired
     private ArticleService articleService;
+
     @PostMapping
     public ResponseEntity createArticle(@RequestBody ArticleEntity art,
-                                        @RequestParam Long user_id) {
+            @RequestParam Long user_id) {
         try {
             return ResponseEntity.ok(articleService.createArticle(art, user_id));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Произошла ошибка, статья" + e.getMessage());
         }
     }
+
     @GetMapping
     public ResponseEntity getArtByUserId(@RequestParam Long user_id) {
         try {

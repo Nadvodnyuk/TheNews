@@ -5,14 +5,13 @@ import com.example.TheNews.exception.UserAlreadyExistException;
 import com.example.TheNews.exception.UserNotFoundException;
 import com.example.TheNews.service.UserService;
 
-// import org.hibernate.mapping.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
-//@CrossOrigin("http://localhost:3000")
+// @CrossOrigin("http://localhost:3000")
 
 public class UserController {
     @Autowired
@@ -49,4 +48,4 @@ public class UserController {
             return ResponseEntity.badRequest().body("Произошла ошибка");
         }
     }
- }
+}

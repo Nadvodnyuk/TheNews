@@ -1,6 +1,8 @@
 package com.example.TheNews.entity;
+
 import jakarta.persistence.*;
 import lombok.*;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -9,7 +11,7 @@ import lombok.*;
 @Entity
 @Table(name = "likes")
 public class LikeEntity {
-    @Id
+	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long like_id;
 
@@ -47,6 +49,6 @@ public class LikeEntity {
 
 	@Override
 	public String toString() {
-		return "User [id=" + like_id +"]";
+		return "User [id=" + like_id + "]";
 	}
 }

@@ -14,20 +14,18 @@ import java.util.Set;
 @Entity
 @Table(name = "topics")
 public class TopicEntity {
-    @Id
+	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long topic_id;
 
 	@Column(name = "name")
 	private String name;
 
-	@ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-	@JoinTable(name="article_topic",
-			joinColumns={ @JoinColumn(name="topicId", referencedColumnName="topic_id",
-					nullable = false, updatable = false)},
-			inverseJoinColumns={ @JoinColumn(name="articleId", referencedColumnName="article_id",
-					nullable = false, updatable = false)})
-	@Builder.Default 
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinTable(name = "article_topic", joinColumns = {
+			@JoinColumn(name = "topicId", referencedColumnName = "topic_id", nullable = false, updatable = false) }, inverseJoinColumns = {
+					@JoinColumn(name = "articleId", referencedColumnName = "article_id", nullable = false, updatable = false) })
+	@Builder.Default
 	Set<ArticleEntity> articles = new HashSet<>();
 
 	public long getTopic_id() {
@@ -56,7 +54,7 @@ public class TopicEntity {
 
 	@Override
 	public String toString() {
-		return "User [id=" + topic_id + ", name=" + name +"]";
+		return "User [id=" + topic_id + ", name=" + name + "]";
 	}
 
 }

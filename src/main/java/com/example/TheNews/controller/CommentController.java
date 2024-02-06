@@ -16,8 +16,8 @@ public class CommentController {
 
     @PostMapping
     public ResponseEntity createComment(@RequestBody CommentEntity comment,
-                                     @RequestParam Long user_id,
-                                     @RequestParam Long article_id) {
+            @RequestParam Long user_id,
+            @RequestParam Long article_id) {
         try {
             return ResponseEntity.ok(commentService.createComment(comment, user_id, article_id));
         } catch (Exception e) {

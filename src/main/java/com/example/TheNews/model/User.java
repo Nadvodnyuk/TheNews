@@ -6,10 +6,10 @@ import java.util.stream.Collectors;
 
 public class User {
     private long user_id;
-	private String first_name;
-	private String last_name;
-	private String role;
-	private String username;
+    private String first_name;
+    private String last_name;
+    private String role;
+    private String username;
     private List<Like> likes;
     private List<Article> articles;
     private List<Comment> comments;

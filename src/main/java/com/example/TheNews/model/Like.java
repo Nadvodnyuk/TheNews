@@ -4,6 +4,7 @@ import com.example.TheNews.entity.LikeEntity;
 
 public class Like {
     private long like_id;
+
     public static Like toModel(LikeEntity entity) {
         Like model = new Like();
         model.setLike_id(entity.getLike_id());

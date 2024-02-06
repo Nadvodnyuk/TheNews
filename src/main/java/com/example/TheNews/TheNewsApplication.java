@@ -5,8 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TheNewsApplication implements CommandLineRunner{
-
+public class TheNewsApplication implements CommandLineRunner {
 
 	public static void main(String[] args) {
 		SpringApplication.run(TheNewsApplication.class, args);

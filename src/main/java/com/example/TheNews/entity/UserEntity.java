@@ -1,7 +1,9 @@
 package com.example.TheNews.entity;
+
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -10,7 +12,7 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 public class UserEntity {
-    @Id
+	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long user_id;
 
@@ -20,13 +22,13 @@ public class UserEntity {
 	@Column(name = "last_name")
 	private String last_name;
 
-    @Column(name = "role")
+	@Column(name = "role")
 	private String role;
 
 	@Column(name = "username")
 	private String username;
 
-    @Column(name = "password")
+	@Column(name = "password")
 	private String password;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user_l")
@@ -120,8 +122,8 @@ public class UserEntity {
 
 	@Override
 	public String toString() {
-		return "User [id=" + user_id + 
-		", first name=" + first_name + ", last name=" + last_name + 
-		", role=" + role + ", username=" + username +"]";
+		return "User [id=" + user_id +
+				", first name=" + first_name + ", last name=" + last_name +
+				", role=" + role + ", username=" + username + "]";
 	}
 }

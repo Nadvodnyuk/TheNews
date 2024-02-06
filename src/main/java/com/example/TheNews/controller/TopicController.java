@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
 @RestController
 @RequestMapping("/topics")
 public class TopicController {
@@ -21,7 +20,8 @@ public class TopicController {
             return ResponseEntity.badRequest().body("Произошла ошибка, лайк");
         }
     }
-    //ВСТАВИТЬ DELETE MAPPING
+
+    // ВСТАВИТЬ DELETE MAPPING
     @DeleteMapping("/{topic_id}")
     public ResponseEntity deleteTopic(@PathVariable Long topic_id) {
         try {
@@ -31,5 +31,3 @@ public class TopicController {
         }
     }
 }
-
-
