@@ -16,10 +16,10 @@ public class CommentController {
 
     @PostMapping
     public ResponseEntity createComment(@RequestBody CommentEntity comment,
-                                     @RequestParam Long userId,
-                                     @RequestParam Long articleId) {
+                                     @RequestParam Long user_id,
+                                     @RequestParam Long article_id) {
         try {
-            return ResponseEntity.ok(commentService.createComment(comment, userId, articleId));
+            return ResponseEntity.ok(commentService.createComment(comment, user_id, article_id));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Произошла ошибка, комментарий");
         }
