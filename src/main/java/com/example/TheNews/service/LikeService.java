@@ -3,7 +3,7 @@ package com.example.TheNews.service;
 import com.example.TheNews.entity.LikeEntity;
 import com.example.TheNews.entity.UserEntity;
 import com.example.TheNews.entity.ArticleEntity;
-import com.example.TheNews.exception.UserNotFoundException;
+import com.example.TheNews.exception.NotFoundException;
 import com.example.TheNews.model.Like;
 import com.example.TheNews.repository.LikeRepo;
 import com.example.TheNews.repository.UserRepo;
@@ -28,10 +28,10 @@ public class LikeService {
         return Like.toModel(likeRepo.save(like));
     }
 
-    public Like getOne(Long like_id) throws UserNotFoundException {
+    public Like getOne(Long like_id) throws NotFoundException {
         LikeEntity like = likeRepo.findById(like_id).get();
         if (like == null) {
-            throw new UserNotFoundException("Лайк не найден");
+            throw new NotFoundException("Лайк не найден");
         }
         return Like.toModel(like);
     }

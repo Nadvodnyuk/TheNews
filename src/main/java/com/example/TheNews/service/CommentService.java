@@ -3,7 +3,7 @@ package com.example.TheNews.service;
 import com.example.TheNews.entity.ArticleEntity;
 import com.example.TheNews.entity.CommentEntity;
 import com.example.TheNews.entity.UserEntity;
-import com.example.TheNews.exception.UserNotFoundException;
+import com.example.TheNews.exception.NotFoundException;
 import com.example.TheNews.model.Comment;
 import com.example.TheNews.repository.ArticleRepo;
 import com.example.TheNews.repository.CommentRepo;
@@ -29,10 +29,10 @@ public class CommentService {
         return Comment.toModel(commentRepo.save(comment));
     }
 
-    public Comment getOne(Long comment_id) throws UserNotFoundException {
+    public Comment getOne(Long comment_id) throws NotFoundException {
         CommentEntity comment = commentRepo.findById(comment_id).get();
         if (comment == null) {
-            throw new UserNotFoundException("Комментарий не найден");
+            throw new NotFoundException("Комментарий не найден");
         }
         return Comment.toModel(comment);
     }

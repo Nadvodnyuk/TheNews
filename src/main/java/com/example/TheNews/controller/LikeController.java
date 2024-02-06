@@ -1,7 +1,7 @@
 package com.example.TheNews.controller;
 
 import com.example.TheNews.entity.LikeEntity;
-import com.example.TheNews.exception.UserNotFoundException;
+import com.example.TheNews.exception.NotFoundException;
 import com.example.TheNews.service.LikeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +28,7 @@ public class LikeController {
     public ResponseEntity getLikeByUserId(@RequestParam Long user_id) {
         try {
             return ResponseEntity.ok(likeService.getOne(user_id));
-        } catch (UserNotFoundException e) {
+        } catch (NotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Произошла ошибка, лайк");

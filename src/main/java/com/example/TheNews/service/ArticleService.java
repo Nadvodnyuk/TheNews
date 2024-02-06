@@ -2,7 +2,7 @@ package com.example.TheNews.service;
 
 import com.example.TheNews.entity.ArticleEntity;
 import com.example.TheNews.entity.UserEntity;
-import com.example.TheNews.exception.UserNotFoundException;
+import com.example.TheNews.exception.NotFoundException;
 import com.example.TheNews.model.Article;
 import com.example.TheNews.repository.ArticleRepo;
 import com.example.TheNews.repository.UserRepo;
@@ -23,10 +23,10 @@ public class ArticleService {
         return Article.toModel(articleRepo.save(art));
     }
 
-    public Article getOne(Long art_id) throws UserNotFoundException {
+    public Article getOne(Long art_id) throws NotFoundException {
         ArticleEntity art = articleRepo.findById(art_id).get();
         if (art == null) {
-            throw new UserNotFoundException("Статья не найдена");
+            throw new NotFoundException("Статья не найдена");
         }
         return Article.toModel(art);
     }

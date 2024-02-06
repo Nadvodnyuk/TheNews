@@ -1,7 +1,7 @@
 package com.example.TheNews.controller;
 
 import com.example.TheNews.entity.ArticleEntity;
-import com.example.TheNews.exception.UserNotFoundException;
+import com.example.TheNews.exception.NotFoundException;
 import com.example.TheNews.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +28,7 @@ public class ArticleController {
     public ResponseEntity getArtByUserId(@RequestParam Long user_id) {
         try {
             return ResponseEntity.ok(articleService.getOne(user_id));
-        } catch (UserNotFoundException e) {
+        } catch (NotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Произошла ошибка, статья");
