@@ -16,6 +16,7 @@ public class Article {
     private java.sql.Timestamp publication_date;
     private List<Like> likes;
     private List<Comment> comments;
+    private List<Topic> topics;
 
     public static Article toModel(ArticleEntity entity) {
         Article model = new Article();
@@ -29,10 +30,19 @@ public class Article {
         model.setPublication_date(entity.getPublication_date());
         model.setLikes(entity.getLikes().stream().map(Like::toModel).collect(Collectors.toList()));
         model.setComments(entity.getComments().stream().map(Comment::toModel).collect(Collectors.toList()));
+        model.setTopics(entity.getTopics().stream().map(Topic::toModel).collect(Collectors.toList()));
         return model;
     }
 
     public Article() {
+    }
+
+    public List<Topic> getTopics() {
+        return topics;
+    }
+
+    public void setTopics(List<Topic> topics) {
+        this.topics = topics;
     }
 
     public long getArticle_id() {
