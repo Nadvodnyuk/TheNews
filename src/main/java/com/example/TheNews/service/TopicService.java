@@ -10,27 +10,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 
-public class TopicService {
-    @Autowired
-    private TopicRepo topicRepo;
-
-    public TopicEntity createTopic(TopicEntity name) throws AlreadyExistException {
-        if (topicRepo.findByName(name.getName()) != null) {
-            throw new AlreadyExistException("Такая тема уже существует");
-        }
-        return topicRepo.save(name);
-    }
-
-    public Topic getOne(String name) throws NotFoundException {
-        TopicEntity topic = topicRepo.findByName(name);
-        if (topic == null) {
-            throw new NotFoundException("Пользователь не найден");
-        }
-        return Topic.toModel(topic);
-    }
-
-    public Long delete(Long topic_id) {
-        topicRepo.deleteById(topic_id);
-        return topic_id;
-    }
+public interface TopicService {
+    public TopicEntity createTopic(TopicEntity name) throws AlreadyExistException;
+    public Topic getOne(String name) throws NotFoundException;
+    public Long delete(Long topic_id);
 }

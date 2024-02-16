@@ -10,28 +10,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 
-public class UserService {
+public interface UserService {
+    public UserEntity registration(UserEntity username) throws AlreadyExistException;
+    public User getOne(Long user_id) throws NotFoundException;
+    public Long delete(Long user_id);
 
-    @Autowired
-    private UserRepo userRepo;
-
-    public UserEntity registration(UserEntity username) throws AlreadyExistException {
-        if (userRepo.findByUsername(username.getUsername()) != null) {
-            throw new AlreadyExistException("Пользователь с таким именем существует");
-        }
-        return userRepo.save(username);
-    }
-
-    public User getOne(Long user_id) throws NotFoundException {
-        UserEntity user = userRepo.findById(user_id).get();
-        if (user == null) {
-            throw new NotFoundException("Пользователь не найден");
-        }
-        return User.toModel(user);
-    }
-
-    public Long delete(Long user_id) {
-        userRepo.deleteById(user_id);
-        return user_id;
-    }
 }
