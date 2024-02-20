@@ -4,12 +4,13 @@ import com.example.TheNews.entity.TopicEntity;
 import com.example.TheNews.exception.AlreadyExistException;
 import com.example.TheNews.exception.NotFoundException;
 import com.example.TheNews.model.Topic;
+import com.example.TheNews.service.TopicService;
 import com.example.TheNews.repository.TopicRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TopicServiceImpl {
+public class TopicServiceImpl implements TopicService {
     @Autowired
     private TopicRepo topicRepo;
 
