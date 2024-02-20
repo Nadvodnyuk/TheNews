@@ -5,10 +5,14 @@ import com.example.TheNews.service.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.modelmapper.ModelMapper;
 
 @RestController
 @RequestMapping("/topics")
 public class TopicController {
+
+    @Autowired
+    private ModelMapper modelMapper;
     @Autowired
     private TopicService topicService;
 

@@ -6,10 +6,14 @@ import com.example.TheNews.service.LikeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.modelmapper.ModelMapper;
 
 @RestController
 @RequestMapping("/likes")
 public class LikeController {
+
+    @Autowired
+    private ModelMapper modelMapper;
     @Autowired
     private LikeService likeService;
 
