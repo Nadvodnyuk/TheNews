@@ -5,7 +5,7 @@ import { createPinia } from 'pinia'
 import { createWebHistory } from 'vue-router'
 import createRouter from './pages/routes.js'
 import Antd from "ant-design-vue";
-import "ant-design-vue/dist/antd.css";
+import "ant-design-vue/dist/reset.css";
 const router = createRouter(createWebHistory())
 const app = createApp(App)
 const store = createPinia()
