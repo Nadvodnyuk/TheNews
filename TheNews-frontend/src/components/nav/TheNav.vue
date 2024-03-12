@@ -1,9 +1,50 @@
 <template>
-
+    <ul class="nav_bar">
+        <li class="nb_li">
+            <router-link :to="{ name: 'loginPage' }" class="nb_link">
+                Войти
+            </router-link>
+        </li>
+    </ul>
 </template>
 
 <script setup>
 
 </script>
 
-<style scoped lang="css"></style>
+<style scoped lang="css">
+.nav_bar {
+    list-style: none;
+}
+
+.nb_link {
+    color: #464d4e;
+    font-weight: 100;
+    font-size: 18px;
+    line-height: 36px;
+    text-align: end;
+    text-decoration: none;
+    margin-left: 40px;
+}
+
+.nb_link:hover {
+    color: rgb(88, 93, 99);
+}
+
+ul {
+    margin-bottom: 0;
+}
+
+@media (min-width:300px) and (max-width: 600px) {
+    .nb_link {
+        color: #464d4e;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 36px;
+        text-align: end;
+        text-decoration: none;
+        margin-left: 15px;
+        line-height: 2.2;
+    }
+}
+</style>

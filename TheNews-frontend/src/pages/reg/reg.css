@@ -1,0 +1,109 @@
+.reg_page {
+    background-color: grey;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: auto;
+    justify-content: center;
+    opacity: 100%;
+}
+.reg_block {
+    margin: 200px auto;
+    width: 30%;
+    height: auto;
+    background-color: white;
+    margin: 0 auto;
+    border-radius: 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid blue;
+    padding: 0px;
+}
+
+.reg_header {
+    align-items: center;
+    vertical-align: top;
+    margin-bottom: 50px;
+    margin-top: 20px;
+    font-family: 'Montserrat', bold;
+    font-size: 25px;
+    
+}
+
+.reg_container {
+    width: 85%;
+    margin: 20px;
+}
+
+input:focus {
+    outline: none;
+    border-color: none;
+}
+
+input:-webkit-autofill {
+    transition: all 5000s ease-in-out;
+}
+
+.name_input {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: auto;
+}
+
+.name_input input {
+    margin-bottom: auto;
+    width: 45%;
+    border: none;
+    border-bottom: 1px solid grey;
+}
+
+
+
+.info_input {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.info_input input {
+    width: 100%;
+    height: 20px;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid grey;
+}
+
+.reg_btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    margin-top: 30px;
+}
+
+.reg_btn button {
+    width: 100%;
+    outline: none;
+	border: 1px solid #fff;
+	border-radius: 50px;
+	height: 46px;
+	line-height: 46px;
+	font-size: 16px;
+	font-weight: 600;
+	color: #444;
+	background-color: #fff;
+	box-shadow: 0 4px 6px rgb(65 132 144 / 10%), 0 1px 3px rgb(0 0 0 / 8%);
+	cursor: pointer;
+	touch-action: manipulation;  
+	transition: box-shadow 0.2s;
+}
+
+.login_ref {
+    margin-top: 30px;
+    display: flex;
+    align-items: bottom;
+    justify-content: end;
+}
