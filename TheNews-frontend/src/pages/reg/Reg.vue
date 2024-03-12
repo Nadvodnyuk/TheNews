@@ -1,4 +1,5 @@
 <template>
+    <div class="sub_header"></div>
     <div class="reg_page">
     <div class="reg_block">
         <h1 class="reg_header">Регистрация </h1>

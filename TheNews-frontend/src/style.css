@@ -13,6 +13,8 @@
 }
 
 .body {
+  height: auto;
+  min-height: 680px;
   background-color: #f4f4f4;
   margin: 0px auto;
   padding: 0px 100px;

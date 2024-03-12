@@ -21,6 +21,7 @@
 .mainFooter {
     width: 100%;
     height: 100px;
+    border: 1px solid red;
     display: flex;
     justify-content: center;
     text-align: center;

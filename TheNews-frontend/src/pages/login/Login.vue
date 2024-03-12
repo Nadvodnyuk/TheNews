@@ -1,4 +1,5 @@
 <template>
+    <div class="sub_header"></div>
     <div class="login_page">
         <div class="login_block">
             <h1 class="login_header">Вход в личный аккаунт </h1>
