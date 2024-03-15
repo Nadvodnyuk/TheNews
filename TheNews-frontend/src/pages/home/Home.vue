@@ -31,22 +31,74 @@
             <footer>
                 <ul class="stats">
                     <li>
-                        <a href="#">Показать больше</a>
+                        <button class="unstyled-button">Показать больше</button>
                     </li>
                     <li>
-                        <a target="_blank">
+                        <button class="unstyled-button">
                             <img class="mini" src="/img/heart.svg" alt="mini like" />
-                        </a>
-                        <a href="#" class="icon solid fa-heart">3</a>
+                        </button>
+                        <button class="unstyled-button">3</button>
                     </li>
                     <li>
-                        <a target="_blank">
+                        <button class="unstyled-button">
                             <img class="mini" src="/img/comment2.svg" alt="mini like" />
-                        </a>
-                        <a href="#" class="icon solid fa-comment">15</a>
+                        </button>
+                        <button class="unstyled-button">15</button>
                     </li>
                 </ul>
             </footer>
+            <div class="comment">
+                <div class="title_comment">
+                    <p>Lorem ipsum dolor sit amet, qui in ea voluptate velit esse,
+                        quam nihil molestiae consequatur, vel illum, quae ab illo
+                        inventore veritatis et quasi architecto beatae vitae dicta
+                        sunt, explicabo. Sed ut perspiciatis, consectetur adipiscing
+                        elit, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    </p>
+                    <h3>Комментарий 1</h3>
+                </div>
+                <div class="title_comment">
+                    <p>Lorem ipsum dolor sit amet, qui in ea voluptate velit esse,
+                        quam nihil molestiae consequatur, vel illum, quae ab illo
+                        inventore veritatis et quasi architecto beatae vitae dicta
+                        sunt, explicabo. Sed ut perspiciatis, consectetur adipiscing
+                        elit, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    </p>
+                    <h3>Комментарий 2</h3>
+                </div>
+                <div class="title_comment">
+                    <p>Lorem ipsum dolor sit amet, qui in ea voluptate velit esse,
+                        quam nihil molestiae consequatur, vel illum, quae ab illo
+                        inventore veritatis et quasi architecto beatae vitae dicta
+                        sunt, explicabo. Sed ut perspiciatis, consectetur adipiscing
+                        elit, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    </p>
+                    <h3>Комментарий 3</h3>
+                </div>
+                <div class="comment_more">
+                    <ul class="state">
+                        <li>
+                            <button class="unstyled-button">Показать больше</button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="comment_bar">
+                    <input 
+                    type="input" 
+                    class="leave_comment" 
+                    v-model="myNewComment" 
+                    placeholder="Оставить комметарий"
+                    >
+                </div>
+                <div class="comment_more">
+                    <ul class="state">
+                        <li>
+                            <button class="unstyled-button">Отправить комментарий</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
         </article>
         <div class="space">
         </div>
@@ -67,6 +119,7 @@ export default {
             likeFlag: false,
             moreFlag: false,
             date: '',
+            myNewComment: '',
         };
     },
     methods: {
