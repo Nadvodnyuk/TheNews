@@ -17,7 +17,7 @@
             </router-link>
             <div class="person">
                 <div class="name">
-                    ФИО
+                    Иванов И.И.
                 </div>
                 <Nav class="nab_bar" />
             </div>
@@ -27,7 +27,9 @@
 </template>
 
 <script setup>
-import Nav from '../../components/nav/TheNav.vue' 
+import Nav from '../../components/nav/TheNav.vue'
+import { useCatalog } from '../../store/catalog.js';
+import { mapState, mapActions } from 'pinia'; 
 </script>
 
 <style scoped lang="css">
