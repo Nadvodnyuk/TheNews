@@ -46,7 +46,24 @@
 </template>
 
 <script>
+import { useCatalog } from '../../store/catalog.js';
+import { mapState, mapActions } from 'pinia';
 
+export default {
+    name: 'App',
+    data() {
+        return {
+        };
+    },
+    methods: {
+        scrollToTop() {
+            // Прокручиваем страницу наверх (координаты 0, 0)
+            window.scrollTo(0, 0);
+        },
+    },
+    mounted() {
+    },
+}
 </script>
 
 <style scoped src="./reg.css"></style>
