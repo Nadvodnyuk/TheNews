@@ -12,7 +12,7 @@
                     </p>
                 </div>
                 <div class="meta">
-                    <time class="published" datetime="2024-03-12">
+                    <time class="published">
                         {{ date }}
                     </time>
                 </div>
