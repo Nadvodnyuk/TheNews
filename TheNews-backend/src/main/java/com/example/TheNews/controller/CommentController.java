@@ -1,5 +1,6 @@
 package com.example.TheNews.controller;
 
+import com.example.TheNews.dto.CommentDto;
 import com.example.TheNews.entity.CommentEntity;
 import com.example.TheNews.exception.NotFoundException;
 import com.example.TheNews.service.CommentService;
@@ -19,10 +20,14 @@ public class CommentController {
 
     @PostMapping
     public ResponseEntity createComment(@RequestBody CommentEntity comment,
-            @RequestParam Long user_id,
-            @RequestParam Long article_id) {
+                                        @RequestParam Long user_id,
+                                        @RequestParam Long article_id,
+                                        @RequestBody CommentDto commentDto) {
         try {
-            return ResponseEntity.ok(commentService.createComment(comment, user_id, article_id));
+            CommentEntity commentRequest = modelMapper.map(commentDto, CommentEntity.class);
+            CommentDto commentResponse = modelMapper.map(
+                    commentService.createComment(comment, user_id, article_id), CommentDto.class);
+            return ResponseEntity.ok(commentResponse);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Произошла ошибка, комментарий");
         }
@@ -31,7 +36,8 @@ public class CommentController {
     @GetMapping
     public ResponseEntity getCommentByUserId(@RequestParam Long user_id) {
         try {
-            return ResponseEntity.ok(commentService.getOne(user_id));
+            CommentDto commentResponse = modelMapper.map(commentService.getOne(user_id), CommentDto.class);
+            return ResponseEntity.ok(commentResponse);
         } catch (NotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
