@@ -18,32 +18,7 @@ public class LikeController {
     @Autowired
     private LikeService likeService;
 
-    @PostMapping
-    public ResponseEntity createLike(@RequestBody LikeEntity like,
-                                     @RequestParam Long user_id,
-                                     @RequestParam Long article_id,
-                                     @RequestBody LikeDtoOld likeDto) {
-        try {
-            LikeEntity likeRequest = modelMapper.map(likeDto, LikeEntity.class);
-            LikeDtoOld likeResponse = modelMapper.map(
-                    likeService.createLike(like, user_id, article_id), LikeDtoOld.class);
-            return ResponseEntity.ok(likeResponse);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Произошла ошибка, лайк");
-        }
-    }
 
-    @GetMapping
-    public ResponseEntity getLikeByUserId(@RequestParam Long user_id) {
-        try {
-            LikeDtoOld likeResponse = modelMapper.map(likeService.getOne(user_id), LikeDtoOld.class);
-            return ResponseEntity.ok(likeResponse);
-        } catch (NotFoundException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Произошла ошибка, лайк");
-        }
-    }
 
     @DeleteMapping("/{user_id}")
     public ResponseEntity deleteLike(@PathVariable Long user_id) {

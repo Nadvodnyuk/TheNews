@@ -1,7 +1,6 @@
 package com.example.TheNews.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import com.example.TheNews.model.Topic;
 import com.example.TheNews.entity.TopicEntity;
 import com.example.TheNews.exception.AlreadyExistException;
 import com.example.TheNews.exception.NotFoundException;
@@ -12,6 +11,5 @@ import org.springframework.stereotype.Service;
 
 public interface TopicService {
     public TopicEntity createTopic(TopicEntity name) throws AlreadyExistException;
-    public Topic getOne(String name) throws NotFoundException;
     public Long delete(Long topic_id);
 }

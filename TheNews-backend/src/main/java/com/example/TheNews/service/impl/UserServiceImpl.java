@@ -3,7 +3,6 @@ package com.example.TheNews.service.impl;
 import com.example.TheNews.entity.UserEntity;
 import com.example.TheNews.exception.AlreadyExistException;
 import com.example.TheNews.exception.NotFoundException;
-import com.example.TheNews.model.User;
 import com.example.TheNews.repository.UserRepo;
 import com.example.TheNews.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +20,6 @@ public class UserServiceImpl implements UserService {
         return userRepo.save(username);
     }
 
-    public User getOne(Long user_id) throws NotFoundException {
-        UserEntity user = userRepo.findById(user_id).get();
-        if (user == null) {
-            throw new NotFoundException("Пользователь не найден");
-        }
-        return User.toModel(user);
-    }
 
     public Long delete(Long user_id) {
         userRepo.deleteById(user_id);

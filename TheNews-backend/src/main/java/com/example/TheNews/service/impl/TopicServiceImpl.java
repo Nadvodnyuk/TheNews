@@ -3,7 +3,6 @@ package com.example.TheNews.service.impl;
 import com.example.TheNews.entity.TopicEntity;
 import com.example.TheNews.exception.AlreadyExistException;
 import com.example.TheNews.exception.NotFoundException;
-import com.example.TheNews.model.Topic;
 import com.example.TheNews.service.TopicService;
 import com.example.TheNews.repository.TopicRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +18,6 @@ public class TopicServiceImpl implements TopicService {
             throw new AlreadyExistException("Такая тема уже существует");
         }
         return topicRepo.save(name);
-    }
-
-    public Topic getOne(String name) throws NotFoundException {
-        TopicEntity topic = topicRepo.findByName(name);
-        if (topic == null) {
-            throw new NotFoundException("Пользователь не найден");
-        }
-        return Topic.toModel(topic);
     }
 
     public Long delete(Long topic_id) {

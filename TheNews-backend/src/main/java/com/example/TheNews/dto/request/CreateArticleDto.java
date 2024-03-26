@@ -1,8 +1,8 @@
 package com.example.TheNews.dto.request;
 
-import com.example.TheNews.model.Comment;
-import com.example.TheNews.model.Like;
-import com.example.TheNews.model.Topic;
+import com.example.TheNews.entity.CommentEntity;
+import com.example.TheNews.entity.LikeEntity;
+import com.example.TheNews.entity.TopicEntity;
 
 import lombok.*;
 import java.util.List;
@@ -12,5 +12,5 @@ public class CreateArticleDto {
     private String title;
     private String article_text;
     private String image_url;
-    private List<Topic> topics;
+    private List<TopicEntity> topics;
 }
