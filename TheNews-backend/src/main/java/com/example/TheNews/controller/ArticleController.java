@@ -17,8 +17,23 @@ public class ArticleController {
     @Autowired
     private ArticleService articleService;
 
-    @DeleteMapping("/{user_id}")
-    public ResponseEntity deleteArticle(@PathVariable Long user_id) {
+    @GetMapping()
+    public ResponseEntity<List<ArticleDto>> getAllArticles() {}
+
+    @PostMapping("/save")
+    @PreAuthorize("hasRole("ADMIN")")
+    public ResponseEntity<?> createArticle() {}
+
+    @GetMapping("/{articleId}")
+    @PreAuthorize("hasRole("ADMIN")")
+    public ResponseEntity<ArticleDto> getArticleById() {}
+
+    @PutMapping("/{articleId}")
+    @PreAuthorize("hasRole("ADMIN")")
+    public ResponseEntity<?> updateArticle() {}
+
+    @DeleteMapping("/{articleId}")
+    public ResponseEntity<?> deleteArticle(@PathVariable Long user_id) {
         try {
             return ResponseEntity.ok(articleService.delete(user_id));
         } catch (Exception e) {

@@ -20,12 +20,16 @@ public class LikeController {
 
 
 
-    @DeleteMapping("/{user_id}")
-    public ResponseEntity deleteLike(@PathVariable Long user_id) {
-        try {
-            return ResponseEntity.ok(likeService.delete(user_id));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Произошла ошибка, лайк");
-        }
-    }
-}
+    @PostMapping(/putLike)
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<LikeDto> putComm() {}//(с проверкой пользователяAuth.../Principal)
+
+    //лайк удаляем взяв айди поста и айди пользователя, в функцию удалить прередаем оба
+    @DeleteMapping
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<?> userDeleteLike() {}//удаление лайка пользователем(с проверкой пользователяAuth.../Principal)
+
+    @DeleteMapping
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> adminDeleteLike() {}//удаление лайка админом( без проверки(т.к. может удалить все коммы, а юзер только свои))
+ 

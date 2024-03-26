@@ -18,15 +18,21 @@ public class CommentController {
     @Autowired
     private CommentService commentService;
 
+    @GetMapping("/showComms")
+    public ResponseEntity<List<CommentDto>> getCommsForArticle() {}
+
+    @PostMapping(/putComm)
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<CommentDto> putComm() {}
+
+    @DeleteMapping("/user/{commentId}")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<?> userDeleteComm() {}//удаление комма пользователем(с проверкой пользователяAuth.../Principal)
+
+    @DeleteMapping("/admin/{commentId}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> adminDeleteComm() {}//удаление комма админом( без проверки(т.к. может удалить все коммы, а юзер только свои))
  
 
-    @DeleteMapping("/{user_id}")
-    public ResponseEntity deleteComment(@PathVariable Long user_id) {
-        try {
-            return ResponseEntity.ok(commentService.delete(user_id));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Произошла ошибка, комментарий");
-        }
-    }
 
 }

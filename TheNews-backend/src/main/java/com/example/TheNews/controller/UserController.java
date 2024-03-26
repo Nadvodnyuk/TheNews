@@ -1,5 +1,6 @@
 package com.example.TheNews.controller;
 
+import com.example.TheNews.dto.request.SignInDto;
 import com.example.TheNews.entity.UserEntity;
 import com.example.TheNews.exception.AlreadyExistException;
 import com.example.TheNews.exception.NotFoundException;
@@ -18,14 +19,15 @@ public class UserController {
     private ModelMapper modelMapper;
     @Autowired
     private UserService userService;
+    
+    @PostMapping("/sign_up")
+    public ResponseEntity<?> signUp() {}
 
+    ///cretae token???
 
-    @DeleteMapping("/{user_id}")
-    public ResponseEntity deleteUser(@PathVariable Long user_id) {
-        try {
-            return ResponseEntity.ok(userService.delete(user_id));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Произошла ошибка");
-        }
-    }
+    @PostMapping("/sign_in")
+    public ResponseEntity<SignInDto> signIn() {}
+
+    @PostMapping("/sign_out")
+    public ResponseEntity<?> signOut() {}
 }
