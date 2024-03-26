@@ -1,9 +1,8 @@
 package com.example.TheNews.controller;
 
 import com.example.TheNews.entity.ArticleEntity;
-import com.example.TheNews.dto.ArticleDto;
+import com.example.TheNews.dto.ArticleDtoOld;
 import com.example.TheNews.exception.NotFoundException;
-import com.example.TheNews.model.Article;
 import com.example.TheNews.service.ArticleService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +22,11 @@ public class ArticleController {
     @PostMapping
     public ResponseEntity createArticle(@RequestBody ArticleEntity art,
                                         @RequestParam Long user_id,
-                                        @RequestBody ArticleDto articleDto) {
+                                        @RequestBody ArticleDtoOld articleDto) {
         try {
             ArticleEntity articleRequest = modelMapper.map(articleDto, ArticleEntity.class);
-            ArticleDto articleResponse = modelMapper.map(
-                    articleService.createArticle(art, user_id), ArticleDto.class);
+            ArticleDtoOld articleResponse = modelMapper.map(
+                    articleService.createArticle(art, user_id), ArticleDtoOld.class);
 
             return ResponseEntity.ok(articleResponse);
         } catch (Exception e) {
@@ -38,7 +37,7 @@ public class ArticleController {
     @GetMapping
     public ResponseEntity getArtByUserId(@RequestParam Long user_id) {
         try {
-            ArticleDto articleResponse = modelMapper.map(articleService.getOne(user_id), ArticleDto.class);
+            ArticleDtoOld articleResponse = modelMapper.map(articleService.getOne(user_id), ArticleDtoOld.class);
             return ResponseEntity.ok(articleResponse);
         } catch (NotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());

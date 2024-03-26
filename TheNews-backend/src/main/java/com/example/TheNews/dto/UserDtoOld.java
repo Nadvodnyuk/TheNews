@@ -8,7 +8,7 @@ import lombok.*;
 import java.util.List;
 
 @Data
-public class UserDto {
+public class UserDtoOld {
     private long user_id;
     private String first_name;
     private String last_name;

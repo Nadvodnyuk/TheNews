@@ -1,6 +1,6 @@
 package com.example.TheNews.controller;
 
-import com.example.TheNews.dto.UserDto;
+import com.example.TheNews.dto.UserDtoOld;
 import com.example.TheNews.entity.UserEntity;
 import com.example.TheNews.exception.AlreadyExistException;
 import com.example.TheNews.exception.NotFoundException;
@@ -22,11 +22,11 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity registration(@RequestBody UserEntity username,
-                                       @RequestBody UserDto userDto) {
+                                       @RequestBody UserDtoOld userDto) {
         try {
             UserEntity userRequest = modelMapper.map(userDto, UserEntity.class);
-            UserDto userResponse = modelMapper.map(
-                    userService.registration(username), UserDto.class);
+            UserDtoOld userResponse = modelMapper.map(
+                    userService.registration(username), UserDtoOld.class);
             return ResponseEntity.ok(userResponse);
         } catch (AlreadyExistException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -38,7 +38,7 @@ public class UserController {
     @GetMapping
     public ResponseEntity getUserById(@RequestParam Long user_id) {
         try {
-            UserDto userResponse = modelMapper.map(userService.getOne(user_id), UserDto.class);
+            UserDtoOld userResponse = modelMapper.map(userService.getOne(user_id), UserDtoOld.class);
             return ResponseEntity.ok(userResponse);
         } catch (NotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());

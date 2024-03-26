@@ -3,6 +3,6 @@ package com.example.TheNews.dto;
 import lombok.*;
 
 @Data
-public class LikeDto {
+public class LikeDtoOld {
     private long like_id;
 }

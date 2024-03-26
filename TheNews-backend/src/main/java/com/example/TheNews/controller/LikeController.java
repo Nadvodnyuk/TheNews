@@ -1,7 +1,7 @@
 package com.example.TheNews.controller;
 
 import com.example.TheNews.entity.LikeEntity;
-import com.example.TheNews.dto.LikeDto;
+import com.example.TheNews.dto.LikeDtoOld;
 import com.example.TheNews.exception.NotFoundException;
 import com.example.TheNews.service.LikeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +22,11 @@ public class LikeController {
     public ResponseEntity createLike(@RequestBody LikeEntity like,
                                      @RequestParam Long user_id,
                                      @RequestParam Long article_id,
-                                     @RequestBody LikeDto likeDto) {
+                                     @RequestBody LikeDtoOld likeDto) {
         try {
             LikeEntity likeRequest = modelMapper.map(likeDto, LikeEntity.class);
-            LikeDto likeResponse = modelMapper.map(
-                    likeService.createLike(like, user_id, article_id), LikeDto.class);
+            LikeDtoOld likeResponse = modelMapper.map(
+                    likeService.createLike(like, user_id, article_id), LikeDtoOld.class);
             return ResponseEntity.ok(likeResponse);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Произошла ошибка, лайк");
@@ -36,7 +36,7 @@ public class LikeController {
     @GetMapping
     public ResponseEntity getLikeByUserId(@RequestParam Long user_id) {
         try {
-            LikeDto likeResponse = modelMapper.map(likeService.getOne(user_id), LikeDto.class);
+            LikeDtoOld likeResponse = modelMapper.map(likeService.getOne(user_id), LikeDtoOld.class);
             return ResponseEntity.ok(likeResponse);
         } catch (NotFoundException e) {
             return ResponseEntity.badRequest().body(e.getMessage());

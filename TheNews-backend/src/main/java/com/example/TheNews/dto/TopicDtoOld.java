@@ -6,7 +6,7 @@ import lombok.*;
 import java.util.List;
 
 @Data
-public class TopicDto {
+public class TopicDtoOld {
     private long topic_id;
     private String name;
     private List<Article> articles;
