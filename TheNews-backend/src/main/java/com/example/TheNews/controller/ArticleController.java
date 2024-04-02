@@ -3,6 +3,7 @@ package com.example.TheNews.controller;
 import com.example.TheNews.entity.ArticleEntity;
 import com.example.TheNews.exception.NotFoundException;
 import com.example.TheNews.service.ArticleService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,25 +20,29 @@ public class ArticleController {
 
     @GetMapping()
     public ResponseEntity<List<ArticleDto>> getAllArticles() {}
+    //Ф.Вытащить из БД все статьи за последние 24ч
+    ///Вернуть СтатьиДТО
 
-    @PostMapping("/save")
+    @PostMapping("/create")
     @PreAuthorize("hasRole("ADMIN")")
     public ResponseEntity<?> createArticle() {}
+    //Ф.Создать статью
+    ///Вернуть СтатьиДТО
 
     @GetMapping("/{articleId}")
     @PreAuthorize("hasRole("ADMIN")")
     public ResponseEntity<ArticleDto> getArticleById() {}
+    //Ф.Получить статью из БД
+    //Ф.В ФАсаде статья преобразуется в ДТО
+    ////Возвращает ДТО
 
     @PutMapping("/{articleId}")
     @PreAuthorize("hasRole("ADMIN")")
     public ResponseEntity<?> updateArticle() {}
+    //Ф.Обновить статью
 
     @DeleteMapping("/{articleId}")
-    public ResponseEntity<?> deleteArticle(@PathVariable Long user_id) {
-        try {
-            return ResponseEntity.ok(articleService.delete(user_id));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Произошла ошибка, статья");
-        }
-    }
+    @PreAuthorize("hasRole("ADMIN")")
+    public ResponseEntity<?> deleteArticle () {}
+    //Ф.Удалить статью по айди
 }
