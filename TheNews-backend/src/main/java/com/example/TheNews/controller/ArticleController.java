@@ -1,13 +1,16 @@
 package com.example.TheNews.controller;
 
-import com.example.TheNews.entity.ArticleEntity;
+import com.example.TheNews.dto.response.ArticleDto;
 import com.example.TheNews.exception.NotFoundException;
 import com.example.TheNews.service.ArticleService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/articles")
