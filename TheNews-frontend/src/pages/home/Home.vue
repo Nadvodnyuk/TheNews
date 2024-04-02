@@ -47,22 +47,18 @@
             <footer>
                 <ul class="stats">
                     <li>
-                        <button class="unstyled-button" @click="moreArticlesFlag = !moreArticlesFlag">
+                        <button 
+                        class="unstyled-button" 
+                        @click="moreArticlesFlag = !moreArticlesFlag">
                             {{ !moreArticlesFlag ? 'Показать больше' : 'Показать меньше' }}
                         </button>
                     </li>
                     <li>
-                        <button class="unstyled-button" @click="likedFlag = !likedFlag">
-                            <img class="mini" 
-                            src="/img/heart.svg" 
-                            alt="mini like"
-                            v-show="!likedFlag"
-                            />
-                            <img class="mini" 
-                            src="/img/blue-heart.svg" 
-                            alt="mini like"
-                            v-show="likedFlag"
-                            />
+                        <button 
+                        class="unstyled-button" 
+                        @click="likedFlag = !likedFlag">
+                            <img class="mini" src="/img/heart.svg" alt="mini like" v-show="!likedFlag" />
+                            <img class="mini" src="/img/blue-heart.svg" alt="mini like" v-show="likedFlag" />
                         </button>
                         <button class="unstyled-button">
                             3
@@ -70,20 +66,12 @@
                     </li>
                     <li>
                         <button class="unstyled-button" @click="commentFlag = !commentFlag">
-                            <img 
-                            class="mini" 
-                            src="/img/comment2.svg" 
-                            alt="mini like" 
-                            v-show="!commentFlag"
-                            />
-                            <img 
-                            class="mini" 
-                            src="/img/comment-open.svg" 
-                            alt="mini like" 
-                            v-show="commentFlag"
-                            />
+                            <img class="mini" src="/img/comment2.svg" alt="mini like" v-show="!commentFlag" />
+                            <img class="mini" src="/img/comment-open.svg" alt="mini like" v-show="commentFlag" />
                         </button>
-                        <button class="unstyled-button" @click="commentFlag = !commentFlag">
+                        <button 
+                        class="unstyled-button" 
+                        @click="commentFlag = !commentFlag">
                             15
                         </button>
                     </li>
@@ -126,24 +114,31 @@
                 <div class="comment_more">
                     <ul class="state">
                         <li>
-                            <button class="unstyled-button" @click="moreCommentsFlag = !moreCommentsFlag">
+                            <button 
+                            class="unstyled-button" 
+                            @click="moreCommentsFlag = !moreCommentsFlag">
                                 Ещё комментарии
                             </button>
                         </li>
                     </ul>
                 </div>
                 <div class="comment_bar">
-                    <input 
+                    <textarea
                     type="input" 
+                    cols="60"
+                    rows="14"
+                    wrap="soft"
                     class="leave_comment" 
                     v-model="myNewComment" 
-                    placeholder="Оставить комметарий"
-                    >
+                    @input="validateComment"
+                    placeholder="Оставить комментарий">
+                    </textarea>
                 </div>
+                <p v-if="errors.comment">{{ errors.comment }}</p>
                 <div class="comment_more">
                     <ul class="state">
                         <li>
-                            <button class="unstyled-button" @click="sentFlag = true">
+                            <button class="unstyled-button" @click="sentFlag = true; submitComment;">
                                 Отправить комментарий
                             </button>
                         </li>
@@ -175,7 +170,10 @@ export default {
             moreArticlesFlag: false,
             moreCommentsFlag: false,
             sentFlag: false,
-            likedFlag:false,
+            likedFlag: false,
+            errors: {
+                comment: ''
+            }
         };
     },
     methods: {
@@ -190,7 +188,16 @@ export default {
 
         printTime() {
             return new Date().toLocaleTimeString();
-          },
+        },
+        validateComment() {
+            this.errors.comment = this.myNewComment.length <= 100 ? "" : "Comment has more than 1000 characters.";
+        },
+        submitComment() {
+            this.validateComment();
+            if (!this.errors.comment) {
+                console.log("Form submitted:", { comment: this.myNewComment });
+            }
+        }
     },
     mounted() {
         this.date = this.printDate();
