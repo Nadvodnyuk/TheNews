@@ -24,7 +24,7 @@ public class CommentController {
     @GetMapping("/showComms")
     public ResponseEntity<List<CommentDto>> getCommsForArticle() {}
 
-    @PostMapping(/putComm)
+    @PostMapping("/putComm")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<CommentDto> putComm() {}
 
