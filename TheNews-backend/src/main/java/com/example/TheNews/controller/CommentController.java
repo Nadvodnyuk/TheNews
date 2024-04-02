@@ -1,6 +1,6 @@
 package com.example.TheNews.controller;
 
-import com.example.TheNews.dto.CommentDtoOld;
+import com.example.TheNews.dto.response.CommentDto;
 import com.example.TheNews.entity.CommentEntity;
 import com.example.TheNews.exception.NotFoundException;
 import com.example.TheNews.service.CommentService;
@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.access.prepost.PreAuthorize;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/comment")

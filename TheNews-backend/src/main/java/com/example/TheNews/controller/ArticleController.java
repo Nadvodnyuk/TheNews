@@ -1,12 +1,15 @@
 package com.example.TheNews.controller;
 
-import com.example.TheNews.entity.ArticleEntity;
+import com.example.TheNews.dto.response.ArticleDto;
 import com.example.TheNews.exception.NotFoundException;
 import com.example.TheNews.service.ArticleService;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/articles")
@@ -21,16 +24,22 @@ public class ArticleController {
     public ResponseEntity<List<ArticleDto>> getAllArticles() {}
 
     @PostMapping("/save")
-    @PreAuthorize("hasRole("ADMIN")")
-    public ResponseEntity<?> createArticle() {}
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> createArticle() {
+
+    }
 
     @GetMapping("/{articleId}")
-    @PreAuthorize("hasRole("ADMIN")")
-    public ResponseEntity<ArticleDto> getArticleById() {}
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<ArticleDto> getArticleById() {
+
+    }
 
     @PutMapping("/{articleId}")
-    @PreAuthorize("hasRole("ADMIN")")
-    public ResponseEntity<?> updateArticle() {}
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> updateArticle() {
+
+    }
 
     @DeleteMapping("/{articleId}")
     public ResponseEntity<?> deleteArticle(@PathVariable Long user_id) {
