@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 @Service
 
 public interface ArticleService {
+    
+
+
 /* 
     Получить все статьи
         получить все статьи за 24 часа
