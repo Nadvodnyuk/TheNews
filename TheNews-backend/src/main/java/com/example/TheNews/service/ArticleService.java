@@ -3,32 +3,15 @@ package com.example.TheNews.service;
 import com.example.TheNews.entity.ArticleEntity;
 import com.example.TheNews.exception.NotFoundException;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 @Service
 
 public interface ArticleService {
-    
 
-
-/* 
-    Получить все статьи
-        получить все статьи за 24 часа
-
-    Создать статью
-        установить заголовок
-        устанвоить текст статьи
-        установить дату публикации
-        установить картинку
-
-    Получить статью по айди
-        найти по ИД(или ошибка)
-
-    Изменить статью
-        установить заголовок
-        установить текст статьи
-
-
-    Удалить статью по ИД
-    
-    */
+    public List<ArticleEntity> getAllLatestArticles();
+    public void createArticle(String title, String text, String imageUrl);
+    public ArticleEntity getOne(Long art_id) throws NotFoundException;
+    public void editArticle(long article_id, String title, String text, String imageUrl);
+    public Long delete(Long art_id);
 }

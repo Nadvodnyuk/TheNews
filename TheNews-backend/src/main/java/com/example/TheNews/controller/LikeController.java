@@ -19,6 +19,13 @@ public class LikeController {
     @Autowired
     private LikeService likeService;
 
+    //Ф.Вывести лайки для статьи
+
+    ///Для авторизованного:
+    //Ф.Поставить лайк
+
+    //Ф.Удалить лайк
+
 
 
     @PostMapping("/putLike")
@@ -29,11 +36,7 @@ public class LikeController {
     //лайк удаляем взяв айди поста и айди пользователя, в функцию удалить прередаем оба
     @DeleteMapping
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<?> userDeleteLike() {}
+    public ResponseEntity<?> userDeleteLike() {};
     //удаление лайка пользователем(с проверкой пользователяAuth.../Principal)
 
-    @DeleteMapping
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> adminDeleteLike() {}
-//удаление лайка админом( без проверки(т.к. может удалить все коммы, а юзер только свои))
  

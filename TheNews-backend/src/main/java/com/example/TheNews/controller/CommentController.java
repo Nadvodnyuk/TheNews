@@ -21,6 +21,16 @@ public class CommentController {
     @Autowired
     private CommentService commentService;
 
+    //Ф.Вывести комменты для статьи
+
+    ///Для авторизованного:
+    //Ф.Написать коммент
+
+    ///Admin:
+    //Удалить коммент
+
+
+
     @GetMapping("/showComms")
     public ResponseEntity<List<CommentDto>> getCommsForArticle() {}
 

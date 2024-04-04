@@ -25,11 +25,11 @@ public class CommentEntity {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
-	private UserEntity user_c;
+	private long user_c;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "article_id")
-	private ArticleEntity article_c;
+	private long article_c;
 
 	public long getComment_id() {
 		return comment_id;
@@ -55,19 +55,19 @@ public class CommentEntity {
 		this.comment_date = comment_date;
 	}
 
-	public UserEntity getUser_c() {
+	public long getUser_c() {
 		return user_c;
 	}
 
-	public void setUser_c(UserEntity user_c) {
+	public void setUser_c(long user_c) {
 		this.user_c = user_c;
 	}
 
-	public ArticleEntity getArticle_c() {
+	public long getArticle_c() {
 		return article_c;
 	}
 
-	public void setArticle_c(ArticleEntity article_c) {
+	public void setArticle_c(long article_c) {
 		this.article_c = article_c;
 	}
 
