@@ -1,13 +1,19 @@
 package com.example.TheNews.service.impl;
 
+import com.example.TheNews.dto.request.SignInDto;
 import com.example.TheNews.entity.UserEntity;
 import com.example.TheNews.exception.AlreadyExistException;
 import com.example.TheNews.exception.NotFoundException;
 import com.example.TheNews.repository.UserRepo;
 import com.example.TheNews.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -16,9 +22,12 @@ public class UserServiceImpl implements UserService {
     private UserRepo userRepo;
 
     @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public void registerUser(String firstName, String lastName, String username, String password) {
+    public UserEntity registerUser(String firstName, String lastName, String username, String password) {
         // Проверяем, существует ли пользователь с таким именем пользователя
         if (userRepo.findByUsername(username) != null) {
             throw new RuntimeException("Пользователь с таким именем пользователя уже существует");
@@ -36,17 +45,37 @@ public class UserServiceImpl implements UserService {
         user.setRole("USER");
 
         // Сохраняем пользователя в базе данных
-        userRepo.save(user);
+        return userRepo.save(user);
     }
 
-    //Регистрация
-    public UserEntity registration(UserEntity username) throws AlreadyExistException {
-        if (userRepo.findByUsername(username.getUsername()) != null) {
-            throw new AlreadyExistException("Пользователь с таким именем существует");
-        }
-        return userRepo.save(username);
+//Регистрация
+
+//    public UserEntity registration(UserEntity username) throws AlreadyExistException {
+//        if (userRepo.findByUsername(username.getUsername()) != null) {
+//            throw new AlreadyExistException("Пользователь с таким именем существует");
+//        }
+//        return userRepo.save(username);
+//    }
+
+    public UserEntity authenticate(SignInDto input) {
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        input.getUsername(),
+                        input.getPassword()
+                )
+        );
+
+        return userRepo.findByUsername(input.getUsername())
+                .orElseThrow();
     }
 
+    public List<UserEntity> allUsers() {
+        List<UserEntity> users = new ArrayList<>();
+
+        userRepo.findAll().forEach(users::add);
+
+        return users;
+    }
 
     public Long delete(Long user_id) {
         userRepo.deleteById(user_id);

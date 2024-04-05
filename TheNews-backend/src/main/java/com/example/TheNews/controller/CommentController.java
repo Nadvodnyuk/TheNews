@@ -40,11 +40,13 @@ public class CommentController {
 
     @DeleteMapping("/user/{commentId}")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<?> userDeleteComm() {}//удаление комма пользователем(с проверкой пользователяAuth.../Principal)
+    public ResponseEntity<?> userDeleteComm() {}
+    //удаление комма пользователем(с проверкой пользователяAuth.../Principal)
 
     @DeleteMapping("/admin/{commentId}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> adminDeleteComm() {}//удаление комма админом( без проверки(т.к. может удалить все коммы, а юзер только свои))
+    public ResponseEntity<?> adminDeleteComm() {}
+    //удаление комма админом( без проверки(т.к. может удалить все коммы, а юзер только свои))
  
 
 

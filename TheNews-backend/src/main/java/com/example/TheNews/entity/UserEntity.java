@@ -2,6 +2,13 @@ package com.example.TheNews.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -11,7 +18,7 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "users")
-public class UserEntity {
+public class UserEntity implements UserDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long user_id;
@@ -30,6 +37,14 @@ public class UserEntity {
 
 	@Column(name = "password")
 	private String password;
+
+	@CreationTimestamp
+	@Column(updatable = false, name = "created_at")
+	private Date createdAt;
+
+	@UpdateTimestamp
+	@Column(name = "updated_at")
+	private Date updatedAt;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user_l")
 	private List<LikeEntity> likes;
@@ -84,8 +99,49 @@ public class UserEntity {
 		return username;
 	}
 
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public Date getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return false;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return false;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return false;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return false;
+	}
+
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return null;
 	}
 
 	public String getPassword() {
