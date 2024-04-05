@@ -30,24 +30,24 @@ public class CommentController {
     //Удалить коммент
 
 
-
-    @GetMapping("/showComms")
-    public ResponseEntity<List<CommentDto>> getCommsForArticle() {}
-
-    @PostMapping("/putComm")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<CommentDto> putComm() {}
-
-    @DeleteMapping("/user/{commentId}")
-    @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<?> userDeleteComm() {}
-    //удаление комма пользователем(с проверкой пользователяAuth.../Principal)
-
-    @DeleteMapping("/admin/{commentId}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> adminDeleteComm() {}
-    //удаление комма админом( без проверки(т.к. может удалить все коммы, а юзер только свои))
- 
+//
+//    @GetMapping("/showComms")
+//    public ResponseEntity<List<CommentDto>> getCommsForArticle() {}
+//
+//    @PostMapping("/putComm")
+//    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+//    public ResponseEntity<CommentDto> putComm() {}
+//
+//    @DeleteMapping("/user/{commentId}")
+//    @PreAuthorize("hasRole('USER')")
+//    public ResponseEntity<?> userDeleteComm() {}
+//    //удаление комма пользователем(с проверкой пользователяAuth.../Principal)
+//
+//    @DeleteMapping("/admin/{commentId}")
+//    @PreAuthorize("hasRole('ADMIN')")
+//    public ResponseEntity<?> adminDeleteComm() {}
+//    //удаление комма админом( без проверки(т.к. может удалить все коммы, а юзер только свои))
+//
 
 
 }

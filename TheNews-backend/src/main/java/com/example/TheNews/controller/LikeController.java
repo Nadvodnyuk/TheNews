@@ -28,15 +28,16 @@ public class LikeController {
 
 
 
-    @PostMapping("/putLike")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<LikeDtoOld> putComm() {}
-    //(с проверкой пользователяAuth.../Principal)
+//    @PostMapping("/putLike")
+//    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+//    public ResponseEntity<LikeDtoOld> putComm() {}
+//    //(с проверкой пользователяAuth.../Principal)
 
     //лайк удаляем взяв айди поста и айди пользователя, в функцию удалить прередаем оба
-    @DeleteMapping
-    @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<?> userDeleteLike() {};
+//    @DeleteMapping
+//    @PreAuthorize("hasRole('USER')")
+//    public ResponseEntity<?> userDeleteLike(){}
+}
     //удаление лайка пользователем(с проверкой пользователяAuth.../Principal)
 
  

@@ -1,6 +1,8 @@
 package com.example.TheNews.service.impl;
 
+import com.example.TheNews.entity.ArticleEntity;
 import com.example.TheNews.entity.CommentEntity;
+import com.example.TheNews.entity.UserEntity;
 import com.example.TheNews.exception.NotFoundException;
 import com.example.TheNews.repository.CommentRepo;
 import com.example.TheNews.service.CommentService;
@@ -20,7 +22,7 @@ public class CommentServiceImpl implements CommentService {
     private CommentRepo commentRepo;
 
     //Для вывода комментов
-    public List<CommentEntity> getCommentsByArticleIdWithPagination(long article_с, int page) {
+    public List<CommentEntity> getCommentsByArticleIdWithPagination(ArticleEntity article_с, int page) {
         // Вычисляем номер страницы и количество элементов на странице
         int pageNumber = page - 1; // Страницы начинаются с 0
         PageRequest pageRequest = PageRequest.of(pageNumber, 3);
@@ -30,7 +32,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     //Для создания коммента
-    public void createComment(long user_c, String comment_text, long article_c) {
+    public void createComment(UserEntity user_c, String comment_text, ArticleEntity article_c) {
         // Создаем коммент
         CommentEntity comment = new CommentEntity();
 

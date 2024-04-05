@@ -1,6 +1,8 @@
 package com.example.TheNews.service.impl;
 
+import com.example.TheNews.entity.ArticleEntity;
 import com.example.TheNews.entity.LikeEntity;
+import com.example.TheNews.entity.UserEntity;
 import com.example.TheNews.exception.NotFoundException;
 import com.example.TheNews.repository.LikeRepo;
 import com.example.TheNews.service.LikeService;
@@ -16,12 +18,12 @@ public class LikeServiceImpl implements LikeService {
     @Autowired
     private LikeRepo likeRepo;
 
-    public List<LikeEntity> getLikesByArticleId(long article_l) {
+    public List<LikeEntity> getLikesByArticleId(ArticleEntity article_l) {
         // Загружаем лайки из базы данных
         return likeRepo.findByArticleId(article_l);
     }
 
-    public void createLike(long user_l, long article_l) {
+    public void createLike(UserEntity user_l, ArticleEntity article_l) {
         // Создаем лайк
         LikeEntity like = new LikeEntity();
 

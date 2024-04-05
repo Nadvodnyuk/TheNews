@@ -17,11 +17,11 @@ public class LikeEntity {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
-	private long user_l;
+	private UserEntity user_l;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "article_id")
-	private long article_l;
+	private ArticleEntity article_l;
 
 	public long getLike_id() {
 		return like_id;
@@ -31,19 +31,19 @@ public class LikeEntity {
 		this.like_id = like_id;
 	}
 
-	public long getUser_l() {
+	public UserEntity getUser_l() {
 		return user_l;
 	}
 
-	public void setUser_l(long user_l) {
+	public void setUser_l(UserEntity user_l) {
 		this.user_l = user_l;
 	}
 
-	public long getArticle_l() {
+	public ArticleEntity getArticle_l() {
 		return article_l;
 	}
 
-	public void setArticle_l(long article_l) {
+	public void setArticle_l(ArticleEntity article_l) {
 		this.article_l = article_l;
 	}
 

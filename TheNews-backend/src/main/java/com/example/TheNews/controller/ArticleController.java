@@ -20,31 +20,31 @@ public class ArticleController {
     @Autowired
     private ArticleService articleService;
 
-    @GetMapping()
-    public ResponseEntity<List<ArticleDto>> getAllArticles() {}
-    //Ф.Вытащить из БД все статьи за последние 24ч
-    ///Вернуть СтатьиДТО
-
-    @PostMapping("/create")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> createArticle() {}
-    //Ф.Создать статью
-    ///Вернуть СтатьиДТО
-
-    @GetMapping("/{articleId}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<ArticleDto> getArticleById() {}
-    //Ф.Получить статью из БД
-    //Ф.В ФАсаде статья преобразуется в ДТО
-    ////Возвращает ДТО
-
-    @PutMapping("/{articleId}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> updateArticle() {}
-    //Ф.Обновить статью
-
-    @DeleteMapping("/{articleId}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> deleteArticle () {}
-    //Ф.Удалить статью по айди
+//    @GetMapping()
+//    public ResponseEntity<List<ArticleDto>> getAllArticles() {}
+//    //Ф.Вытащить из БД все статьи за последние 24ч
+//    ///Вернуть СтатьиДТО
+//
+//    @PostMapping("/create")
+//    @PreAuthorize("hasRole('ADMIN')")
+//    public ResponseEntity<?> createArticle() {}
+//    //Ф.Создать статью
+//    ///Вернуть СтатьиДТО
+//
+//    @GetMapping("/{articleId}")
+//    @PreAuthorize("hasRole('ADMIN')")
+//    public ResponseEntity<ArticleDto> getArticleById() {}
+//    //Ф.Получить статью из БД
+//    //Ф.В ФАсаде статья преобразуется в ДТО
+//    ////Возвращает ДТО
+//
+//    @PutMapping("/{articleId}")
+//    @PreAuthorize("hasRole('ADMIN')")
+//    public ResponseEntity<?> updateArticle() {}
+//    //Ф.Обновить статью
+//
+//    @DeleteMapping("/{articleId}")
+//    @PreAuthorize("hasRole('ADMIN')")
+//    public ResponseEntity<?> deleteArticle () {}
+//    //Ф.Удалить статью по айди
 }
