@@ -69,7 +69,7 @@ public class UserController {
         return ResponseEntity.ok(loginResponse);
     }
 
-    @GetMapping("/users/me")
+    @GetMapping("/me")
     public ResponseEntity<UserEntity> authenticatedUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
@@ -78,7 +78,7 @@ public class UserController {
         return ResponseEntity.ok(currentUser);
     }
 
-    @GetMapping("/users/")
+    @GetMapping("/")
     public ResponseEntity<List<UserEntity>> allUsers() {
         List<UserEntity> users = userService.allUsers();
 
