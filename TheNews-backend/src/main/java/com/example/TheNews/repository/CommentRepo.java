@@ -8,5 +8,5 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CommentRepo extends JpaRepository<CommentEntity, Long> {
-    List<CommentEntity> findByArticleId(ArticleEntity article_id, PageRequest pageRequest);
+    List<CommentEntity> findByArticleC(ArticleEntity article_id, PageRequest pageRequest);
 }

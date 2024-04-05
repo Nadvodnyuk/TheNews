@@ -29,7 +29,7 @@ public class CommentEntity {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "article_id")
-	private ArticleEntity article_c;
+	private ArticleEntity articleC;
 
 	public long getComment_id() {
 		return comment_id;
@@ -64,11 +64,11 @@ public class CommentEntity {
 	}
 
 	public ArticleEntity getArticle_c() {
-		return article_c;
+		return articleC;
 	}
 
 	public void setArticle_c(ArticleEntity article_c) {
-		this.article_c = article_c;
+		this.articleC = article_c;
 	}
 
 	@Override

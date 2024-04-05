@@ -28,7 +28,7 @@ public class CommentServiceImpl implements CommentService {
         PageRequest pageRequest = PageRequest.of(pageNumber, 3);
 
         // Загружаем комментарии из базы данных с учетом пагинации
-        return commentRepo.findByArticleId(article_с, pageRequest);
+        return commentRepo.findByArticleC(article_с, pageRequest);
     }
 
     //Для создания коммента

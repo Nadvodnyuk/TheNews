@@ -36,8 +36,8 @@ public class ArticleEntity {
 	@Column(name = "comment_num")
 	private Integer comment_num;
 
-	@Column(name = "publication_date")
-	private java.sql.Timestamp publication_date;
+	@Column(name = "publicationDate")
+	private java.sql.Timestamp publicationDate;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
@@ -46,7 +46,7 @@ public class ArticleEntity {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "article_l")
 	private List<LikeEntity> likes;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "article_c")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "articleC")
 	private List<CommentEntity> comments;
 
 	@ManyToMany(mappedBy = "articles", fetch = FetchType.LAZY)
@@ -102,11 +102,11 @@ public class ArticleEntity {
 	}
 
 	public Timestamp getPublication_date() {
-		return publication_date;
+		return publicationDate;
 	}
 
 	public void setPublication_date(Timestamp publication_date) {
-		this.publication_date = publication_date;
+		this.publicationDate = publication_date;
 	}
 
 	public UserEntity getUser_a() {
@@ -146,6 +146,6 @@ public class ArticleEntity {
 		return "User [id=" + article_id + ", title=" + title +
 				", article text=" + article_text + ", image=" + image_url +
 				", number of likes=" + like_num + ", number of comments=" + comment_num +
-				", publication date=" + publication_date + "]";
+				", publication date=" + publicationDate + "]";
 	}
 }
