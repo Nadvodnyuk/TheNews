@@ -30,7 +30,7 @@ public class LikeController {
 
 //    @PostMapping("/putLike")
 //    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-//    public ResponseEntity<LikeDtoOld> putComm() {}
+//    public ResponseEntity<LikeDtoOld> putLike() {}
 //    //(с проверкой пользователяAuth.../Principal)
 
     //лайк удаляем взяв айди поста и айди пользователя, в функцию удалить прередаем оба

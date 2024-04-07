@@ -3,11 +3,9 @@ package com.example.TheNews.service.impl;
 import com.example.TheNews.entity.ArticleEntity;
 import com.example.TheNews.entity.CommentEntity;
 import com.example.TheNews.entity.UserEntity;
-import com.example.TheNews.exception.NotFoundException;
 import com.example.TheNews.repository.CommentRepo;
 import com.example.TheNews.service.CommentService;
 
-import java.security.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -37,7 +35,7 @@ public class CommentServiceImpl implements CommentService {
         CommentEntity comment = new CommentEntity();
 
         // Устанавливаем автора, текст, дату публикации коммента
-        comment.setUser_c(user_c);
+        comment.setUserC(user_c);
         comment.setComment_text(comment_text);
         comment.setArticle_c(article_c);
         java.sql.Timestamp currentDateTime = java.sql.Timestamp.valueOf(LocalDateTime.now());

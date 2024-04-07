@@ -77,6 +77,11 @@ public class UserServiceImpl implements UserService {
         return users;
     }
 
+    public Long deleteToken(Long user_id) {
+        userRepo.deleteById(user_id);
+        return user_id;
+    }
+
     public Long delete(Long user_id) {
         userRepo.deleteById(user_id);
         return user_id;

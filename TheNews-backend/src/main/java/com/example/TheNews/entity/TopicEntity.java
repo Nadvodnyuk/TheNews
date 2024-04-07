@@ -23,8 +23,8 @@ public class TopicEntity {
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "article_topic", joinColumns = {
-			@JoinColumn(name = "topicId", referencedColumnName = "topic_id", nullable = false, updatable = false) }, inverseJoinColumns = {
-					@JoinColumn(name = "articleId", referencedColumnName = "article_id", nullable = false, updatable = false) })
+			@JoinColumn(name = "topicId", referencedColumnName = "topicId", nullable = false, updatable = false) }, inverseJoinColumns = {
+					@JoinColumn(name = "articleId", referencedColumnName = "articleId", nullable = false, updatable = false) })
 	@Builder.Default
 	Set<ArticleEntity> articles = new HashSet<>();
 

@@ -1,6 +1,8 @@
-package com.example.TheNews.service.facade;
+package com.example.TheNews.service.facade.impl;
 
-public class CommentFacdeImpl implements CommentFacade{
+import com.example.TheNews.service.facade.CommentFacade;
+
+public class CommentFacdeImpl implements CommentFacade {
 
     //Вывести все комменты к статье
         //С.Вывести все комменты к статье

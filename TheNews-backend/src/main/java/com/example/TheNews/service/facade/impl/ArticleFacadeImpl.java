@@ -1,7 +1,10 @@
-package com.example.TheNews.service.facade;
+package com.example.TheNews.service.facade.impl;
+
+import com.example.TheNews.service.facade.ArticleFacade;
 
 public class ArticleFacadeImpl implements ArticleFacade {
-    /*Вытащить из БД все статьи за 24ч  {
+    /*
+    Вытащить из БД все статьи за 24ч  {
         С.Получить все статьи
         Вернуть в ДТОСтатьи
     }

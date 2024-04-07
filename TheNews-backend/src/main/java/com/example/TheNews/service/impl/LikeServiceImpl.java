@@ -3,14 +3,11 @@ package com.example.TheNews.service.impl;
 import com.example.TheNews.entity.ArticleEntity;
 import com.example.TheNews.entity.LikeEntity;
 import com.example.TheNews.entity.UserEntity;
-import com.example.TheNews.exception.NotFoundException;
 import com.example.TheNews.repository.LikeRepo;
 import com.example.TheNews.service.LikeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -18,9 +15,19 @@ public class LikeServiceImpl implements LikeService {
     @Autowired
     private LikeRepo likeRepo;
 
-    public List<LikeEntity> getLikesByArticleId(ArticleEntity article_l) {
-        // Загружаем лайки из базы данных
-        return likeRepo.findByArticleId(article_l);
+    public int getLikesByArticleId(ArticleEntity article_l) {
+        // Поменяла на "найти количество лайков", не знаю, нужно или нет, можно потом вернуть
+        List<LikeEntity> likeNum = likeRepo.findByArticleId(article_l);
+        return likeNum.size();
+    }
+
+
+    public boolean isLikedByUserAndArticle(UserEntity user_l, ArticleEntity article_l) {
+        List<LikeEntity> isLiked = likeRepo.findByArticleIdAndUserId(article_l, user_l);
+        if (isLiked.isEmpty())
+            return false;
+        else
+            return true;
     }
 
     public void createLike(UserEntity user_l, ArticleEntity article_l) {
@@ -28,14 +35,13 @@ public class LikeServiceImpl implements LikeService {
         LikeEntity like = new LikeEntity();
 
         // Устанавливаем автора, текст, дату публикации коммента
-        like.setUser_l(user_l);
-        like.setArticle_l(article_l);
+        like.setUserL(user_l);
+        like.setArticleL(article_l);
         // Сохраняем статью в базе данных
         likeRepo.save(like);
     }
 
-    public Long delete(Long like_id) {
-        likeRepo.deleteById(like_id);
-        return like_id;
+    public void delete(UserEntity user_l, ArticleEntity article_l) {
+        likeRepo.deleteByArticleIdAndUserId(article_l, user_l);
     }
 }

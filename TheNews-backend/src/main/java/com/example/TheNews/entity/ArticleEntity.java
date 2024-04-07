@@ -40,10 +40,10 @@ public class ArticleEntity {
 	private java.sql.Timestamp publicationDate;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id")
-	private UserEntity user_a;
+	@JoinColumn(name = "userId")
+	private UserEntity userA;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "article_l")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "articleL")
 	private List<LikeEntity> likes;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "articleC")
@@ -109,12 +109,12 @@ public class ArticleEntity {
 		this.publicationDate = publication_date;
 	}
 
-	public UserEntity getUser_a() {
-		return user_a;
+	public UserEntity getUserA() {
+		return userA;
 	}
 
-	public void setUser_a(UserEntity user_a) {
-		this.user_a = user_a;
+	public void setUserA(UserEntity userA) {
+		this.userA = userA;
 	}
 
 	public List<LikeEntity> getLikes() {

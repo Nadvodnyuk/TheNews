@@ -24,11 +24,11 @@ public class CommentEntity {
 	private java.sql.Timestamp comment_date;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id")
-	private UserEntity user_c;
+	@JoinColumn(name = "userId")
+	private UserEntity userC;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "article_id")
+	@JoinColumn(name = "articleId")
 	private ArticleEntity articleC;
 
 	public long getComment_id() {
@@ -55,12 +55,12 @@ public class CommentEntity {
 		this.comment_date = comment_date;
 	}
 
-	public UserEntity getUser_c() {
-		return user_c;
+	public UserEntity getUserC() {
+		return userC;
 	}
 
-	public void setUser_c(UserEntity user_c) {
-		this.user_c = user_c;
+	public void setUserC(UserEntity userC) {
+		this.userC = userC;
 	}
 
 	public ArticleEntity getArticle_c() {

@@ -9,9 +9,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import java.security.Key;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -22,6 +20,9 @@ public class JwtServiceImpl implements JwtService {
 
     @Value("${security.jwt.expiration-time}")
     private long jwtExpiration;
+
+    // Добавляем хранилище для инвалидированных токенов
+    private static Set<String> blacklistedTokens = new HashSet<>();
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -85,4 +86,17 @@ public class JwtServiceImpl implements JwtService {
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
     }
+
+    // Другие методы класса JwtServiceImpl остаются без изменений
+
+    // Метод для добавления токена в черный список (blacklist)
+    public void invalidateToken(String token) {
+        blacklistedTokens.add(token);
+    }
+
+    // Метод для проверки, инвалидирован ли токен
+    public boolean isTokenInvalid(String token) {
+        return blacklistedTokens.contains(token);
+    }
+
 }

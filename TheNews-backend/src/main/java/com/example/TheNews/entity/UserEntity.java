@@ -46,13 +46,13 @@ public class UserEntity implements UserDetails {
 	@Column(name = "updated_at")
 	private Date updatedAt;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user_l")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userLS")
 	private List<LikeEntity> likes;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user_a")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userA")
 	private List<ArticleEntity> articles;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user_c")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userC")
 	private List<CommentEntity> comments;
 
 	public UserEntity(String first_name, String last_name, String role, String username, String password) {
