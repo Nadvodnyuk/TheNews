@@ -30,14 +30,14 @@ public class CommentServiceImpl implements CommentService {
     }
 
     //Для создания коммента
-    public void createComment(UserEntity user_c, String comment_text, ArticleEntity article_c) {
+    public void createComment(UserEntity user_c, String comment_text, ArticleEntity article_с) {
         // Создаем коммент
         CommentEntity comment = new CommentEntity();
 
         // Устанавливаем автора, текст, дату публикации коммента
         comment.setUserC(user_c);
         comment.setComment_text(comment_text);
-        comment.setArticle_c(article_c);
+        comment.setArticleС(article_с);
         java.sql.Timestamp currentDateTime = java.sql.Timestamp.valueOf(LocalDateTime.now());
         comment.setComment_date(currentDateTime);
 

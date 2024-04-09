@@ -8,8 +8,10 @@ import org.springframework.http.ResponseEntity;
 public class LikeFacadeImpl {
     @Autowired
     private LikeService likeService;
-    //C.Вывести лайки для статьи??
-
+    //C.Вывести кол-во лайков
+    public int likeNumFacade(LikeDtoOld likeDto){
+        return likeService.getLikesByArticleId(likeDto.getArticleL());
+    }
     ///Для авторизованного:
     //C.Поставить лайк
     public ResponseEntity<?> putLikeFacade(LikeDtoOld likeDto){

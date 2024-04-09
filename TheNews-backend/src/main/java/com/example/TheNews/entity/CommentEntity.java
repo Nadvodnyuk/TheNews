@@ -63,12 +63,12 @@ public class CommentEntity {
 		this.userC = userC;
 	}
 
-	public ArticleEntity getArticle_c() {
+	public ArticleEntity getArticleС() {
 		return articleC;
 	}
 
-	public void setArticle_c(ArticleEntity article_c) {
-		this.articleC = article_c;
+	public void setArticleС(ArticleEntity articleС) {
+		this.articleC = articleС;
 	}
 
 	@Override

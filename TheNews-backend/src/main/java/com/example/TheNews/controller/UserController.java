@@ -53,7 +53,7 @@ public class UserController {
         return userFacade.logOutFacade(request);
     }
 
-//
+
 //    @GetMapping("/")
 //    public ResponseEntity<List<UserEntity>> allUsers() {
 //        List<UserEntity> users = userService.allUsers();

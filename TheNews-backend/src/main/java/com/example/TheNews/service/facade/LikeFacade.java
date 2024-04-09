@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 
 public interface LikeFacade {
     //C.Вывести лайки для статьи
-
+    public int likeNumFacade(LikeDtoOld likeDto);
     ///Для авторизованного:
     //C.Поставить лайк
     public ResponseEntity<?> putLikeFacade(LikeDtoOld likeDto);
