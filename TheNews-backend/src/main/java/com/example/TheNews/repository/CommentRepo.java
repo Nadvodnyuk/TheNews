@@ -1,5 +1,7 @@
 package com.example.TheNews.repository;
+
 import java.util.List;
+
 import com.example.TheNews.entity.CommentEntity;
 import com.example.TheNews.entity.ArticleEntity;
 

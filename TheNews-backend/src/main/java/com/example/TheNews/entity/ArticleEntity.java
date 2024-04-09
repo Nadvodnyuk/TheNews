@@ -17,135 +17,135 @@ import java.util.Collections;
 @Entity
 @Table(name = "articles")
 public class ArticleEntity {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long article_id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long article_id;
 
-	@Column(name = "title")
-	private String title;
+    @Column(name = "title")
+    private String title;
 
-	@Column(name = "article_text")
-	private String article_text;
+    @Column(name = "article_text")
+    private String article_text;
 
-	@Column(name = "image_url")
-	private String image_url;
+    @Column(name = "image_url")
+    private String image_url;
 
-	@Column(name = "like_num")
-	private Integer like_num;
+    @Column(name = "like_num")
+    private Integer like_num;
 
-	@Column(name = "comment_num")
-	private Integer comment_num;
+    @Column(name = "comment_num")
+    private Integer comment_num;
 
-	@Column(name = "publicationDate")
-	private java.sql.Timestamp publicationDate;
+    @Column(name = "publicationDate")
+    private java.sql.Timestamp publicationDate;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "userId")
-	private UserEntity userA;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userId")
+    private UserEntity userA;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "articleL")
-	private List<LikeEntity> likes;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "articleL")
+    private List<LikeEntity> likes;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "articleC")
-	private List<CommentEntity> comments;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "articleC")
+    private List<CommentEntity> comments;
 
-	@ManyToMany(mappedBy = "articles", fetch = FetchType.LAZY)
-	@Builder.Default
-	private Set<TopicEntity> topics = new HashSet<>();
+    @ManyToMany(mappedBy = "articles", fetch = FetchType.LAZY)
+    @Builder.Default
+    private Set<TopicEntity> topics = new HashSet<>();
 
-	public long getArticle_id() {
-		return article_id;
-	}
+    public long getArticle_id() {
+        return article_id;
+    }
 
-	public void setArticle_id(long article_id) {
-		this.article_id = article_id;
-	}
+    public void setArticle_id(long article_id) {
+        this.article_id = article_id;
+    }
 
-	public String getTitle() {
-		return title;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	public String getArticle_text() {
-		return article_text;
-	}
+    public String getArticle_text() {
+        return article_text;
+    }
 
-	public void setArticle_text(String article_text) {
-		this.article_text = article_text;
-	}
+    public void setArticle_text(String article_text) {
+        this.article_text = article_text;
+    }
 
-	public String getImage_url() {
-		return image_url;
-	}
+    public String getImage_url() {
+        return image_url;
+    }
 
-	public void setImage_url(String image_url) {
-		this.image_url = image_url;
-	}
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
+    }
 
-	public Integer getLike_num() {
-		return like_num;
-	}
+    public Integer getLike_num() {
+        return like_num;
+    }
 
-	public void setLike_num(Integer like_num) {
-		this.like_num = like_num;
-	}
+    public void setLike_num(Integer like_num) {
+        this.like_num = like_num;
+    }
 
-	public Integer getComment_num() {
-		return comment_num;
-	}
+    public Integer getComment_num() {
+        return comment_num;
+    }
 
-	public void setComment_num(Integer comment_num) {
-		this.comment_num = comment_num;
-	}
+    public void setComment_num(Integer comment_num) {
+        this.comment_num = comment_num;
+    }
 
-	public Timestamp getPublication_date() {
-		return publicationDate;
-	}
+    public Timestamp getPublication_date() {
+        return publicationDate;
+    }
 
-	public void setPublication_date(Timestamp publication_date) {
-		this.publicationDate = publication_date;
-	}
+    public void setPublication_date(Timestamp publication_date) {
+        this.publicationDate = publication_date;
+    }
 
-	public UserEntity getUserA() {
-		return userA;
-	}
+    public UserEntity getUserA() {
+        return userA;
+    }
 
-	public void setUserA(UserEntity userA) {
-		this.userA = userA;
-	}
+    public void setUserA(UserEntity userA) {
+        this.userA = userA;
+    }
 
-	public List<LikeEntity> getLikes() {
-		return likes != null ? likes : Collections.emptyList();
-	}
+    public List<LikeEntity> getLikes() {
+        return likes != null ? likes : Collections.emptyList();
+    }
 
-	public void setLikes(List<LikeEntity> likes) {
-		this.likes = likes;
-	}
+    public void setLikes(List<LikeEntity> likes) {
+        this.likes = likes;
+    }
 
-	public List<CommentEntity> getComments() {
-		return comments != null ? comments : Collections.emptyList();
-	}
+    public List<CommentEntity> getComments() {
+        return comments != null ? comments : Collections.emptyList();
+    }
 
-	public void setComments(List<CommentEntity> comments) {
-		this.comments = comments;
-	}
+    public void setComments(List<CommentEntity> comments) {
+        this.comments = comments;
+    }
 
-	public Set<TopicEntity> getTopics() {
-		return topics;
-	}
+    public Set<TopicEntity> getTopics() {
+        return topics;
+    }
 
-	public void setTopics(Set<TopicEntity> topics) {
-		this.topics = topics;
-	}
+    public void setTopics(Set<TopicEntity> topics) {
+        this.topics = topics;
+    }
 
-	@Override
-	public String toString() {
-		return "User [id=" + article_id + ", title=" + title +
-				", article text=" + article_text + ", image=" + image_url +
-				", number of likes=" + like_num + ", number of comments=" + comment_num +
-				", publication date=" + publicationDate + "]";
-	}
+    @Override
+    public String toString() {
+        return "User [id=" + article_id + ", title=" + title +
+                ", article text=" + article_text + ", image=" + image_url +
+                ", number of likes=" + like_num + ", number of comments=" + comment_num +
+                ", publication date=" + publicationDate + "]";
+    }
 }

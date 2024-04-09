@@ -1,4 +1,5 @@
 package com.example.TheNews.service;
+
 import io.jsonwebtoken.Claims;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -9,12 +10,19 @@ import java.util.function.Function;
 @Service
 public interface JwtService {
     public String extractUsername(String token);
+
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver);
+
     public String generateToken(UserDetails userDetails);
+
     public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails);
+
     public long getExpirationTime();
+
     public boolean isTokenValid(String token, UserDetails userDetails);
+
     public void invalidateToken(String token);
+
     public boolean isTokenInvalid(String token);
 
 }

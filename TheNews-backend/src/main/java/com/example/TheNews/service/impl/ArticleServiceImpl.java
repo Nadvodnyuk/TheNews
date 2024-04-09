@@ -12,7 +12,7 @@ import com.example.TheNews.repository.ArticleRepo;
 import com.example.TheNews.service.ArticleService;
 
 @Service
-public class ArticleServiceImpl implements ArticleService{
+public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
     private ArticleRepo articleRepo;
@@ -66,10 +66,9 @@ public class ArticleServiceImpl implements ArticleService{
         // Сохраняем статью в базе данных
         articleRepo.save(article);
     }
-    
+
     //Удаление статьи:
-    public Long delete(Long art_id) {
+    public void delete(Long art_id) {
         articleRepo.deleteById(art_id);
-        return art_id;
     }
 }

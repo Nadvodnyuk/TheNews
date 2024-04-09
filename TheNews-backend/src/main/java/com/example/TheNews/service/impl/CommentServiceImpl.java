@@ -47,8 +47,7 @@ public class CommentServiceImpl implements CommentService {
 
     //Для удаления коммента:
 
-    public Long delete(Long comment_id) {
+    public void delete(Long comment_id) {
         commentRepo.deleteById(comment_id);
-        return comment_id;
     }
 }

@@ -11,44 +11,44 @@ import lombok.*;
 @Entity
 @Table(name = "likes")
 public class LikeEntity {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long like_id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long like_id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "userId")
-	private UserEntity userL;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userId")
+    private UserEntity userL;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "articleId")
-	private ArticleEntity articleL;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "articleId")
+    private ArticleEntity articleL;
 
-	public long getLike_id() {
-		return like_id;
-	}
+    public long getLike_id() {
+        return like_id;
+    }
 
-	public void setLike_id(long like_id) {
-		this.like_id = like_id;
-	}
+    public void setLike_id(long like_id) {
+        this.like_id = like_id;
+    }
 
-	public UserEntity getUserL() {
-		return userL;
-	}
+    public UserEntity getUserL() {
+        return userL;
+    }
 
-	public void setUserL(UserEntity userL) {
-		this.userL = userL;
-	}
+    public void setUserL(UserEntity userL) {
+        this.userL = userL;
+    }
 
-	public ArticleEntity getArticleL() {
-		return articleL;
-	}
+    public ArticleEntity getArticleL() {
+        return articleL;
+    }
 
-	public void setArticleL(ArticleEntity articleL) {
-		this.articleL = articleL;
-	}
+    public void setArticleL(ArticleEntity articleL) {
+        this.articleL = articleL;
+    }
 
-	@Override
-	public String toString() {
-		return "User [id=" + like_id + "]";
-	}
+    @Override
+    public String toString() {
+        return "User [id=" + like_id + "]";
+    }
 }

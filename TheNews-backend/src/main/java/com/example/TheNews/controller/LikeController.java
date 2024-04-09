@@ -1,10 +1,10 @@
 package com.example.TheNews.controller;
 
-import com.example.TheNews.dto.request.SignUpDto;
-import com.example.TheNews.entity.LikeEntity;
-import com.example.TheNews.dto.LikeDtoOld;
-import com.example.TheNews.exception.NotFoundException;
+import com.example.TheNews.dto.request.DeleteCommentDto;
+import com.example.TheNews.dto.request.LikeDto;
+import com.example.TheNews.service.ArticleService;
 import com.example.TheNews.service.LikeService;
+import com.example.TheNews.service.UserService;
 import com.example.TheNews.service.facade.LikeFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +18,7 @@ public class LikeController {
 
     @Autowired
     private ModelMapper modelMapper;
-    @Autowired
-    private LikeService likeService;
+
     @Autowired
     private LikeFacade likeFacade;
 
@@ -31,24 +30,39 @@ public class LikeController {
     //Ф.Удалить лайк
 
     @GetMapping("/likeNum")
-    public ResponseEntity<?> likeNum(@RequestBody LikeDtoOld likeDto) {
-        return ResponseEntity.ok(likeFacade.likeNumFacade(likeDto));
+    public ResponseEntity<?> likeNum(@RequestBody long article_id) {
+        try {
+            return ResponseEntity.ok(likeFacade.likeNumFacade(article_id));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Произошла ошибка");
+        }
     }
 
     @PostMapping("/putLike")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<?> putLike(@RequestBody LikeDtoOld likeDto) {
-        return likeFacade.putLikeFacade(likeDto);
+    public ResponseEntity<?> putLike(@RequestBody LikeDto likeDto) {
+        try {
+            likeFacade.putLikeFacade(likeDto);
+            return ResponseEntity.ok("Лайк успешно удален");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Произошла ошибка");
+        }
     }
     //(с проверкой пользователяAuth.../Principal)
 
-    //лайк удаляем взяв айди поста и айди пользователя, в функцию удалить прередаем оба
-    @DeleteMapping
+    //лайк удаляем взяв айди поста и Id пользователя, в функцию удалить прередаем оба
+    @DeleteMapping("/delete/{article_id}")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<?> deleteLikeFacade(@RequestBody LikeDtoOld likeDto){
-        return likeFacade.putLikeFacade(likeDto);
+    public ResponseEntity<?> deleteLikeFacade(@RequestBody LikeDto likeDto,
+                                              @PathVariable long article_id) {
+        try {
+            likeFacade.deleteLikeFacade(likeDto);
+            return ResponseEntity.ok("Лайк успешно удален");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Произошла ошибка");
+        }
     }
 }
-    //удаление лайка пользователем(с проверкой пользователяAuth.../Principal)
+//удаление лайка пользователем(с проверкой пользователяAuth.../Principal)
 
  

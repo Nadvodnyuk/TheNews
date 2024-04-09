@@ -1,5 +1,6 @@
 package com.example.TheNews.service.facade;
 
+import com.example.TheNews.dto.request.DeleteUserDto;
 import com.example.TheNews.dto.request.SignInDto;
 import com.example.TheNews.dto.response.SignInResponseDto;
 import jakarta.servlet.http.HttpServletRequest;
@@ -8,14 +9,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 public interface UserFacade {
-//Рега
-public ResponseEntity<?> registerFacade(@RequestParam String firstName,
-                                        @RequestParam String lastName,
-                                        @RequestParam String username,
-                                        @RequestParam String password);
-//Вход
-public ResponseEntity<?> authenticateFacade(@RequestBody SignInDto loginUserDto);
-public ResponseEntity<?> authenticatedUserFacade();
-//Выход
-public ResponseEntity<?> logOutFacade(HttpServletRequest request);
+    //Рега
+    public void registerFacade(@RequestParam String firstName,
+                               @RequestParam String lastName,
+                               @RequestParam String username,
+                               @RequestParam String password);
+
+    //Вход
+    public void authenticateFacade(@RequestBody SignInDto loginUserDto);
+
+    public void authenticatedUserFacade();
+
+    //Выход
+    public ResponseEntity<?> logOutFacade(HttpServletRequest request);
+
+    public long deleteFacade(DeleteUserDto user);
 }

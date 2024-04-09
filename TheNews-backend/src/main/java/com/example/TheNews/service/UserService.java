@@ -15,8 +15,15 @@ import java.util.List;
 
 public interface UserService {
     public UserEntity registerUser(String firstName, String lastName, String username, String password);
+
     public UserEntity authenticate(SignInDto input);
+
+    public UserEntity getOne(Long art_id) throws NotFoundException;
+
     public List<UserEntity> allUsers();
-    public Long delete(Long user_id);
+
+    public Long deleteToken(Long user_id);
+
+    public long delete(Long user_id);
 
 }

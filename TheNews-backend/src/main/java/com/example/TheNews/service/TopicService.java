@@ -11,5 +11,6 @@ import org.springframework.stereotype.Service;
 
 public interface TopicService {
     public TopicEntity createTopic(TopicEntity name) throws AlreadyExistException;
+
     public Long delete(Long topic_id);
 }

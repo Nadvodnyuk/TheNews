@@ -77,13 +77,21 @@ public class UserServiceImpl implements UserService {
         return users;
     }
 
+    public UserEntity getOne(Long art_id) throws NotFoundException {
+        UserEntity art = userRepo.findById(art_id).get();
+        if (art == null) {
+            throw new NotFoundException("Пользователь не найден");
+        }
+        return art;
+    }
+
     public Long deleteToken(Long user_id) {
         userRepo.deleteById(user_id);
         return user_id;
     }
 
-    public Long delete(Long user_id) {
+    public long delete(Long user_id) {
         userRepo.deleteById(user_id);
-        return user_id;
+        return (user_id);
     }
 }
