@@ -2,7 +2,8 @@ package com.example.TheNews.service.facade;
 
 import com.example.TheNews.dto.request.LikeDto;
 import org.springframework.http.ResponseEntity;
-
+import org.springframework.stereotype.Service;
+@Service
 public interface LikeFacade {
     //C.Вывести лайки для статьи
     public int likeNumFacade(long article_id);

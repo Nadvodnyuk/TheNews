@@ -20,7 +20,8 @@ import org.springframework.http.ResponseEntity;
 
 import java.lang.reflect.Type;
 import java.util.List;
-
+import org.springframework.stereotype.Service;
+@Service
 public class CommentFacadeImpl implements CommentFacade {
     @Autowired
     private CommentRepo commentRepo;

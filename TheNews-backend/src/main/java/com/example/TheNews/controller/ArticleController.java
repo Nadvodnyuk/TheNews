@@ -31,7 +31,7 @@ public class ArticleController {
         try {
             return ResponseEntity.ok(articleFacade.getAllLatestArticlesFacade());
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Произошла ошибка");
+            return ResponseEntity.badRequest().body(e);
         }
     }
 
@@ -42,11 +42,11 @@ public class ArticleController {
             articleFacade.createArticleFacade(article);
             return ResponseEntity.ok("Статья успешно сохранена");
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Произошла ошибка");
+            return ResponseEntity.badRequest().body(e);
         }
     }
 
-    @GetMapping("/article/{articleId}")
+    @GetMapping("/article/{article_id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> getArticleById(@PathVariable long article_id) {
         try {
@@ -54,11 +54,11 @@ public class ArticleController {
         } catch (NotFoundException e) {
             throw new RuntimeException(e);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Произошла ошибка");
+            return ResponseEntity.badRequest().body(e);
         }
     }
 
-    @PutMapping("/update/{articleId}")
+    @PutMapping("/update/{article_id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> updateArticle(@PathVariable long article_id,
                                            @RequestBody EditArticleDto article) {
@@ -67,7 +67,7 @@ public class ArticleController {
             articleFacade.editArticleFacade(article);
             return ResponseEntity.ok("Статья успешно обновлена");
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Произошла ошибка");
+            return ResponseEntity.badRequest().body(e);
         }
     }
 
@@ -78,7 +78,7 @@ public class ArticleController {
             articleFacade.deleteFacade(article_id);
             return ResponseEntity.ok("Статья успешно удалена");
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Произошла ошибка");
+            return ResponseEntity.badRequest().body(e);
         }
     }
 }

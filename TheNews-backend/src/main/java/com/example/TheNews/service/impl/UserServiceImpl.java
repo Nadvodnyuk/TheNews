@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
 
     public UserEntity registerUser(String firstName, String lastName, String username, String password) {
         // Проверяем, существует ли пользователь с таким именем пользователя
-        if (userRepo.findByUsername(username) != null) {
+        if ((userRepo.findByUsername(username)).isPresent()) {
             throw new RuntimeException("Пользователь с таким именем пользователя уже существует");
         }
 

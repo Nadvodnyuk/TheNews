@@ -1,5 +1,5 @@
 package com.example.TheNews.service.facade;
-
+import org.springframework.stereotype.Service;
 import com.example.TheNews.dto.request.CreateArticleDto;
 import com.example.TheNews.dto.request.EditArticleDto;
 import com.example.TheNews.dto.response.ArticleDto;
@@ -7,7 +7,7 @@ import com.example.TheNews.entity.ArticleEntity;
 import com.example.TheNews.exception.NotFoundException;
 
 import java.util.List;
-
+@Service
 public interface ArticleFacade {
     //Для списка статей:
     public List<ArticleDto> getAllLatestArticlesFacade();

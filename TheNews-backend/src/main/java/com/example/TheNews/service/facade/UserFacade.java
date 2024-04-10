@@ -7,7 +7,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.stereotype.Service;
+@Service
 public interface UserFacade {
     //Рега
     public void registerFacade(@RequestParam String firstName,

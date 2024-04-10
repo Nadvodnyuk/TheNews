@@ -16,11 +16,11 @@ public class LikeEntity {
     private long like_id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "userL")
     private UserEntity userL;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "articleId")
+    @JoinColumn(name = "articleL")
     private ArticleEntity articleL;
 
     public long getLike_id() {

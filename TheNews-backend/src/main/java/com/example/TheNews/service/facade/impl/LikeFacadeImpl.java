@@ -7,10 +7,12 @@ import com.example.TheNews.exception.NotFoundException;
 import com.example.TheNews.service.ArticleService;
 import com.example.TheNews.service.LikeService;
 import com.example.TheNews.service.UserService;
+import com.example.TheNews.service.facade.LikeFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-
-public class LikeFacadeImpl {
+import org.springframework.stereotype.Service;
+@Service
+public class LikeFacadeImpl implements LikeFacade {
     @Autowired
     private ArticleService articleService;
     @Autowired

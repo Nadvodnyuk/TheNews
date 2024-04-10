@@ -46,7 +46,7 @@ public class UserEntity implements UserDetails {
 	@Column(name = "updated_at")
 	private Date updatedAt;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userLS")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userL")
 	private List<LikeEntity> likes;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userA")

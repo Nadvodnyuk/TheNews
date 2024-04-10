@@ -31,7 +31,7 @@ public class UserController {
                     regUserDto.getPassword());
             return ResponseEntity.ok("Пользователь успешно зарегистрирован");
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Произошла ошибка");
+            return ResponseEntity.badRequest().body(e);
         }
     }
 
@@ -41,7 +41,7 @@ public class UserController {
             userFacade.authenticateFacade(loginUserDto);
             return ResponseEntity.ok("Пользователь успешно аутентифицирован");
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Произошла ошибка");
+            return ResponseEntity.badRequest().body(e);
         }
     }
 
@@ -52,7 +52,7 @@ public class UserController {
             userFacade.authenticatedUserFacade();
             return ResponseEntity.ok("Пользователь успешно авторизирован");
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Произошла ошибка");
+            return ResponseEntity.badRequest().body(e);
         }
     }
 
@@ -61,7 +61,7 @@ public class UserController {
         return userFacade.logOutFacade(request);
     }
 
-    @PostMapping("/{user_id}")
+    @DeleteMapping("/{user_id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> delete(@PathVariable long user_id) {
         try {
@@ -69,7 +69,7 @@ public class UserController {
             user.setUser_id(user_id);
             return ResponseEntity.ok(userFacade.deleteFacade(user));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Произошла ошибка");
+            return ResponseEntity.badRequest().body(e);
         }
     }
 }

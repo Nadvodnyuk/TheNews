@@ -7,7 +7,8 @@ import com.example.TheNews.exception.NotFoundException;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
-
+import org.springframework.stereotype.Service;
+@Service
 public interface CommentFacade {
 
     //Вывести все комменты к статье

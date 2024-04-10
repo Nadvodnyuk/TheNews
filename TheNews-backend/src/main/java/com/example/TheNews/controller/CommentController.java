@@ -42,22 +42,22 @@ public class CommentController {
         try {
             return ResponseEntity.ok(commentFacade.getCommentsByArticleIdWithPaginationFacade(article_с, page));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Произошла ошибка");
+            return ResponseEntity.badRequest().body(e);
         }
     }
 
-    @PostMapping("/putComment")
+    @PostMapping("/putComment/{user_c}/{article_c}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> putComment(@RequestBody CreateCommentDto comment,
-                                        @RequestParam long user_c,
-                                        @RequestParam long article_с) {
+                                        @PathVariable long user_c,
+                                        @PathVariable long article_с) {
         try {
             commentFacade.createCommentFacade(user_c, comment, article_с);
             return ResponseEntity.ok("Комментарий успешно сохранен");
         } catch (NotFoundException e) {
             throw new RuntimeException(e);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Произошла ошибка");
+            return ResponseEntity.badRequest().body(e);
         }
     }
 
@@ -70,7 +70,7 @@ public class CommentController {
             commentFacade.deleteFacade(comment_id);
             return ResponseEntity.ok("Комментарий успешно удален");
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Произошла ошибка");
+            return ResponseEntity.badRequest().body(e);
         }
     }
     //удаление комма админом( без проверки(т.к. может удалить все коммы, а юзер только свои))

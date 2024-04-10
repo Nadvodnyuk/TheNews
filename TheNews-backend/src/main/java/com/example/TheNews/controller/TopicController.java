@@ -22,7 +22,7 @@ public class TopicController {
         try {
             return ResponseEntity.ok(topicService.delete(topic_id));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Произошла ошибка");
+            return ResponseEntity.badRequest().body(e);
         }
     }
 }

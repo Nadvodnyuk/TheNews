@@ -11,14 +11,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.modelmapper.ModelMapper;
+import org.springframework.context.annotation.Bean;
 
 @RestController
 @RequestMapping("/likes")
 public class LikeController {
-
     @Autowired
     private ModelMapper modelMapper;
-
     @Autowired
     private LikeFacade likeFacade;
 
@@ -34,7 +33,7 @@ public class LikeController {
         try {
             return ResponseEntity.ok(likeFacade.likeNumFacade(article_id));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Произошла ошибка");
+            return ResponseEntity.badRequest().body(e);
         }
     }
 
@@ -45,7 +44,7 @@ public class LikeController {
             likeFacade.putLikeFacade(likeDto);
             return ResponseEntity.ok("Лайк успешно удален");
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Произошла ошибка");
+            return ResponseEntity.badRequest().body(e);
         }
     }
     //(с проверкой пользователяAuth.../Principal)
@@ -59,7 +58,7 @@ public class LikeController {
             likeFacade.deleteLikeFacade(likeDto);
             return ResponseEntity.ok("Лайк успешно удален");
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Произошла ошибка");
+            return ResponseEntity.badRequest().body(e);
         }
     }
 }

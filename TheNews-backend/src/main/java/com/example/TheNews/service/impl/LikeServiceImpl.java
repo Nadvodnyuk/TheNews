@@ -17,13 +17,13 @@ public class LikeServiceImpl implements LikeService {
 
     public int getLikesByArticleId(ArticleEntity article_l) {
         // Поменяла на "найти количество лайков", не знаю, нужно или нет, можно потом вернуть
-        List<LikeEntity> likeNum = likeRepo.findByArticleId(article_l);
+        List<LikeEntity> likeNum = likeRepo.findByArticleL(article_l);
         return likeNum.size();
     }
 
 
     public boolean isLikedByUserAndArticle(UserEntity user_l, ArticleEntity article_l) {
-        List<LikeEntity> isLiked = likeRepo.findByArticleIdAndUserId(article_l, user_l);
+        List<LikeEntity> isLiked = likeRepo.findByArticleLAndUserL(article_l, user_l);
         if (isLiked.isEmpty())
             return false;
         else
@@ -42,6 +42,6 @@ public class LikeServiceImpl implements LikeService {
     }
 
     public void delete(UserEntity user_l, ArticleEntity article_l) {
-        likeRepo.deleteByArticleIdAndUserId(article_l, user_l);
+        likeRepo.deleteByArticleLAndUserL(article_l, user_l);
     }
 }
