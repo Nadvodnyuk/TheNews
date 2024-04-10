@@ -42,7 +42,7 @@ public class LikeController {
     public ResponseEntity<?> putLike(@RequestBody LikeDto likeDto) {
         try {
             likeFacade.putLikeFacade(likeDto);
-            return ResponseEntity.ok("Лайк успешно удален");
+            return ResponseEntity.ok("Лайк успешно поставлен");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e);
         }
@@ -50,10 +50,10 @@ public class LikeController {
     //(с проверкой пользователяAuth.../Principal)
 
     //лайк удаляем взяв айди поста и Id пользователя, в функцию удалить прередаем оба
-    @DeleteMapping("/delete/{article_id}")
+    @DeleteMapping("/delete/{articleL}")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> deleteLikeFacade(@RequestBody LikeDto likeDto,
-                                              @PathVariable long article_id) {
+                                              @PathVariable long articleL) {
         try {
             likeFacade.deleteLikeFacade(likeDto);
             return ResponseEntity.ok("Лайк успешно удален");
