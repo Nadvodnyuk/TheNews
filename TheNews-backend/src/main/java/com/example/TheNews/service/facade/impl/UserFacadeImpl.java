@@ -4,6 +4,8 @@ import com.example.TheNews.dto.request.DeleteUserDto;
 import com.example.TheNews.dto.request.SignInDto;
 import com.example.TheNews.dto.response.SignInResponseDto;
 import com.example.TheNews.entity.UserEntity;
+import com.example.TheNews.exception.AlreadyExistException;
+import com.example.TheNews.exception.NotFoundException;
 import com.example.TheNews.service.JwtService;
 import com.example.TheNews.service.UserService;
 import com.example.TheNews.service.facade.UserFacade;
@@ -28,16 +30,14 @@ public class UserFacadeImpl implements UserFacade {
 
     //С.Регистрация
     public void registerFacade(@RequestParam String firstName,
-                                            @RequestParam String lastName,
-                                            @RequestParam String username,
-                                            @RequestParam String password) {
-
+                               @RequestParam String lastName,
+                               @RequestParam String username,
+                               @RequestParam String password) throws NotFoundException {
         UserEntity registeredUser = userService.registerUser(firstName, lastName, username, password);
-
     }
 
     //С.Вход
-    public void authenticateFacade(@RequestBody SignInDto loginUserDto) {
+    public void authenticateFacade(@RequestBody SignInDto loginUserDto) throws NotFoundException {
         UserEntity authenticatedUser = userService.authenticate(loginUserDto);
 
         String jwtToken = jwtService.generateToken(authenticatedUser);

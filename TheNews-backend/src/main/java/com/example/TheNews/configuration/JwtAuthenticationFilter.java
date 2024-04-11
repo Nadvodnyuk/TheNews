@@ -1,6 +1,7 @@
 package com.example.TheNews.configuration;
 
 import com.example.TheNews.service.JwtService;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,6 +28,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private JwtService jwtService;
     @Autowired
     private UserDetailsService userDetailsService;
+
 
     @Override
     protected void doFilterInternal(

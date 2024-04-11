@@ -3,6 +3,7 @@ package com.example.TheNews.service.facade;
 import com.example.TheNews.dto.request.DeleteUserDto;
 import com.example.TheNews.dto.request.SignInDto;
 import com.example.TheNews.dto.response.SignInResponseDto;
+import com.example.TheNews.exception.NotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,10 +15,10 @@ public interface UserFacade {
     public void registerFacade(@RequestParam String firstName,
                                @RequestParam String lastName,
                                @RequestParam String username,
-                               @RequestParam String password);
+                               @RequestParam String password) throws NotFoundException;
 
     //Вход
-    public void authenticateFacade(@RequestBody SignInDto loginUserDto);
+    public void authenticateFacade(@RequestBody SignInDto loginUserDto) throws NotFoundException;
 
     public void authenticatedUserFacade();
 
