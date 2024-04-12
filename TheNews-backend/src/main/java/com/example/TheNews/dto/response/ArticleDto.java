@@ -8,7 +8,12 @@ import lombok.Data;
 import java.sql.Timestamp;
 import java.util.List;
 
+import lombok.*;
+
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class ArticleDto {
     private long article_id;
     private String title;

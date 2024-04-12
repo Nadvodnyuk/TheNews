@@ -6,6 +6,11 @@ import com.example.TheNews.entity.TopicEntity;
 import lombok.*;
 
 import java.util.List;
+
+
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class EditArticleDto {
     private long article_id;

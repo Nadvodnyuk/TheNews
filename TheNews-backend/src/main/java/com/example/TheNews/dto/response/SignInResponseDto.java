@@ -1,5 +1,11 @@
 package com.example.TheNews.dto.response;
 
+import lombok.*;
+
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class SignInResponseDto {
     private String token;
 
