@@ -12,7 +12,7 @@ import lombok.*;
 @Table(name = "likes")
 public class LikeEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long like_id;
 
     @ManyToOne(fetch = FetchType.LAZY)

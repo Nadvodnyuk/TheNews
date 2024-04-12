@@ -18,7 +18,7 @@ import java.util.Collections;
 @Table(name = "articles")
 public class ArticleEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long article_id;
 
     @Column(name = "title")

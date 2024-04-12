@@ -15,7 +15,7 @@ import java.util.Set;
 @Table(name = "topics")
 public class TopicEntity {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long topic_id;
 
 	@Column(name = "name")

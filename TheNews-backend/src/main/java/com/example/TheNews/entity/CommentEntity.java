@@ -14,7 +14,7 @@ import java.sql.Timestamp;
 @Table(name = "comments")
 public class CommentEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long comment_id;
 
     @Column(name = "comment_text")
