@@ -22,8 +22,6 @@ public interface UserService {
 
     public List<UserEntity> allUsers();
 
-    public Long deleteToken(Long user_id);
-
     public long delete(Long user_id);
 
 }

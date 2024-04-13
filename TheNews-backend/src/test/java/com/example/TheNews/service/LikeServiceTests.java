@@ -59,7 +59,7 @@ public class LikeServiceTests {
         //сомневаюсь максимально
         List<LikeEntity> likeNum = Mockito.mock(List.class);
 
-        when(likeRepo.findByArticleL(Mockito.any(ArticleEntity.class))).thenReturn(likeNum);
+        when(likeRepo.findByArticleL(article)).thenReturn(likeNum);
 
         int saveLike = likeService.getLikesByArticleId(article);
 
@@ -70,7 +70,7 @@ public class LikeServiceTests {
     public void LikeService_isLikedByUserAndArticle_ReturnsBoolean() {
         List<LikeEntity> isLiked = Mockito.mock(List.class);
 
-        when(likeRepo.findByArticleLAndUserL(Mockito.any(ArticleEntity.class), Mockito.any(UserEntity.class)))
+        when(likeRepo.findByArticleLAndUserL(article, user))
                 .thenReturn(isLiked);
 
         boolean saveLike = likeService.isLikedByUserAndArticle(user, article);
@@ -89,9 +89,8 @@ public class LikeServiceTests {
     @Test
     public void LikeService_delete_ReturnsVoid() {
 
-        long likeId = like.getLike_id();
-        when(likeRepo.findById(likeId)).thenReturn(Optional.ofNullable(like));
-        doNothing().when(likeRepo).delete(like);
+//        when(likeRepo.deleteByArticleLAndUserL(article, user)).thenReturn(Optional.ofNullable(like));
+        doNothing().when(likeRepo).deleteByArticleLAndUserL(like.getArticleL(), like.getUserL());
 
         assertAll(() -> likeService.delete(like.getUserL(), like.getArticleL()));
     }

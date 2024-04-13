@@ -2,6 +2,7 @@ package com.example.TheNews.service;
 
 import com.example.TheNews.entity.ArticleEntity;
 import com.example.TheNews.entity.UserEntity;
+import com.example.TheNews.exception.NotFoundException;
 import com.example.TheNews.repository.ArticleRepo;
 import com.example.TheNews.service.impl.ArticleServiceImpl;
 import org.assertj.core.api.Assertions;
@@ -14,8 +15,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
@@ -40,7 +42,8 @@ public class ArticleServiceTests {
     ArticleEntity article = ArticleEntity.builder()
             .article_id(1)
             .title("The Article")
-            .article_text("This id the article we've created")
+            .article_text("This is the article we've created")
+            .image_url("image")
             .like_num(2)
             .comment_num(1)
             .publicationDate(java.sql.Timestamp.valueOf(LocalDateTime.now()))
@@ -49,7 +52,6 @@ public class ArticleServiceTests {
     @Test
     public void ArticleService_getAllLatestArticles_ReturnsList() {
         List<ArticleEntity> allArticles = Mockito.mock(List.class);
-
         when(articleRepo.findByPublicationDateAfter(Mockito.any(java.sql.Timestamp.class)))
                 .thenReturn(allArticles);
 
@@ -66,5 +68,33 @@ public class ArticleServiceTests {
         assertAll(() -> articleService.createArticle(article.getTitle(),
                 article.getArticle_text(),
                 article.getImage_url()));
+    }
+
+    @Test
+    public void ArticleService_getOne_ReturnsArticle() throws NotFoundException {
+        when(articleRepo.findById(article.getArticle_id()))
+                .thenReturn(Optional.ofNullable(article));
+        ArticleEntity art = articleService.getOne(article.getArticle_id());
+
+        Assertions.assertThat(art).isNotNull();
+    }
+
+    @Test
+    public void ArticleService_editArticle_ReturnsVoid() {
+        when(articleRepo.findById(article.getArticle_id())).thenReturn(Optional.ofNullable(article));
+        when(articleRepo.save(article)).thenReturn(article);
+
+        assertAll(() -> articleService.editArticle(article.getArticle_id(),
+                "Updated article",
+                "This is the updated article",
+                "Updated image"));
+    }
+
+    @Test
+    public void ArticleService_delete_ReturnsVoid() {
+
+        doNothing().when(articleRepo).deleteById(article.getArticle_id());
+
+        assertAll(() -> articleService.delete(article.getArticle_id()));
     }
 }

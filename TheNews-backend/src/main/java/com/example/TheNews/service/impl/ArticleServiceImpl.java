@@ -53,7 +53,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     //Для изменения статьи
     public void editArticle(long article_id, String title, String text, String imageUrl) {
-        // Создаем новую статью
+        // Ищем статью
         ArticleEntity article = articleRepo.findById(article_id).get();
 
         // Устанавливаем заголовок, текст, картинку, дату публикации

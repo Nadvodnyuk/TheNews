@@ -58,14 +58,14 @@ public class UserServiceImpl implements UserService {
 //    }
 
     public UserEntity authenticate(SignInDto input) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                         input.getUsername(),
                         input.getPassword()
                 )
         );
 
-        return userRepo.findByUsername(input.getUsername())
+        return userRepo
+                .findByUsername(input.getUsername())
                 .orElseThrow();
     }
 
@@ -83,11 +83,6 @@ public class UserServiceImpl implements UserService {
             throw new NotFoundException("Пользователь не найден");
         }
         return art;
-    }
-
-    public Long deleteToken(Long user_id) {
-        userRepo.deleteById(user_id);
-        return user_id;
     }
 
     public long delete(Long user_id) {
