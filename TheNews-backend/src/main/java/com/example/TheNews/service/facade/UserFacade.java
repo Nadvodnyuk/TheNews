@@ -23,7 +23,7 @@ public interface UserFacade {
     public void authenticatedUserFacade();
 
     //Выход
-    public ResponseEntity<?> logOutFacade(HttpServletRequest request);
+    public void logOutFacade(HttpServletRequest request);
 
     public long deleteFacade(DeleteUserDto user);
 }

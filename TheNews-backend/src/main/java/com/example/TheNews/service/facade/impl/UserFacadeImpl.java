@@ -4,6 +4,7 @@ import com.example.TheNews.dto.request.DeleteUserDto;
 import com.example.TheNews.dto.request.SignInDto;
 import com.example.TheNews.dto.response.SignInResponseDto;
 import com.example.TheNews.entity.UserEntity;
+import com.example.TheNews.exception.GlobalExceptionHandler;
 import com.example.TheNews.exception.AlreadyExistException;
 import com.example.TheNews.exception.NotFoundException;
 import com.example.TheNews.service.JwtService;
@@ -54,15 +55,12 @@ public class UserFacadeImpl implements UserFacade {
     }
 
     //С.Выйти
-    public ResponseEntity<?> logOutFacade(HttpServletRequest request) {
+    public void logOutFacade(HttpServletRequest request) {
         String authHeader = request.getHeader("Authorization");
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             String token = authHeader.substring(7);
             jwtService.invalidateToken(token);
 //            SecurityContextHolder.clearContext();
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
 

@@ -71,7 +71,7 @@ public class ArticleController {
         }
     }
 
-    @DeleteMapping("/delete/{article_id}")
+    @DeleteMapping("/{article_id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deleteArticle(@PathVariable long article_id) {
         try {

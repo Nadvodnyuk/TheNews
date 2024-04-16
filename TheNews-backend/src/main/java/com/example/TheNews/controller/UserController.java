@@ -58,7 +58,13 @@ public class UserController {
 
     @PostMapping("/log_out")
     public ResponseEntity<?> logOut(HttpServletRequest request) {
-        return userFacade.logOutFacade(request);
+        try {
+            userFacade.logOutFacade(request);
+            return ResponseEntity.ok("Пользователь успешно вышел из аккаунта");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e);
+        }
+
     }
 
     @DeleteMapping("/{user_id}")
