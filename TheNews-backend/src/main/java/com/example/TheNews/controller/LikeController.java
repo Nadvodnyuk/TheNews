@@ -28,8 +28,8 @@ public class LikeController {
 
     //Ф.Удалить лайк
 
-    @GetMapping("/likeNum")
-    public ResponseEntity<?> likeNum(@RequestBody long article_id) {
+    @PostMapping("/likeNum")
+    public ResponseEntity<?> likeNum(@RequestParam long article_id) {
         try {
             return ResponseEntity.ok(likeFacade.likeNumFacade(article_id));
         } catch (Exception e) {

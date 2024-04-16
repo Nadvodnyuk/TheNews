@@ -66,14 +66,14 @@ public class UserServiceTests {
 
     @Test
     public void UserService_authenticate_ReturnsUser() {
-        SignInDto dto = new SignInDto();
-        dto.setUsername(user.getUsername());
-        dto.setPassword(user.getPassword());
-        when(userRepo.findByUsername(dto.getUsername())).thenReturn(Optional.of(user));
+        SignInDto dto = new SignInDto("Team", "222");
+
+        when(userRepo.findByUsername(dto.getUsername())).thenReturn(Optional.ofNullable(user));
 
         UserEntity newUser = userService.authenticate(dto);
 
         Assertions.assertThat(newUser).isNotNull();
+        System.out.println(newUser);
     }
 
     @Test

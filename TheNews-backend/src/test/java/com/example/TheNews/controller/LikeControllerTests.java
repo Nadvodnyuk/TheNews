@@ -6,8 +6,11 @@ import com.example.TheNews.entity.ArticleEntity;
 import com.example.TheNews.entity.LikeEntity;
 import com.example.TheNews.entity.UserEntity;
 import com.example.TheNews.repository.LikeRepo;
+import com.example.TheNews.service.JwtService;
 import com.example.TheNews.service.LikeService;
+import com.example.TheNews.service.facade.LikeFacade;
 import com.example.TheNews.service.impl.LikeServiceImpl;
+import org.h2.engine.User;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -41,43 +44,31 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest
+
 @WebMvcTest(controllers = LikeController.class)
 @AutoConfigureMockMvc(addFilters = false)
-@ExtendWith(MockitoExtension.class)
+@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public class LikeControllerTests {
     @Autowired
     private MockMvc mockMvc;
-
     @MockBean
-    private LikeService likeService;
+    private LikeFacade likeFacade;
+    @MockBean
+    private JwtService jwtService; // Создаем заглушку для JwtService
 
-    @Autowired
-    private ObjectMapper objectMapper;
-    private LikeEntity like;
-    private LikeDto likeDto;
-    private ArticleEntity article;
-    private ArticleDto articleDto;
-
-
-    @BeforeEach
-    public void init() {
-        like = LikeEntity.builder().name("like").type("electric").build();
-        pokemonDto = PokemonDto.builder().name("pickachu").type("electric").build();
-        review = Review.builder().title("title").content("content").stars(5).build();
-        reviewDto = ReviewDto.builder().title("review title").content("test content").stars(5).build();
-    }
     @Test
-    public void LikeController_likeNum_ReturnsInt() {
-        //сомневаюсь максимально
-        List<LikeEntity> likeNum = Mockito.mock(List.class);
-
-        when(likeRepo.findByArticleL(article)).thenReturn(likeNum);
-
-        int saveLike = likeService.getLikesByArticleId(article);
-
-        Assertions.assertThat(saveLike).isNotNull();
+    public void LikeController_likeNum_ReturnsInt() throws Exception {
+        int article_id = 1;
+        int likeNum = 1;
+        LikeDto likeDto = LikeDto.builder()
+                .userL(1).articleL(1).build();
+        when(likeFacade.likeNumFacade(article_id)).thenReturn(likeNum);
+        mockMvc.perform(post("/likes/likeNum")
+                        .param("article_id", String.valueOf(article_id)))
+                .andExpect(status().isOk())
+                .andExpect(content().string(String.valueOf(likeNum)));
     }
 }
