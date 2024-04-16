@@ -57,12 +57,10 @@ public class UserFacadeTests {
     @Test
     public void UserFacade_authenticateFacade_ReturnsVoid() throws NotFoundException {
         SignInDto loginUserDto = new SignInDto("Team", "222");
-
         when(userRepo.findByUsername(loginUserDto.getUsername())).thenReturn(Optional.of(user));
-
         UserEntity authenticatedUser = userService.authenticate(loginUserDto);
-
         String jwtToken = jwtService.generateToken(authenticatedUser);
+        System.out.println(jwtToken);
 
         long time = 3600L;
 

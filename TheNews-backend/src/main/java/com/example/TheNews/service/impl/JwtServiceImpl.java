@@ -1,5 +1,6 @@
 package com.example.TheNews.service.impl;
 
+import com.example.TheNews.entity.UserEntity;
 import com.example.TheNews.service.JwtService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -17,11 +18,10 @@ import org.springframework.beans.factory.annotation.Value;
 
 @Service
 public class JwtServiceImpl implements JwtService {
-    @Value("${security.jwt.secret-key}")
-    private String secretKey;
 
-    @Value("${security.jwt.expiration-time}")
-    private long jwtExpiration;
+    private String secretKey = "3cfa76ef14937c1c0ea519f8fc057a80fcd04a7420f8e8bcd0a7567c272e007b";
+
+    private long jwtExpiration = 3600;
 
     // Добавляем хранилище для инвалидированных токенов
     private static Set<String> blacklistedTokens = new HashSet<>();
@@ -40,6 +40,7 @@ public class JwtServiceImpl implements JwtService {
     }
 
     public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
+        System.out.println("generateToken: " + jwtExpiration);
         return buildToken(extraClaims, userDetails, jwtExpiration);
     }
 
@@ -51,11 +52,17 @@ public class JwtServiceImpl implements JwtService {
             Map<String, Object> extraClaims,
             UserDetails userDetails,
             long expiration
+
     ) {
+        String username = userDetails != null ? userDetails.getUsername() : "null";
+        System.out.println("Username: " + username);
+        System.out.println("Expiration: " + expiration);
+
+        String subject = userDetails != null ? userDetails.getUsername() : null;
         return Jwts
                 .builder()
                 .setClaims(extraClaims)
-                .setSubject(userDetails.getUsername())
+                .setSubject(subject)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
@@ -86,6 +93,7 @@ public class JwtServiceImpl implements JwtService {
 
     private Key getSignInKey() {
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
+        System.out.println("getSignInKey: " + secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
