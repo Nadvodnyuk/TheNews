@@ -64,12 +64,11 @@ public class UserController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e);
         }
-
     }
 
     @DeleteMapping("/{user_id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> delete(@PathVariable long user_id) {
+    public ResponseEntity<?> deleteUser(@PathVariable long user_id) {
         try {
             DeleteUserDto user = new DeleteUserDto();
             user.setUser_id(user_id);

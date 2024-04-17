@@ -1,6 +1,7 @@
 package com.example.TheNews.controller;
 
 import com.example.TheNews.dto.request.DeleteCommentDto;
+import com.example.TheNews.dto.request.DeleteUserDto;
 import com.example.TheNews.dto.request.LikeDto;
 import com.example.TheNews.service.ArticleService;
 import com.example.TheNews.service.LikeService;
@@ -50,11 +51,14 @@ public class LikeController {
     //(с проверкой пользователяAuth.../Principal)
 
     //лайк удаляем взяв айди поста и Id пользователя, в функцию удалить прередаем оба
-    @DeleteMapping("/{articleL}")
+    @DeleteMapping("/{userL}/{articleL}")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<?> deleteLikeFacade(@RequestBody LikeDto likeDto,
-                                              @PathVariable long articleL) {
+    public ResponseEntity<?> deleteLike(@PathVariable long userL,
+                                        @PathVariable long articleL) {
         try {
+            LikeDto likeDto = new LikeDto();
+            likeDto.setUserL(userL);
+            likeDto.setArticleL(articleL);
             likeFacade.deleteLikeFacade(likeDto);
             return ResponseEntity.ok("Лайк успешно удален");
         } catch (Exception e) {

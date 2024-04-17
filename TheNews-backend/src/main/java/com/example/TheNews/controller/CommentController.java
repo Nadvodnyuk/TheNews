@@ -66,7 +66,7 @@ public class CommentController {
 
     @DeleteMapping("/admin/{comment_id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> DeleteComment(@PathVariable long comment_id) {
+    public ResponseEntity<?> deleteComment(@PathVariable long comment_id) {
         try {
             commentFacade.deleteFacade(comment_id);
             return ResponseEntity.ok("Комментарий успешно удален");

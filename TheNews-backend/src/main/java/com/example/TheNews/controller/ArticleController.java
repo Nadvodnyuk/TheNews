@@ -2,20 +2,13 @@ package com.example.TheNews.controller;
 
 import com.example.TheNews.dto.request.CreateArticleDto;
 import com.example.TheNews.dto.request.EditArticleDto;
-import com.example.TheNews.dto.response.ArticleDto;
 import com.example.TheNews.exception.NotFoundException;
-import com.example.TheNews.repository.CommentRepo;
-import com.example.TheNews.service.ArticleService;
-import com.example.TheNews.service.CommentService;
-import com.example.TheNews.service.UserService;
 import com.example.TheNews.service.facade.ArticleFacade;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/articles")

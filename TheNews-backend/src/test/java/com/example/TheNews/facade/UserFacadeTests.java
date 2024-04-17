@@ -1,42 +1,34 @@
 package com.example.TheNews.facade;
 
 import com.example.TheNews.dto.request.SignInDto;
-import com.example.TheNews.dto.response.SignInResponseDto;
-import com.example.TheNews.entity.ArticleEntity;
 import com.example.TheNews.entity.UserEntity;
 import com.example.TheNews.exception.NotFoundException;
 import com.example.TheNews.repository.UserRepo;
+import com.example.TheNews.service.JwtService;
+import com.example.TheNews.service.UserService;
 import com.example.TheNews.service.facade.impl.UserFacadeImpl;
-import com.example.TheNews.service.impl.JwtServiceImpl;
-import com.example.TheNews.service.impl.UserServiceImpl;
-import jakarta.servlet.http.HttpServletRequest;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class UserFacadeTests {
 
-    @InjectMocks
-    private UserServiceImpl userService;
-    @InjectMocks
-    private UserFacadeImpl userFacade;
+    @Mock
+    private UserService userService;
+
+    @Mock
+    private JwtService jwtService;
 
     @InjectMocks
-    private JwtServiceImpl jwtService;
+    private UserFacadeImpl userFacade;
 
     @Mock
     private UserRepo userRepo;
@@ -55,21 +47,32 @@ public class UserFacadeTests {
             .updatedAt(java.sql.Timestamp.valueOf(LocalDateTime.now())).build();
 
     @Test
-    public void UserFacade_authenticateFacade_ReturnsVoid() throws NotFoundException {
-        SignInDto loginUserDto = new SignInDto("Team", "222");
-        when(userRepo.findByUsername(loginUserDto.getUsername())).thenReturn(Optional.of(user));
-        UserEntity authenticatedUser = userService.authenticate(loginUserDto);
-        String jwtToken = jwtService.generateToken(authenticatedUser);
-        System.out.println(jwtToken);
+    public void testAuthenticateFacade() throws NotFoundException {
+        // Создание объекта UserEntity, который будет возвращен методом userService.authenticate
+        UserEntity authenticatedUser = new UserEntity();
+        when(userService.authenticate(any(SignInDto.class))).thenReturn(authenticatedUser);
 
+        // Создание JWT токена
+        String jwtToken = "your_generated_jwt_token";
+
+        // Установка заглушки для возвращаемого значения от jwtService.generateToken
+        when(jwtService.generateToken(any(UserEntity.class))).thenReturn(jwtToken);
+
+        // Установка заглушки для возвращаемого значения от jwtService.getExpirationTime
         long time = 3600L;
-
-        System.out.println(authenticatedUser);
-
-        when(jwtService.generateToken(authenticatedUser)).thenReturn(jwtToken);
         when(jwtService.getExpirationTime()).thenReturn(time);
 
-        assertAll(() -> userFacade.authenticateFacade(loginUserDto));
+        // Вызов метода вашего фасада, который вы хотите протестировать
+        userFacade.authenticateFacade(new SignInDto());
+
+        // Проверка вызова метода userService.authenticate с правильным аргументом
+        verify(userService).authenticate(any(SignInDto.class));
+
+        // Проверка вызова метода jwtService.generateToken с правильным аргументом
+        verify(jwtService).generateToken(any(UserEntity.class));
+
+        // Проверка вызова метода jwtService.getExpirationTime
+        verify(jwtService).getExpirationTime();
     }
 
     public void UserFacade_authenticatedUserFacade_ReturnsVoid() {
