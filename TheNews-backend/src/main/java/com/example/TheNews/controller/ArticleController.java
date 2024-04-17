@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/articles")
 public class ArticleController {
 
     @Autowired
@@ -19,7 +18,7 @@ public class ArticleController {
     @Autowired
     private ArticleFacade articleFacade;
 
-    @GetMapping("/all")
+    @GetMapping("/articles/all")
     public ResponseEntity<?> getAllArticles() {
         try {
             return ResponseEntity.ok(articleFacade.getAllLatestArticlesFacade());
@@ -28,8 +27,8 @@ public class ArticleController {
         }
     }
 
-    @PostMapping("/create")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("/admin/articles/create")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<?> createArticle(@RequestBody CreateArticleDto article) {
         try {
             articleFacade.createArticleFacade(article);
@@ -39,7 +38,7 @@ public class ArticleController {
         }
     }
 
-    @GetMapping("/article/{article_id}")
+    @GetMapping("/articles/article/{article_id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> getArticleById(@PathVariable long article_id) {
         try {
@@ -51,7 +50,7 @@ public class ArticleController {
         }
     }
 
-    @PutMapping("/update/{article_id}")
+    @PutMapping("/articles/update/{article_id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> updateArticle(@PathVariable long article_id,
                                            @RequestBody EditArticleDto article) {
@@ -64,7 +63,7 @@ public class ArticleController {
         }
     }
 
-    @DeleteMapping("/{article_id}")
+    @DeleteMapping("/articles/{article_id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deleteArticle(@PathVariable long article_id) {
         try {

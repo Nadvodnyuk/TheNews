@@ -1,4 +1,4 @@
-package com.example.TheNews.facade;
+ package com.example.TheNews.facade;
 
 import com.example.TheNews.dto.request.SignInDto;
 import com.example.TheNews.entity.UserEntity;
@@ -7,15 +7,20 @@ import com.example.TheNews.repository.UserRepo;
 import com.example.TheNews.service.JwtService;
 import com.example.TheNews.service.UserService;
 import com.example.TheNews.service.facade.impl.UserFacadeImpl;
+import jakarta.servlet.http.HttpServletRequest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.time.LocalDateTime;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -48,39 +53,67 @@ public class UserFacadeTests {
 
     @Test
     public void testAuthenticateFacade() throws NotFoundException {
-        // Создание объекта UserEntity, который будет возвращен методом userService.authenticate
         UserEntity authenticatedUser = new UserEntity();
         when(userService.authenticate(any(SignInDto.class))).thenReturn(authenticatedUser);
 
-        // Создание JWT токена
         String jwtToken = "your_generated_jwt_token";
 
-        // Установка заглушки для возвращаемого значения от jwtService.generateToken
         when(jwtService.generateToken(any(UserEntity.class))).thenReturn(jwtToken);
 
-        // Установка заглушки для возвращаемого значения от jwtService.getExpirationTime
-        long time = 3600L;
+        long time = 3600000L;
         when(jwtService.getExpirationTime()).thenReturn(time);
 
-        // Вызов метода вашего фасада, который вы хотите протестировать
         userFacade.authenticateFacade(new SignInDto());
 
-        // Проверка вызова метода userService.authenticate с правильным аргументом
         verify(userService).authenticate(any(SignInDto.class));
-
-        // Проверка вызова метода jwtService.generateToken с правильным аргументом
         verify(jwtService).generateToken(any(UserEntity.class));
-
-        // Проверка вызова метода jwtService.getExpirationTime
         verify(jwtService).getExpirationTime();
     }
 
+    @Test
     public void UserFacade_authenticatedUserFacade_ReturnsVoid() {
 
+        Authentication authentication = new UsernamePasswordAuthenticationToken(user, null);
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        UserFacadeImpl userFacade = new UserFacadeImpl();
+
+        userFacade.authenticatedUserFacade();
+
+        UserEntity currentUser = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        assertEquals(user.getUsername(), currentUser.getUsername());
+        assertEquals(user.getUser_id(), currentUser.getUser_id());
     }
 
-    //С.Выйти
-    public void UserFacade_logOutFacade_ReturnsVoid() {
+    @Test
+    void logOutFacade_WithValidToken_ShouldInvalidateToken() {
+        HttpServletRequest request = mock(HttpServletRequest.class);
+        when(request.getHeader("Authorization")).thenReturn("Bearer valid_token");
 
+        userFacade.logOutFacade(request);
+
+        verify(jwtService).invalidateToken("valid_token");
+    }
+
+    @Test
+    void logOutFacade_WithNoToken_ShouldNotInvalidateToken() {
+        HttpServletRequest request = mock(HttpServletRequest.class);
+        when(request.getHeader("Authorization")).thenReturn(null);
+
+        userFacade.logOutFacade(request);
+
+        verifyNoInteractions(jwtService);
+    }
+
+    @Test
+    void logOutFacade_WithInvalidTokenFormat_ShouldNotInvalidateToken() {
+        HttpServletRequest request = mock(HttpServletRequest.class);
+        when(request.getHeader("Authorization")).thenReturn("invalid_format");
+
+        userFacade.logOutFacade(request);
+
+        verifyNoInteractions(jwtService);
     }
 }

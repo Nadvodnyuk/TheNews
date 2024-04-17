@@ -33,10 +33,10 @@ public class SecurityConfiguration {
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers(antMatcher("/**"))
-                        .permitAll()
-                        .anyRequest()
-                        .authenticated());
+                        .requestMatchers(antMatcher("/auth/**")).permitAll()
+                        .requestMatchers(antMatcher("/admin/**")).hasAuthority("ADMIN")
+                        .requestMatchers(antMatcher("/user/**")).hasAuthority("USER")
+                        .anyRequest().authenticated());
         return http.build();
     }
 

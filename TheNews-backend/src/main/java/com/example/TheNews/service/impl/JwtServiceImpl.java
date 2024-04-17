@@ -21,7 +21,7 @@ public class JwtServiceImpl implements JwtService {
 
     private String secretKey = "3cfa76ef14937c1c0ea519f8fc057a80fcd04a7420f8e8bcd0a7567c272e007b";
 
-    private long jwtExpiration = 3600;
+    private long jwtExpiration = 3600000;
 
     // Добавляем хранилище для инвалидированных токенов
     private static Set<String> blacklistedTokens = new HashSet<>();

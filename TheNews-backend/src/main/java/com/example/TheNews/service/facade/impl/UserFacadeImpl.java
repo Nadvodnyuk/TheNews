@@ -45,6 +45,7 @@ public class UserFacadeImpl implements UserFacade {
 
         SignInResponseDto loginResponse = new SignInResponseDto();
         loginResponse.setToken(jwtToken);
+        System.out.println("jwtToken!!!" + jwtToken);
         loginResponse.setExpiresIn(jwtService.getExpirationTime());
     }
 

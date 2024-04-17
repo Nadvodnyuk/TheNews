@@ -13,7 +13,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/users")
 // @CrossOrigin("http://localhost:3000")
 
 public class UserController {
@@ -22,7 +21,7 @@ public class UserController {
     @Autowired
     private UserFacade userFacade;
 
-    @PostMapping("/sign_up")
+    @PostMapping("/auth/sign_up")
     public ResponseEntity<?> register(@RequestBody SignUpDto regUserDto) {
         try {
             userFacade.registerFacade(regUserDto.getFirst_name(),
@@ -35,7 +34,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("/login")
+    @PostMapping("/auth/login")
     public ResponseEntity<?> authenticate(@RequestBody SignInDto loginUserDto) {
         try {
             userFacade.authenticateFacade(loginUserDto);
@@ -45,7 +44,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/me")
+    @GetMapping("/users/me")
     public ResponseEntity<?> authenticatedUser() {
 
         try {
@@ -56,7 +55,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("/log_out")
+    @PostMapping("/users/log_out")
     public ResponseEntity<?> logOut(HttpServletRequest request) {
         try {
             userFacade.logOutFacade(request);
@@ -66,7 +65,7 @@ public class UserController {
         }
     }
 
-    @DeleteMapping("/{user_id}")
+    @DeleteMapping("/users/{user_id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deleteUser(@PathVariable long user_id) {
         try {
