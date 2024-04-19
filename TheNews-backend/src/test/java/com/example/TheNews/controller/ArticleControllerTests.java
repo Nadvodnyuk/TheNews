@@ -57,7 +57,7 @@ public class ArticleControllerTests {
                 .comment_num(15).build();
 
         when(articleFacade.getAllLatestArticlesFacade()).thenReturn(Arrays.asList(articleDto));
-        mockMvc.perform(get("/articles/all"))
+        mockMvc.perform(get("/auth/articles/all"))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.size()",
                         CoreMatchers.is(Arrays.asList(articleDto).size())));
@@ -71,7 +71,7 @@ public class ArticleControllerTests {
                 .image_url("Image").build();
 
         doNothing().when(articleFacade).createArticleFacade(createArticleDto);
-        mockMvc.perform(post("/articles/create")
+        mockMvc.perform(post("/admin/articles/create")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(createArticleDto)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -90,7 +90,7 @@ public class ArticleControllerTests {
                 .comment_num(15).build();
 
         when(articleFacade.getOneFacade(article_id)).thenReturn(articleDto);
-        mockMvc.perform(get("/articles/article/1"))
+        mockMvc.perform(get("/admin/articles/1"))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.title",
                         CoreMatchers.is(articleDto.getTitle())))
@@ -109,7 +109,7 @@ public class ArticleControllerTests {
                 .image_url("Image").build();
 
         doNothing().when(articleFacade).editArticleFacade(editArticleDto);
-        mockMvc.perform(put("/articles/update/1")
+        mockMvc.perform(put("/admin/articles/update/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(editArticleDto)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -121,7 +121,7 @@ public class ArticleControllerTests {
         long article_id = 1;
         doNothing().when(articleFacade).deleteFacade(article_id);
 
-        ResultActions response = mockMvc.perform(delete("/articles/1")
+        ResultActions response = mockMvc.perform(delete("/admin/articles/1")
                 .contentType(MediaType.APPLICATION_JSON));
 
         response.andExpect(MockMvcResultMatchers.status().isOk());

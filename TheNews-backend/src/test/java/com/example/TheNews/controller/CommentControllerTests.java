@@ -58,7 +58,7 @@ public class CommentControllerTests {
 
         when(commentFacade.getCommentsByArticleIdWithPaginationFacade(page, article_с))
                 .thenReturn(Arrays.asList(commentDto));
-        mockMvc.perform(get("/comments/showComments")
+        mockMvc.perform(get("/auth/comments/showComments")
                         .param("page", String.valueOf(page))
                         .param("article_с", String.valueOf(article_с)))
                 .andExpect(status().isOk())
@@ -67,13 +67,13 @@ public class CommentControllerTests {
     }
 
     @Test
-    public void CommentController_putComment_ReturnsOk() throws Exception {
+    public void CommentController_postComment_ReturnsOk() throws Exception {
         CreateCommentDto createCommentDto = CreateCommentDto.builder()
                 .comment_text("comment").build();
         int userС = 1;
         int articleС = 1;
         doNothing().when(commentFacade).createCommentFacade(userС, createCommentDto, articleС);
-        mockMvc.perform(post("/comments/putComment/1/1")
+        mockMvc.perform(post("/comments/postComment/1/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(createCommentDto)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -85,7 +85,7 @@ public class CommentControllerTests {
         int comment_id = 1;
         doNothing().when(commentFacade).deleteFacade(comment_id);
 
-        ResultActions response = mockMvc.perform(delete("/comments/admin/1")
+        ResultActions response = mockMvc.perform(delete("/admin/comments/1")
                 .contentType(MediaType.APPLICATION_JSON));
 
         response.andExpect(MockMvcResultMatchers.status().isOk());

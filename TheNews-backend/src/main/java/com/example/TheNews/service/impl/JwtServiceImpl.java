@@ -40,7 +40,6 @@ public class JwtServiceImpl implements JwtService {
     }
 
     public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
-        System.out.println("generateToken: " + jwtExpiration);
         return buildToken(extraClaims, userDetails, jwtExpiration);
     }
 
@@ -55,8 +54,6 @@ public class JwtServiceImpl implements JwtService {
 
     ) {
         String username = userDetails != null ? userDetails.getUsername() : "null";
-        System.out.println("Username: " + username);
-        System.out.println("Expiration: " + expiration);
 
         String subject = userDetails != null ? userDetails.getUsername() : null;
         return Jwts
@@ -93,7 +90,6 @@ public class JwtServiceImpl implements JwtService {
 
     private Key getSignInKey() {
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
-        System.out.println("getSignInKey: " + secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
     }
 

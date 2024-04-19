@@ -42,7 +42,7 @@ public class LikeControllerTests {
         LikeDto likeDto = LikeDto.builder()
                 .userL(1).articleL(1).build();
         when(likeFacade.likeNumFacade(article_id)).thenReturn(likeNum);
-        mockMvc.perform(post("/likes/likeNum")
+        mockMvc.perform(post("/auth/likes/likeNum")
                         .param("article_id", String.valueOf(article_id)))
                 .andExpect(status().isOk())
                 .andExpect(content().string(String.valueOf(likeNum)));
@@ -53,7 +53,7 @@ public class LikeControllerTests {
         LikeDto likeDto = LikeDto.builder()
                 .userL(1).articleL(1).build();
         doNothing().when(likeFacade).putLikeFacade(likeDto);
-        mockMvc.perform(post("/likes/putLike")
+        mockMvc.perform(post("/likes/postLike")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(likeDto)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -66,7 +66,7 @@ public class LikeControllerTests {
                 .userL(1).articleL(1).build();
         doNothing().when(likeFacade).deleteLikeFacade(likeDto);
 
-        ResultActions response = mockMvc.perform(delete("/likes/1/1")
+        ResultActions response = mockMvc.perform(delete("/user/likes/1/1")
                 .contentType(MediaType.APPLICATION_JSON));
 
         response.andExpect(MockMvcResultMatchers.status().isOk());

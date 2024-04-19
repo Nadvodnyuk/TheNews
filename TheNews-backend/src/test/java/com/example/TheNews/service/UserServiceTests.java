@@ -69,7 +69,6 @@ public class UserServiceTests {
         UserEntity newUser = userService.authenticate(dto);
 
         Assertions.assertThat(newUser).isNotNull();
-        System.out.println(newUser);
     }
 
     @Test

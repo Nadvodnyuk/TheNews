@@ -38,7 +38,7 @@ public class ArticleController {
         }
     }
 
-    @GetMapping("/articles/article/{article_id}")
+    @GetMapping("/admin/articles/{article_id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> getArticleById(@PathVariable long article_id) {
         try {
@@ -50,7 +50,7 @@ public class ArticleController {
         }
     }
 
-    @PutMapping("/articles/update/{article_id}")
+    @PutMapping("/admin/articles/update/{article_id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> updateArticle(@PathVariable long article_id,
                                            @RequestBody EditArticleDto article) {
@@ -63,7 +63,7 @@ public class ArticleController {
         }
     }
 
-    @DeleteMapping("/articles/{article_id}")
+    @DeleteMapping("/admin/articles/{article_id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deleteArticle(@PathVariable long article_id) {
         try {
