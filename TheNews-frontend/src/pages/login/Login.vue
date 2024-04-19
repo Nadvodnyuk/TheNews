@@ -19,7 +19,7 @@
                     />
                 </div>
                 <div class="login_btn">
-                    <button type="button"> Войти </button>
+                    <button type="submit"> Войти </button>
                 </div>
                 <div class="create_acc_ref">
                     <router-link :to="{ name: 'regPage' }">
