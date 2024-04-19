@@ -12,14 +12,14 @@ import org.springframework.stereotype.Service;
 public interface CommentFacade {
 
     //Вывести все комменты к статье
-    public List<CommentDto> getCommentsByArticleIdWithPaginationFacade(long article_c, int page)
+    List<CommentDto> getCommentsByArticleIdWithPaginationFacade(long article_c, int page)
             throws NotFoundException;
 
     //Написать коммент
-    public void createCommentFacade(long user_c, CreateCommentDto comment, long article_с)
+    void createCommentFacade(long user_c, CreateCommentDto comment, long article_с)
             throws NotFoundException;
 
     //Удалить коммент
-    public void deleteFacade(long comment_id);
+    void deleteFacade(long comment_id);
 
 }

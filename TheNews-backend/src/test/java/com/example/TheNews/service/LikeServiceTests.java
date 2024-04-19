@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import static com.example.TheNews.entity.Role.ROLE_USER;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
@@ -34,7 +35,7 @@ public class LikeServiceTests {
             .user_id(1)
             .first_name("Yana")
             .last_name("Mark")
-            .role("USER")
+            .role(ROLE_USER)
             .username("Team")
             .password("222")
             .createdAt(java.sql.Timestamp.valueOf(LocalDateTime.now()))

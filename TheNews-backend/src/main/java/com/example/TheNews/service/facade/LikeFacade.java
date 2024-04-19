@@ -6,12 +6,12 @@ import org.springframework.stereotype.Service;
 @Service
 public interface LikeFacade {
     //C.Вывести лайки для статьи
-    public int likeNumFacade(long article_id);
+    int likeNumFacade(long article_id);
 
     ///Для авторизованного:
     //C.Поставить лайк
-    public void putLikeFacade(LikeDto likeDto);
+    void putLikeFacade(LikeDto likeDto);
 
     //C.Удалить лайк
-    public void deleteLikeFacade(LikeDto likeDto);
+    void deleteLikeFacade(LikeDto likeDto);
 }

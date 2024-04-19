@@ -10,17 +10,17 @@ import java.util.List;
 @Service
 public interface ArticleFacade {
     //Для списка статей:
-    public List<ArticleDto> getAllLatestArticlesFacade();
+    List<ArticleDto> getAllLatestArticlesFacade();
     //Для создания статьи:
 
-    public void createArticleFacade(CreateArticleDto createArticleDto);
+    void createArticleFacade(CreateArticleDto createArticleDto);
 
     //Для получения одной статьи:
-    public ArticleDto getOneFacade(Long art_id) throws NotFoundException;
+    ArticleDto getOneFacade(Long art_id) throws NotFoundException;
 
     //Для изменения статьи
-    public void editArticleFacade(EditArticleDto editArticleDto);
+    void editArticleFacade(EditArticleDto editArticleDto);
 
     //Удаление статьи:
-    public void deleteFacade(Long art_id);
+    void deleteFacade(Long art_id);
 }
