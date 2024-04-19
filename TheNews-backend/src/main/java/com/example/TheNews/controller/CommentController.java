@@ -36,7 +36,7 @@ public class CommentController {
     //Удалить коммент
 
 
-    @GetMapping("/showComments")
+    @GetMapping("/auth/showComments")
     public ResponseEntity<?> getCommentsForArticle(@RequestParam int page,
                                                    @RequestParam long article_с) {
         try {

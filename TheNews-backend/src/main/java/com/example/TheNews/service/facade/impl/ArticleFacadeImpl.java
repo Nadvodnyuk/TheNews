@@ -1,12 +1,9 @@
 package com.example.TheNews.service.facade.impl;
 
 import com.example.TheNews.entity.ArticleEntity;
-import com.example.TheNews.entity.UserEntity;
+import com.example.TheNews.entity.TopicEntity;
 import com.example.TheNews.exception.NotFoundException;
-import com.example.TheNews.repository.ArticleRepo;
 import com.example.TheNews.service.ArticleService;
-import com.example.TheNews.service.CommentService;
-import com.example.TheNews.service.UserService;
 import com.example.TheNews.service.facade.ArticleFacade;
 import com.example.TheNews.dto.request.CreateArticleDto;
 import com.example.TheNews.dto.request.EditArticleDto;
@@ -17,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
-import java.util.List;
+import java.util.*;
 @Service
 public class ArticleFacadeImpl implements ArticleFacade {
 
@@ -61,7 +58,7 @@ public class ArticleFacadeImpl implements ArticleFacade {
     public void createArticleFacade(CreateArticleDto createArticleDto) {
         articleService.createArticle(createArticleDto.getTitle(),
                 createArticleDto.getArticle_text(),
-                createArticleDto.getImage_url());
+                createArticleDto.getImage_url(), createArticleDto.getTopics());
     }
 
     //Для получения одной статьи:

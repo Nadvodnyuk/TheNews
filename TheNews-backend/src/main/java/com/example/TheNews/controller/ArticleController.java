@@ -18,7 +18,7 @@ public class ArticleController {
     @Autowired
     private ArticleFacade articleFacade;
 
-    @GetMapping("/articles/all")
+    @GetMapping("/auth/articles/all")
     public ResponseEntity<?> getAllArticles() {
         try {
             return ResponseEntity.ok(articleFacade.getAllLatestArticlesFacade());

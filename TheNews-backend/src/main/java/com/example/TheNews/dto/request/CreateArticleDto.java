@@ -4,6 +4,7 @@ import com.example.TheNews.entity.TopicEntity;
 
 import lombok.*;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder
@@ -13,7 +14,7 @@ public class CreateArticleDto {
     private String title;
     private String article_text;
     private String image_url;
-    private List<TopicEntity> topics;
+    private Set<TopicEntity> topics;
 
     public String getTitle() {
         return title;
@@ -39,11 +40,11 @@ public class CreateArticleDto {
         this.image_url = image_url;
     }
 
-    public List<TopicEntity> getTopics() {
+    public Set<TopicEntity> getTopics() {
         return topics;
     }
 
-    public void setTopics(List<TopicEntity> topics) {
+    public void setTopics(Set<TopicEntity> topics) {
         this.topics = topics;
     }
 }

@@ -2,7 +2,9 @@ package com.example.TheNews.service.impl;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
+import com.example.TheNews.entity.TopicEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +29,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     //Для создания статьи:
 
-    public void createArticle(String title, String text, String imageUrl) {
+    public void createArticle(String title, String text, String imageUrl, Set<TopicEntity> topics) {
         // Создаем новую статью
         ArticleEntity article = new ArticleEntity();
 
@@ -37,6 +39,7 @@ public class ArticleServiceImpl implements ArticleService {
         article.setImage_url(imageUrl);
         java.sql.Timestamp currentDateTime = java.sql.Timestamp.valueOf(LocalDateTime.now());
         article.setPublication_date(currentDateTime);
+        article.setTopics(topics);
 
         // Сохраняем статью в базе данных
         articleRepo.save(article);

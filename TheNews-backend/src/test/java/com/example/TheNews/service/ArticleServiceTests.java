@@ -68,7 +68,7 @@ public class ArticleServiceTests {
 
         assertAll(() -> articleService.createArticle(article.getTitle(),
                 article.getArticle_text(),
-                article.getImage_url()));
+                article.getImage_url(), article.getTopics()));
     }
 
     @Test

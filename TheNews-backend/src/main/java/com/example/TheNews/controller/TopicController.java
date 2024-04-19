@@ -17,7 +17,7 @@ public class TopicController {
     private TopicService topicService;
 
     // ВСТАВИТЬ DELETE MAPPING
-    @DeleteMapping("/{topic_id}")
+    @DeleteMapping("/auth/{topic_id}")
     public ResponseEntity deleteTopic(@PathVariable Long topic_id) {
         try {
             return ResponseEntity.ok(topicService.delete(topic_id));

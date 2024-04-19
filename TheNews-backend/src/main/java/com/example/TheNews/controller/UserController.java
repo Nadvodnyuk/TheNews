@@ -44,7 +44,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/users/me")
+    @GetMapping("/auth/users/me")
     public ResponseEntity<?> authenticatedUser() {
 
         try {
@@ -55,7 +55,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("/users/log_out")
+    @PostMapping("/auth/users/log_out")
     public ResponseEntity<?> logOut(HttpServletRequest request) {
         try {
             userFacade.logOutFacade(request);
@@ -65,7 +65,7 @@ public class UserController {
         }
     }
 
-    @DeleteMapping("/users/{user_id}")
+    @DeleteMapping("/admin/users/{user_id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deleteUser(@PathVariable long user_id) {
         try {

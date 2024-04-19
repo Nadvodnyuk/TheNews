@@ -29,7 +29,7 @@ public class LikeController {
 
     //Ф.Удалить лайк
 
-    @PostMapping("/likeNum")
+    @PostMapping("/auth/likeNum")
     public ResponseEntity<?> likeNum(@RequestParam long article_id) {
         try {
             return ResponseEntity.ok(likeFacade.likeNumFacade(article_id));
@@ -51,7 +51,7 @@ public class LikeController {
     //(с проверкой пользователяAuth.../Principal)
 
     //лайк удаляем взяв айди поста и Id пользователя, в функцию удалить прередаем оба
-    @DeleteMapping("/{userL}/{articleL}")
+    @DeleteMapping("/user/{userL}/{articleL}")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> deleteLike(@PathVariable long userL,
                                         @PathVariable long articleL) {
