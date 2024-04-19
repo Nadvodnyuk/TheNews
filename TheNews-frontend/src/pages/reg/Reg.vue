@@ -48,6 +48,7 @@
 <script>
 import { useCatalog } from '../../store/catalog.js';
 import { mapState, mapActions } from 'pinia';
+import RegDataService from '../../services/RegDataService'
 
 export default {
     name: 'App',
