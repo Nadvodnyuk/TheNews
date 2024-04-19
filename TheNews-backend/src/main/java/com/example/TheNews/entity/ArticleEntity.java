@@ -24,6 +24,9 @@ public class ArticleEntity {
     @Column(name = "title")
     private String title;
 
+    @Column(name = "topics")
+    private String topics;
+
     @Column(name = "article_text")
     private String article_text;
 
@@ -48,10 +51,6 @@ public class ArticleEntity {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "articleC")
     private List<CommentEntity> comments;
-
-    @ManyToMany(mappedBy = "articles", fetch = FetchType.LAZY)
-    @Builder.Default
-    private Set<TopicEntity> topics = new HashSet<>();
 
     public long getArticle_id() {
         return article_id;
@@ -133,11 +132,11 @@ public class ArticleEntity {
         this.comments = comments;
     }
 
-    public Set<TopicEntity> getTopics() {
+    public String getTopics() {
         return topics;
     }
 
-    public void setTopics(Set<TopicEntity> topics) {
+    public void setTopics(String topics) {
         this.topics = topics;
     }
 

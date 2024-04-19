@@ -88,7 +88,8 @@ public class ArticleServiceTests {
         assertAll(() -> articleService.editArticle(article.getArticle_id(),
                 "Updated article",
                 "This is the updated article",
-                "Updated image"));
+                "Updated image",
+                "Updated topics"));
     }
 
     @Test

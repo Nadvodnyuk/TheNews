@@ -1,7 +1,6 @@
 package com.example.TheNews.service.facade.impl;
 
 import com.example.TheNews.entity.ArticleEntity;
-import com.example.TheNews.entity.TopicEntity;
 import com.example.TheNews.exception.NotFoundException;
 import com.example.TheNews.service.ArticleService;
 import com.example.TheNews.service.facade.ArticleFacade;
@@ -73,7 +72,7 @@ public class ArticleFacadeImpl implements ArticleFacade {
         articleService.editArticle(editArticleDto.getArticle_id(),
                 editArticleDto.getTitle(),
                 editArticleDto.getArticle_text(),
-                editArticleDto.getImage_url());
+                editArticleDto.getImage_url(),editArticleDto.getTopics());
     }
 
     //Удаление статьи:

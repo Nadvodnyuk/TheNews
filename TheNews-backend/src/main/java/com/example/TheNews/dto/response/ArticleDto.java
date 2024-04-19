@@ -2,7 +2,6 @@ package com.example.TheNews.dto.response;
 
 import com.example.TheNews.entity.CommentEntity;
 import com.example.TheNews.entity.LikeEntity;
-import com.example.TheNews.entity.TopicEntity;
 import lombok.Data;
 
 import java.sql.Timestamp;
@@ -24,7 +23,7 @@ public class ArticleDto {
     private java.sql.Timestamp publication_date;
     private List<LikeEntity> likes;
     private List<CommentEntity> comments;
-    private List<TopicEntity> topics;
+    private String topics;
 
     public long getArticle_id() {
         return article_id;
@@ -98,11 +97,11 @@ public class ArticleDto {
         this.comments = comments;
     }
 
-    public List<TopicEntity> getTopics() {
+    public String getTopics() {
         return topics;
     }
 
-    public void setTopics(List<TopicEntity> topics) {
+    public void setTopics(String topics) {
         this.topics = topics;
     }
 }

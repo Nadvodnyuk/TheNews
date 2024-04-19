@@ -1,6 +1,5 @@
 package com.example.TheNews.dto.request;
 
-import com.example.TheNews.entity.TopicEntity;
 
 import lombok.*;
 import java.util.List;
@@ -14,7 +13,7 @@ public class CreateArticleDto {
     private String title;
     private String article_text;
     private String image_url;
-    private Set<TopicEntity> topics;
+    private String topics;
 
     public String getTitle() {
         return title;
@@ -40,11 +39,11 @@ public class CreateArticleDto {
         this.image_url = image_url;
     }
 
-    public Set<TopicEntity> getTopics() {
+    public String getTopics() {
         return topics;
     }
 
-    public void setTopics(Set<TopicEntity> topics) {
+    public void setTopics(String topics) {
         this.topics = topics;
     }
 }

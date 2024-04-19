@@ -1,8 +1,5 @@
 package com.example.TheNews.dto.request;
 
-import com.example.TheNews.entity.CommentEntity;
-import com.example.TheNews.entity.LikeEntity;
-import com.example.TheNews.entity.TopicEntity;
 import lombok.*;
 
 import java.util.List;
@@ -17,7 +14,8 @@ public class EditArticleDto {
     private String title;
     private String article_text;
     private String image_url;
-    private List<TopicEntity> topics;
+    private String topics;
+
 
     public long getArticle_id() {
         return article_id;
@@ -51,11 +49,11 @@ public class EditArticleDto {
         this.image_url = image_url;
     }
 
-    public List<TopicEntity> getTopics() {
+    public String getTopics() {
         return topics;
     }
 
-    public void setTopics(List<TopicEntity> topics) {
+    public void setTopics(String topics) {
         this.topics = topics;
     }
 }
