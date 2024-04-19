@@ -34,8 +34,8 @@ public class SecurityConfiguration {
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers(antMatcher("/auth/**")).permitAll()
-                        .requestMatchers(antMatcher("/admin/**")).hasAuthority("ADMIN")
-                        .requestMatchers(antMatcher("/user/**")).hasAuthority("USER")
+                        .requestMatchers(antMatcher("/admin/**")).hasRole("ADMIN")
+                        .requestMatchers(antMatcher("/user/**")).hasRole("USER")
                         .anyRequest().authenticated());
         return http.build();
     }

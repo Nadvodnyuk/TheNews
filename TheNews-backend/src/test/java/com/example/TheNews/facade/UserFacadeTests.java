@@ -20,6 +20,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.time.LocalDateTime;
 
+import static com.example.TheNews.entity.Role.ROLE_USER;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -45,7 +46,7 @@ public class UserFacadeTests {
             .user_id(1)
             .first_name("Yana")
             .last_name("Mark")
-            .role("USER")
+            .role(ROLE_USER)
             .username("Team")
             .password("222")
             .createdAt(java.sql.Timestamp.valueOf(LocalDateTime.now()))

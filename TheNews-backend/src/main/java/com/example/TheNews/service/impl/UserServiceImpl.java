@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.TheNews.entity.Role.ROLE_USER;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -42,7 +44,7 @@ public class UserServiceImpl implements UserService {
         String encodedPassword = passwordEncoder.encode(password);
         user.setPassword(encodedPassword);
         // Устанавливаем роль по умолчанию (например, USER)
-        user.setRole("USER");
+        user.setRole(ROLE_USER);
 
         // Сохраняем пользователя в базе данных
         return userRepo.save(user);

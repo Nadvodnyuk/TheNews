@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
@@ -29,9 +30,6 @@ public class UserEntity implements UserDetails {
 	@Column(name = "last_name")
 	private String last_name;
 
-	@Column(name = "role")
-	private String role;
-
 	@Column(name = "username")
 	private String username;
 
@@ -45,6 +43,14 @@ public class UserEntity implements UserDetails {
 	@UpdateTimestamp
 	@Column(name = "updated_at")
 	private Date updatedAt;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "role", nullable = false)
+	private Role role;
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return List.of(new SimpleGrantedAuthority(role.name()));
+	}
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userL")
 	private List<LikeEntity> likes;
@@ -55,7 +61,7 @@ public class UserEntity implements UserDetails {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userC")
 	private List<CommentEntity> comments;
 
-	public UserEntity(String first_name, String last_name, String role, String username, String password) {
+	public UserEntity(String first_name, String last_name, Role role, String username, String password) {
 		this.first_name = first_name;
 		this.last_name = last_name;
 		this.role = role;
@@ -87,11 +93,11 @@ public class UserEntity implements UserDetails {
 		this.last_name = last_name;
 	}
 
-	public String getRole() {
+	public Role getRole() {
 		return role;
 	}
 
-	public void setRole(String role) {
+	public void setRole(Role role) {
 		this.role = role;
 	}
 
@@ -137,11 +143,6 @@ public class UserEntity implements UserDetails {
 
 	public void setUsername(String username) {
 		this.username = username;
-	}
-
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return null;
 	}
 
 	public String getPassword() {

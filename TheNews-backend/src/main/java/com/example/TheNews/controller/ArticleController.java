@@ -28,7 +28,7 @@ public class ArticleController {
     }
 
     @PostMapping("/admin/articles/create")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> createArticle(@RequestBody CreateArticleDto article) {
         try {
             articleFacade.createArticleFacade(article);
