@@ -5,11 +5,38 @@
                 Войти
             </router-link>
         </li>
+        <li class="nb_li">
+            <button class="nb_li" @click="logoutFoo" type="button"> Выйти </button>
+        </li>
     </ul>
 </template>
 
-<script setup>
+<script>
+import HomeDataService from '../../services/HomeDataService'
+export default {
+    name: 'TheNav',
+    data() {
+        return {};
+    },
+    methods: {
+        async logoutFoo() {
+            try {
+                const response = await HomeDataService.logout();
+                console.log(response);
+                this.$router.push('/');
+            } catch (e) {
+                this.error = 'Не прошло!';
+            }
+        }
+        // scrollToTop() {
+        //     // Прокручиваем страницу наверх (координаты 0, 0)
+        //     window.scrollTo(0, 0);
+        // },
 
+    },
+    mounted() {
+    },
+}
 </script>
 
 <style scoped lang="css">

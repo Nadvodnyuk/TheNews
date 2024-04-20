@@ -51,7 +51,7 @@ public class UserFacadeImpl implements UserFacade {
 
     public void authenticatedUserFacade() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
+        System.out.println(authentication.getPrincipal());
         UserEntity currentUser = (UserEntity) authentication.getPrincipal();
     }
 
@@ -63,6 +63,7 @@ public class UserFacadeImpl implements UserFacade {
             jwtService.invalidateToken(token);
             SecurityContextHolder.clearContext();
         }
+        System.out.println("ЕЕ!");
     }
 
     public long deleteFacade(DeleteUserDto user) {
