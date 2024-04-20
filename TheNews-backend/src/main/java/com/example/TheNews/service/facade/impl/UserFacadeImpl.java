@@ -63,7 +63,6 @@ public class UserFacadeImpl implements UserFacade {
             jwtService.invalidateToken(token);
             SecurityContextHolder.clearContext();
         }
-        System.out.println("ЕЕ!");
     }
 
     public long deleteFacade(DeleteUserDto user) {
