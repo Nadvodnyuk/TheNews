@@ -5,12 +5,12 @@
             <h1 class="reg_header">Регистрация </h1>
             <div class="reg_container">
                 <div class="name_input">
-                    <input type="text" v-model="reg.first_name" placeholder=" Имя" id="firstname" required="" />
-                    <input type="text" v-model="reg.last_name" placeholder=" Фамилия" id="lastname" required="" />
+                    <input type="text" v-model="reg.first_name" placeholder=" Имя" id="reg.first_name" required="" />
+                    <input type="text" v-model="reg.last_name" placeholder=" Фамилия" id="reg.last_name" required="" />
                 </div>
                 <div class="info_input">
-                    <input type="text" v-model="reg.email" placeholder=" Email" id="email" required="" />
-                    <input type="text" v-model="reg.password" placeholder=" Пароль" id="password" required="" />
+                    <input type="text" v-model="reg.username" placeholder=" Логин" id="reg.username" required="" />
+                    <input type="text" v-model="reg.password" placeholder=" Пароль" id="reg.password" required="" />
                 </div>
                 <div class="reg_btn">
                     <button type="submit"> Создать аккаунт </button>
@@ -38,7 +38,7 @@ export default {
             reg: {
                 first_name: null,
                 last_name: null,
-                email: null,
+                username: null,
                 password: null
             },
             submitted: false,
@@ -50,7 +50,7 @@ export default {
 
                 RegDataService.create(this.reg)
                     .then(response => {
-                        console.log(response.this.reg);
+                        console.log(response.data);
                         this.submitted = true;
                     })
 
