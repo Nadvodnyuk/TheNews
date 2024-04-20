@@ -13,7 +13,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-// @CrossOrigin("http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:8081")
 
 public class UserController {
     @Autowired
