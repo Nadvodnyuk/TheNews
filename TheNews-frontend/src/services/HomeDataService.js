@@ -2,10 +2,10 @@ import http from "../http-common";
 
 class HomeDataService {
   logout() {
-    return http.post("/auth/users/log_out");
+    return http.post("/both/users/log_out");
   }
   me() {
-    return http.get("/auth/users/me");
+    return http.get("/both/users/me");
   }
 }
 
