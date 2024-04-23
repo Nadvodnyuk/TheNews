@@ -16,7 +16,7 @@ import java.util.List;
 public interface UserService {
     public UserEntity registerUser(String firstName, String lastName, String username, String password);
 
-    public UserEntity authenticate(SignInDto input);
+    public UserEntity authenticate(SignInDto input) throws RuntimeException;
 
     public UserEntity getOne(Long art_id) throws NotFoundException;
 

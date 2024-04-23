@@ -12,11 +12,15 @@
 </template>
 
 <script>
-import HomeDataService from '../../services/HomeDataService'
+import HomeDataService from '../../services/HomeDataService';
+import { defineAsyncComponent } from 'vue';
+
 export default {
     name: 'TheNav',
     data() {
-        return {};
+        return {
+            whoami: '',
+        };
     },
     methods: {
         async logoutFoo() {
@@ -27,7 +31,17 @@ export default {
             } catch (e) {
                 this.error = 'Не прошло!';
             }
-        }
+        },
+        retrieveMe() {
+            HomeDataService.me()
+                .then(response => {
+                    this.whoami = response.data;
+                    console.log(response.data);
+                })
+                .catch(e => {
+                    console.log(e);
+                });
+        },
         // scrollToTop() {
         //     // Прокручиваем страницу наверх (координаты 0, 0)
         //     window.scrollTo(0, 0);

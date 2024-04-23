@@ -1,12 +1,12 @@
 <script setup>
-import Header from './components/header/TheHeader.vue'
+import TheHeader from './components/header/TheHeader.vue'
 import Footer from './components/footer/TheFooter.vue'
 </script>
 
 <template>
   <div class="wrapper">
     <div class="header">
-      <Header />
+      <TheHeader />
     </div>
 
     <div class="body">

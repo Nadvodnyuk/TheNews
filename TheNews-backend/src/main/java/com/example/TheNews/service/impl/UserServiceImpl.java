@@ -9,6 +9,9 @@ import com.example.TheNews.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -59,16 +62,30 @@ public class UserServiceImpl implements UserService {
 //        return userRepo.save(username);
 //    }
 
-    public UserEntity authenticate(SignInDto input) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                        input.getUsername(),
-                        input.getPassword()
-                )
-        );
+    public UserEntity authenticate(SignInDto input) throws RuntimeException{
+        try {
+            UserEntity userUser = userRepo.findByUsername(input.getUsername()).orElseThrow();
 
-        return userRepo
-                .findByUsername(input.getUsername())
-                .orElseThrow();
+            System.out.println("1" + userUser);
+
+            Authentication authentication = new UsernamePasswordAuthenticationToken(
+                    input.getUsername(), input.getPassword(), userUser.getAuthorities());
+
+            System.out.println("2" + authentication);
+
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+
+            System.out.println("3" + SecurityContextHolder.getContext().getAuthentication());
+
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                    input.getUsername(), input.getPassword()));
+
+            System.out.println("4" + SecurityContextHolder.getContext().getAuthentication());
+
+            return userRepo.findByUsername(input.getUsername()).orElseThrow();
+        } catch (AuthenticationException ex) {
+            throw new RuntimeException ("Authentication failed: " + ex.getMessage());
+        }
     }
 
     public List<UserEntity> allUsers() {

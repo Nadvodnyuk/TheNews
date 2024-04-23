@@ -1,3 +1,10 @@
+<script setup>
+import TheNav from '../../components/nav/TheNav.vue';
+import { useCatalog } from '../../store/catalog.js';
+import { mapState, mapActions } from 'pinia';
+import HomeDataService from '../../services/HomeDataService';
+</script>
+
 <template>
     <header class="header">
         <div class="header_bar">
@@ -17,19 +24,45 @@
             </router-link>
             <div class="person">
                 <div class="name">
-                    Иванов И.И.
+                    {{ whoami }}
                 </div>
-                <Nav class="nab_bar" />
+                <TheNav class="nab_bar" />
             </div>
 
         </div>
     </header>
 </template>
 
-<script setup>
-import Nav from '../../components/nav/TheNav.vue'
-import { useCatalog } from '../../store/catalog.js';
-import { mapState, mapActions } from 'pinia'; 
+
+<script>
+export default {
+    name: 'TheHeader',
+    data() {
+        return {
+            whoami: 'Иван',
+        };
+    },
+    created() {
+        HomeDataService.me()
+            .then(response => {
+                this.whoami = response.data;
+                console.log(response.data);
+            })
+            .catch(e => {
+                console.log(e);
+            });
+    },
+    methods: {
+
+        // scrollToTop() {
+        //     // Прокручиваем страницу наверх (координаты 0, 0)
+        //     window.scrollTo(0, 0);
+        // },
+
+    },
+    mounted() {
+    },
+}
 </script>
 
 <style scoped lang="css">

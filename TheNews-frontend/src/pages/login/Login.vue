@@ -25,7 +25,7 @@
 <script>
 import { useCatalog } from '../../store/catalog.js';
 import { mapState, mapActions } from 'pinia';
-import LoginDataService from '../../services/LoginDataService'
+import LoginDataService from '../../services/LoginDataService';
 
 export default {
     name: 'Login',

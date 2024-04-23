@@ -15,6 +15,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,20 +40,27 @@ public class UserFacadeImpl implements UserFacade {
 
     //С.Вход
     public void authenticateFacade(@RequestBody SignInDto loginUserDto) throws NotFoundException {
-        UserEntity authenticatedUser = userService.authenticate(loginUserDto);
 
+        UserEntity authenticatedUser = userService.authenticate(loginUserDto);
+//        Authentication authentication = new UsernamePasswordAuthenticationToken(authenticatedUser, null, authenticatedUser.getAuthorities());
+//
+//        // Устанавливаем аутентификацию в контекст безопасности
+//        SecurityContextHolder.getContext().setAuthentication(authentication);
+//        System.out.println("!!!" +SecurityContextHolder.getContext().getAuthentication());
         String jwtToken = jwtService.generateToken(authenticatedUser);
 
         SignInResponseDto loginResponse = new SignInResponseDto();
         loginResponse.setToken(jwtToken);
         System.out.println("jwtToken!!!" + jwtToken);
         loginResponse.setExpiresIn(jwtService.getExpirationTime());
+        //SecurityContextHolder.getContext().getAuthentication().setAuthenticated(true);
     }
 
     public void authenticatedUserFacade() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println(authentication.getPrincipal());
+        System.out.println(authentication);
         UserEntity currentUser = (UserEntity) authentication.getPrincipal();
+        System.out.println(currentUser);
     }
 
     //С.Выйти
@@ -61,9 +69,9 @@ public class UserFacadeImpl implements UserFacade {
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             String token = authHeader.substring(7);
             jwtService.invalidateToken(token);
-            SecurityContextHolder.clearContext();
+
         }
-    }
+        SecurityContextHolder.clearContext();}
 
     public long deleteFacade(DeleteUserDto user) {
         return (userService.delete(user.getUser_id()));
