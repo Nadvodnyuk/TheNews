@@ -26,6 +26,7 @@
 import { useCatalog } from '../../store/catalog.js';
 import { mapState, mapActions } from 'pinia';
 import LoginDataService from '../../services/LoginDataService';
+import HomeDataService from '../../services/HomeDataService';
 
 export default {
     name: 'Login',
@@ -39,6 +40,16 @@ export default {
         };
     },
     methods: {
+        async retrieveMe() {
+            HomeDataService.me()
+                .then(response => {
+                    this.whoami = response.data;
+                    console.log(response.data);
+                })
+                .catch(e => {
+                    console.log(e);
+                });
+        },
         async submitForm() {
             try {
 
@@ -47,7 +58,7 @@ export default {
                         console.log(response.data);
                         this.submitted = true;
                     })
-
+                this.retrieveMe();
                 this.$router.push('/');
             } catch (e) {
                 this.error = 'Проверьте все поля!';

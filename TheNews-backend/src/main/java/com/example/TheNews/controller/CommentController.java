@@ -39,7 +39,7 @@ public class CommentController {
         }
     }
 
-    @PostMapping("/comments/postComment/{userC}/{articleC}")
+    @PostMapping("/both/comments/postComment/{userC}/{articleC}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> postComment(
                                         @PathVariable long userC,

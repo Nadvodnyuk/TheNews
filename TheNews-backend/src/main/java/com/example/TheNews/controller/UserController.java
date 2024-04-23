@@ -44,7 +44,8 @@ public class UserController {
         }
     }
 
-    @GetMapping("/auth/users/me")
+    @GetMapping("/both/users/me")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> authenticatedUser() {
 
         try {
@@ -55,7 +56,8 @@ public class UserController {
         }
     }
 
-    @PostMapping("/auth/users/log_out")
+    @PostMapping("/both/users/log_out")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> logOut(HttpServletRequest request) {
         try {
             System.out.println(request);

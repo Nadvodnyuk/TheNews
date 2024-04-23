@@ -33,9 +33,11 @@ public class SecurityConfiguration {
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests((requests) -> requests
+
                         .requestMatchers(antMatcher("/auth/**")).permitAll()
                         .requestMatchers(antMatcher("/admin/**")).hasRole("ADMIN")
                         .requestMatchers(antMatcher("/user/**")).hasRole("USER")
+                        .requestMatchers(antMatcher("/both/**")).hasAnyRole("USER", "ADMIN")
                         .anyRequest().authenticated());
         return http.build();
     }

@@ -31,7 +31,7 @@ public class LikeController {
         }
     }
 
-    @PostMapping("/likes/postLike")
+    @PostMapping("/both/likes/postLike")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> postLike(@RequestBody LikeDto likeDto) {
         try {

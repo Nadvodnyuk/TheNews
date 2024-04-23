@@ -23,7 +23,7 @@ import HomeDataService from '../../services/HomeDataService';
                 </div>
             </router-link>
             <div class="person">
-                <div class="name">
+                <div class="name" @click="retrieveMe()">
                     {{ whoami }}
                 </div>
                 <TheNav class="nab_bar" />
@@ -42,7 +42,7 @@ export default {
             whoami: 'Иван',
         };
     },
-    created() {
+    computed() {
         HomeDataService.me()
             .then(response => {
                 this.whoami = response.data;
@@ -53,6 +53,16 @@ export default {
             });
     },
     methods: {
+        async retrieveMe() {
+            HomeDataService.me()
+                .then(response => {
+                    this.whoami = response.data;
+                    console.log(response.data);
+                })
+                .catch(e => {
+                    console.log(e);
+                });
+        },
 
         // scrollToTop() {
         //     // Прокручиваем страницу наверх (координаты 0, 0)

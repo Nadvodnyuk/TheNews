@@ -46,7 +46,7 @@ public class UserFacadeImpl implements UserFacade {
 //
 //        // Устанавливаем аутентификацию в контекст безопасности
 //        SecurityContextHolder.getContext().setAuthentication(authentication);
-//        System.out.println("!!!" +SecurityContextHolder.getContext().getAuthentication());
+        System.out.println("!!!" +SecurityContextHolder.getContext().getAuthentication());
         String jwtToken = jwtService.generateToken(authenticatedUser);
 
         SignInResponseDto loginResponse = new SignInResponseDto();
@@ -58,9 +58,9 @@ public class UserFacadeImpl implements UserFacade {
 
     public void authenticatedUserFacade() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println(authentication);
+        System.out.println("authentication " +authentication);
         UserEntity currentUser = (UserEntity) authentication.getPrincipal();
-        System.out.println(currentUser);
+        System.out.println("currentUser " +currentUser);
     }
 
     //С.Выйти

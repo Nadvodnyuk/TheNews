@@ -32,7 +32,7 @@ export default {
                 this.error = 'Не прошло!';
             }
         },
-        retrieveMe() {
+        async retrieveMe() {
             HomeDataService.me()
                 .then(response => {
                     this.whoami = response.data;
