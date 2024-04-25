@@ -31,8 +31,8 @@ public class LikeController {
         }
     }
 
-    @PostMapping("/both/likes/postLike")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @PostMapping("/user/likes/postLike")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> postLike(@RequestBody LikeDto likeDto) {
         try {
             likeFacade.putLikeFacade(likeDto);

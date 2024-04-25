@@ -1,12 +1,10 @@
-import { defineStore } from 'pinia'
+import { defineStore } from "pinia";
 
-export const useCatalog = defineStore('catalog-store', {
-  id: 'news',
+export const useCatalog = defineStore("catalog-store", {
+  id: "news",
   state: () => {
-    return {
-    }
+    return {};
   },
 
-  actions: {
-  }
-})
+  actions: {},
+});

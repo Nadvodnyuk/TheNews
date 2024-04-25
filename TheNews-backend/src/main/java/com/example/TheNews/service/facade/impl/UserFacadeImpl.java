@@ -21,6 +21,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.stereotype.Service;
+
 @Service
 public class UserFacadeImpl implements UserFacade {
     @Autowired
@@ -46,7 +47,7 @@ public class UserFacadeImpl implements UserFacade {
 //
 //        // Устанавливаем аутентификацию в контекст безопасности
 //        SecurityContextHolder.getContext().setAuthentication(authentication);
-        System.out.println("!!!" +SecurityContextHolder.getContext().getAuthentication());
+        System.out.println("!!!" + SecurityContextHolder.getContext().getAuthentication());
         String jwtToken = jwtService.generateToken(authenticatedUser);
 
         SignInResponseDto loginResponse = new SignInResponseDto();
@@ -58,9 +59,9 @@ public class UserFacadeImpl implements UserFacade {
 
     public void authenticatedUserFacade() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println("authentication " +authentication);
+        System.out.println("authentication " + authentication);
         UserEntity currentUser = (UserEntity) authentication.getPrincipal();
-        System.out.println("currentUser " +currentUser);
+        System.out.println("currentUser " + currentUser);
     }
 
     //С.Выйти
@@ -71,7 +72,8 @@ public class UserFacadeImpl implements UserFacade {
             jwtService.invalidateToken(token);
 
         }
-        SecurityContextHolder.clearContext();}
+        SecurityContextHolder.clearContext();
+    }
 
     public long deleteFacade(DeleteUserDto user) {
         return (userService.delete(user.getUser_id()));

@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService {
 //        return userRepo.save(username);
 //    }
 
-    public UserEntity authenticate(SignInDto input) throws RuntimeException{
+    public UserEntity authenticate(SignInDto input) throws RuntimeException {
         try {
             UserEntity userUser = userRepo.findByUsername(input.getUsername()).orElseThrow();
 
@@ -84,7 +84,7 @@ public class UserServiceImpl implements UserService {
 
             return userRepo.findByUsername(input.getUsername()).orElseThrow();
         } catch (AuthenticationException ex) {
-            throw new RuntimeException ("Authentication failed: " + ex.getMessage());
+            throw new RuntimeException("Authentication failed: " + ex.getMessage());
         }
     }
 

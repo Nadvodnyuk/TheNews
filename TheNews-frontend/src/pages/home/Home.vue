@@ -1,6 +1,12 @@
+<script setup> 
+import createArticle from '../../components/createArticle.vue'; 
+import comments from '../../components/comments.vue'; 
+</script> 
+
 <template>
     <div class="sub_header"></div>
     <div class="news_page">
+        <createArticle class="createArticleBtn" /> 
         <article class="post">
             <header>
                 <div class="title">
@@ -47,16 +53,12 @@
             <footer>
                 <ul class="stats">
                     <li>
-                        <button 
-                        class="unstyled-button" 
-                        @click="moreArticlesFlag = !moreArticlesFlag">
+                        <button class="unstyled-button" @click="moreArticlesFlag = !moreArticlesFlag">
                             {{ !moreArticlesFlag ? 'Показать больше' : 'Показать меньше' }}
                         </button>
                     </li>
                     <li>
-                        <button 
-                        class="unstyled-button" 
-                        @click="likedFlag = !likedFlag">
+                        <button class="unstyled-button" @click="likedFlag = !likedFlag">
                             <img class="mini" src="/img/heart.svg" alt="mini like" v-show="!likedFlag" />
                             <img class="mini" src="/img/blue-heart.svg" alt="mini like" v-show="likedFlag" />
                         </button>
@@ -69,83 +71,13 @@
                             <img class="mini" src="/img/comment2.svg" alt="mini like" v-show="!commentFlag" />
                             <img class="mini" src="/img/comment-open.svg" alt="mini like" v-show="commentFlag" />
                         </button>
-                        <button 
-                        class="unstyled-button" 
-                        @click="commentFlag = !commentFlag">
+                        <button class="unstyled-button" @click="commentFlag = !commentFlag">
                             15
                         </button>
                     </li>
                 </ul>
             </footer>
-            <div class="comment" v-show="commentFlag">
-                <div class="title_comment">
-                    <p>Lorem ipsum dolor sit amet, qui in ea voluptate velit esse,
-                        quam nihil molestiae consequatur, vel illum, quae ab illo
-                        inventore veritatis et quasi architecto beatae vitae dicta
-                        sunt, explicabo. Sed ut perspiciatis, consectetur adipiscing
-                        elit, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </p>
-                    <h3>
-                        Комментарий 1
-                    </h3>
-                </div>
-                <div class="title_comment">
-                    <p>Lorem ipsum dolor sit amet, qui in ea voluptate velit esse,
-                        quam nihil molestiae consequatur, vel illum, quae ab illo
-                        inventore veritatis et quasi architecto beatae vitae dicta
-                        sunt, explicabo. Sed ut perspiciatis, consectetur adipiscing
-                        elit, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </p>
-                    <h3>
-                        Комментарий 2
-                    </h3>
-                </div>
-                <div class="title_comment">
-                    <p>Lorem ipsum dolor sit amet, qui in ea voluptate velit esse,
-                        quam nihil molestiae consequatur, vel illum, quae ab illo
-                        inventore veritatis et quasi architecto beatae vitae dicta
-                        sunt, explicabo. Sed ut perspiciatis, consectetur adipiscing
-                        elit, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </p>
-                    <h3>
-                        Комментарий 3
-                    </h3>
-                </div>
-                <div class="comment_more">
-                    <ul class="state">
-                        <li>
-                            <button 
-                            class="unstyled-button" 
-                            @click="moreCommentsFlag = !moreCommentsFlag">
-                                Ещё комментарии
-                            </button>
-                        </li>
-                    </ul>
-                </div>
-                <div class="comment_bar">
-                    <textarea
-                    type="input" 
-                    cols="60"
-                    rows="14"
-                    wrap="soft"
-                    class="leave_comment" 
-                    v-model="myNewComment" 
-                    @input="validateComment"
-                    placeholder="Оставить комментарий">
-                    </textarea>
-                </div>
-                <p v-if="errors.comment">{{ errors.comment }}</p>
-                <div class="comment_more">
-                    <ul class="state">
-                        <li>
-                            <button class="unstyled-button" @click="sentFlag = true; submitComment;">
-                                Отправить комментарий
-                            </button>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
+        <comments/>
         </article>
         <div class="space">
         </div>
@@ -174,6 +106,10 @@ export default {
             likedFlag: false,
             errors: {
                 comment: ''
+            },
+
+            comments: {
+
             }
         };
     },

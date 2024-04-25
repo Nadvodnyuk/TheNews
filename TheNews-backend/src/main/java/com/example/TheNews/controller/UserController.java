@@ -10,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -38,6 +39,7 @@ public class UserController {
     public ResponseEntity<?> authenticate(@RequestBody SignInDto loginUserDto) {
         try {
             userFacade.authenticateFacade(loginUserDto);
+            System.out.println("New " + SecurityContextHolder.getContext().getAuthentication());
             return ResponseEntity.ok("Пользователь успешно аутентифицирован");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e);
@@ -50,6 +52,7 @@ public class UserController {
 
         try {
             userFacade.authenticatedUserFacade();
+            System.out.println("Me " + SecurityContextHolder.getContext().getAuthentication());
             return ResponseEntity.ok("Пользователь успешно авторизирован");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e);
