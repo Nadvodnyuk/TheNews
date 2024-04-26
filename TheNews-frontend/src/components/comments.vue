@@ -53,9 +53,6 @@
 </template>
 
 <script>
-import { useCatalog } from '../../store/catalog.js';
-import { mapState, mapActions } from 'pinia';
-import HomeDataService from '../../services/HomeDataService'
 
 export default {
     name: 'App',

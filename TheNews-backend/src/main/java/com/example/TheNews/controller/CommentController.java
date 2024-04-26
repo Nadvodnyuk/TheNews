@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.access.prepost.PreAuthorize;
 
+@CrossOrigin(origins = "http://localhost:8081")
 @RestController
 public class CommentController {
 

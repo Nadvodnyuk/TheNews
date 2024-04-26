@@ -3,6 +3,7 @@ package com.example.TheNews.configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -33,6 +34,7 @@ public class SecurityConfiguration {
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests((requests) -> requests
+                        .requestMatchers(HttpMethod.OPTIONS,"/**").permitAll()
                         .requestMatchers(antMatcher("/auth/**")).permitAll()
                         .requestMatchers(antMatcher("/admin/**")).hasRole("ADMIN")
                         .requestMatchers(antMatcher("/user/**")).hasRole("USER")
@@ -50,7 +52,7 @@ public class SecurityConfiguration {
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("Origin", "Content-Type", "Accept", "Authorization", "X-Requested-With"));
         configuration.setExposedHeaders(List.of("Authorization"));
-        configuration.setMaxAge(3600000L);
+        configuration.setMaxAge(86400L);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 
