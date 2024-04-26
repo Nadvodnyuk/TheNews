@@ -2,6 +2,10 @@
     height: 110px;
 }
 
+.createArticleBtn {
+    margin-bottom: 20px;
+}
+
 .news_page {
     display: flex;
     flex-direction: column;
@@ -84,7 +88,7 @@
 .post>footer {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: flex-start;
 }
 
 .stats {
@@ -103,6 +107,18 @@
     line-height: 2;
     margin: 0 0 0 2em;
     padding: 0 0 0 2em;
+    text-transform: uppercase;
+}
+
+.updateArticleLi {
+    width: 100%;
+    font-family: "Raleway", Helvetica, sans-serif;
+    font-size: 1em;
+    font-weight: 200;
+    letter-spacing: 30px;
+    line-height: 2;
+    margin: 0 0 0 0em;
+    padding: 0 0 0 0em;
     text-transform: uppercase;
 }
 

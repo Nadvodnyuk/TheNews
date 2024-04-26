@@ -1,8 +1,8 @@
 <template>
     <div>
-    <button v-if="!isFormVisible" @click="openCreateArticleForm" class="createArticleBtn">Создать статью</button>
-    <div v-if="isFormVisible" class="createArtForm">
-            <div class="createFormHeader" ><div class="createArtTitle"><h2 >Форма создания статьи</h2></div><div><button @click="closeCreateArticleForm" class="closeBtn">✖</button></div></div>
+    <button v-if="!isFormVisible" @click="openupdateArticleForm" class="updateArticleBtn">РЕДАКТИРОВАТЬ СТАТЬЮ</button>
+    <div v-if="isFormVisible" class="updateArtForm">
+            <div class="updateFormHeader" ><div class="updateArtTitle"><h2 >Форма редактирования статьи</h2></div><div><button @click="closeupdateArticleForm" class="closeBtn">✖</button></div></div>
             <input v-model="article.title" placeholder="Заголовок" class="artTitle">
             <span v-if="validationErrors.title" class="error-message">{{ validationErrors.title }}</span>
             <input v-model="article.tags" placeholder="Теги" class="artTags">
@@ -13,7 +13,7 @@
                 <input type="file" @change="handleFileUpload" class="artImg" id="fileUpload">
                 <span v-if="validationErrors.image" class="error-message">{{ validationErrors.image }}</span>
             </div >
-            <div class="publishDiv"><button @click="createArticleAndCloseForm" class="publishArticleBtn">Создать</button></div>
+            <div class="publishDiv"><button @click="updateArticleAndCloseForm" class="publishArticleBtn">Сохранить изменения</button></div>
             </div>
     </div>
   </template>
@@ -23,7 +23,7 @@
     data() {
       return {
         isFormVisible: false,
-        isArticleCreated: false,
+        isArticleupdated: false,
         article: {
           title: '',
           tags: '',
@@ -71,10 +71,10 @@
 
         return isValid;
         },
-        openCreateArticleForm() {
+        openupdateArticleForm() {
             this.isFormVisible = true;
         },
-        closeCreateArticleForm() {
+        closeupdateArticleForm() {
             this.isFormVisible = false;
             this.validationErrors='';
         },
@@ -82,12 +82,12 @@
         handleFileUpload(event) {
             this.article.image = event.target.files[0];
         },
-        createArticleAndCloseForm() {
+        updateArticleAndCloseForm() {
             if (!this.validateForm()) {
             return;
             }
             this.isFormVisible = false;
-            this.isArticleCreated = true;
+            this.isArticleupdated = true;
         }
 
     }
@@ -96,15 +96,15 @@
 
 <style>
 
-.createArticleBtn {
+.updateArticleBtn {
     background-color: white;
 }
 
-.createArtTitle {
-    margin-right: 295px;
+.updateArtTitle {
+    margin-right: 175px;
 }
 
-.createFormHeader {
+.updateFormHeader {
     display:flex;
     justify-content: right;
 }
@@ -120,10 +120,10 @@
     padding-top: 10px;
 }
 
-.createArtForm {
+.updateArtForm {
     display: flex;
     flex-direction: column;
-    width: 1000px;
+    width: 800px;
     margin: 0 auto;
     height: auto;
     padding: 20px;

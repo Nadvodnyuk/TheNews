@@ -1,4 +1,5 @@
 <script setup> 
+import updateArticle from '../../components/updateArticle.vue'; 
 import createArticle from '../../components/createArticle.vue'; 
 import comments from '../../components/comments.vue'; 
 </script> 
@@ -52,6 +53,12 @@ import comments from '../../components/comments.vue';
             </p>
             <footer>
                 <ul class="stats">
+                    <li @click="deleteArticle">
+                        Удалить статью
+                    </li>
+                    <li>
+                        <updateArticle class="updateArticleBtn" />
+                    </li>
                     <li>
                         <button class="unstyled-button" @click="moreArticlesFlag = !moreArticlesFlag">
                             {{ !moreArticlesFlag ? 'Показать больше' : 'Показать меньше' }}
@@ -134,7 +141,7 @@ export default {
             if (!this.errors.comment) {
                 console.log("Form submitted:", { comment: this.myNewComment });
             }
-        }
+        },
     },
     mounted() {
         this.date = this.printDate();
