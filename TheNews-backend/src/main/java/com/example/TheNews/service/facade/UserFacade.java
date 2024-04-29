@@ -19,7 +19,7 @@ public interface UserFacade {
                         @RequestParam String password) throws NotFoundException;
 
     //Вход
-    void authenticateFacade(@RequestBody SignInDto loginUserDto) throws NotFoundException;
+    SignInResponseDto authenticateFacade(@RequestBody SignInDto loginUserDto) throws NotFoundException;
 
     void authenticatedUserFacade();
 

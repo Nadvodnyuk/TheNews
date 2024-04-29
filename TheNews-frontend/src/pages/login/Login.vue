@@ -41,21 +41,22 @@ export default {
     },
     methods: {
         async retrieveMe() {
-            HomeDataService.me()
-                .then(response => {
-                    this.whoami = response.data;
-                    console.log(response.data);
-                })
-                .catch(e => {
-                    console.log(e);
-                });
-        },
+            try {
+                console.log(localStorage.getItem('token'))
+                const response = await HomeDataService.me();
+                this.whoami = response.data;
+                console.log(response.data);
+            } catch (e) {
+                console.log(e);
+        }
+    },
         async submitForm() {
             try {
 
                 LoginDataService.login(this.login)
                     .then(response => {
                         console.log(response.data);
+                        localStorage.setItem('token', response.data.token);
                         this.submitted = true;
                     })
                 this.retrieveMe();

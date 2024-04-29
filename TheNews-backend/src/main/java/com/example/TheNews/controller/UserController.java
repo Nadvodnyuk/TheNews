@@ -5,6 +5,7 @@ import com.example.TheNews.dto.request.SignInDto;
 import com.example.TheNews.dto.request.SignUpDto;
 import com.example.TheNews.exception.AlreadyExistException;
 import com.example.TheNews.service.facade.UserFacade;
+import com.example.TheNews.service.facade.impl.UserFacadeImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,9 +39,8 @@ public class UserController {
     @PostMapping("/auth/login")
     public ResponseEntity<?> authenticate(@RequestBody SignInDto loginUserDto) {
         try {
-            userFacade.authenticateFacade(loginUserDto);
-            System.out.println("New " + SecurityContextHolder.getContext().getAuthentication());
-            return ResponseEntity.ok("Пользователь успешно аутентифицирован");
+            System.out.println("Контроллер входа");
+            return ResponseEntity.ok(userFacade.authenticateFacade(loginUserDto));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e);
         }
@@ -51,8 +51,10 @@ public class UserController {
     public ResponseEntity<?> authenticatedUser() {
 
         try {
+            System.out.println("Контроллер МИ " );
+
             userFacade.authenticatedUserFacade();
-            System.out.println("Me " + SecurityContextHolder.getContext().getAuthentication());
+
             return ResponseEntity.ok("Пользователь успешно авторизирован");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e);
@@ -63,7 +65,7 @@ public class UserController {
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> logOut(HttpServletRequest request) {
         try {
-            System.out.println(request);
+            System.out.println("запрос на выход" + request);
             userFacade.logOutFacade(request);
             return ResponseEntity.ok("Пользователь успешно вышел из аккаунта");
         } catch (Exception e) {

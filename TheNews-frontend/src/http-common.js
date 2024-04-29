@@ -1,15 +1,26 @@
 import axios from "axios";
 
+// Получаем токен из localStorage
+const token = localStorage.getItem("token");
+
+// Проверяем, что токен существует и не равен null
+if (token) {
+  // Если токен существует, создаем экземпляр axios с заголовком Authorization
+  axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+} else {
+  // Если токен отсутствует, удаляем заголовок Authorization (если он был установлен ранее)
+  delete axios.defaults.headers.common["Authorization"];
+}
+
+// Создаем экземпляр axios с базовым URL и другими настройками
 export default axios.create({
   baseURL: "http://localhost:8080/",
   withCredentials: true,
   headers: {
     "Content-type": "application/json",
-    "Accept": "application/json",
-    // "Authorization": "Bearer " + localStorage.getItem("token"),
-  },
+    "Accept": "application/json"
+  }
 });
-
 // import axios from "axios";
 
 // const instance = axios.create({

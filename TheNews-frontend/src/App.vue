@@ -19,3 +19,11 @@ import Footer from './components/footer/TheFooter.vue'
     </div>
   </div>
 </template>
+
+<script>
+  export default  {
+    created () {
+      localStorage.clear();
+  }
+}
+</script>

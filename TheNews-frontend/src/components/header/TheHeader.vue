@@ -43,18 +43,12 @@ export default {
         };
     },
     computed() {
-        HomeDataService.me()
-            .then(response => {
-                this.whoami = response.data;
-                console.log(response.data);
-            })
-            .catch(e => {
-                console.log(e);
-            });
+       
     },
     methods: {
         async retrieveMe() {
-            HomeDataService.me()
+            console.log(localStorage.getItem('token'))
+            await HomeDataService.me()
                 .then(response => {
                     this.whoami = response.data;
                     console.log(response.data);

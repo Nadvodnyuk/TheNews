@@ -40,21 +40,20 @@ public class UserFacadeImpl implements UserFacade {
     }
 
     //С.Вход
-    public void authenticateFacade(@RequestBody SignInDto loginUserDto) throws NotFoundException {
+    public SignInResponseDto authenticateFacade(@RequestBody SignInDto loginUserDto) throws NotFoundException {
 
         UserEntity authenticatedUser = userService.authenticate(loginUserDto);
 //        Authentication authentication = new UsernamePasswordAuthenticationToken(authenticatedUser, null, authenticatedUser.getAuthorities());
 //
 //        // Устанавливаем аутентификацию в контекст безопасности
 //        SecurityContextHolder.getContext().setAuthentication(authentication);
-        System.out.println("!!!" + SecurityContextHolder.getContext().getAuthentication());
         String jwtToken = jwtService.generateToken(authenticatedUser);
 
         SignInResponseDto loginResponse = new SignInResponseDto();
         loginResponse.setToken(jwtToken);
-        System.out.println("jwtToken!!!" + jwtToken);
         loginResponse.setExpiresIn(jwtService.getExpirationTime());
         //SecurityContextHolder.getContext().getAuthentication().setAuthenticated(true);
+        return loginResponse;
     }
 
     public void authenticatedUserFacade() {
@@ -62,6 +61,7 @@ public class UserFacadeImpl implements UserFacade {
         System.out.println("authentication " + authentication);
         UserEntity currentUser = (UserEntity) authentication.getPrincipal();
         System.out.println("currentUser " + currentUser);
+
     }
 
     //С.Выйти

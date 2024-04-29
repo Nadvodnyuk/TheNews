@@ -27,6 +27,7 @@ export default {
             try {
                 const response = await HomeDataService.logout();
                 console.log(response);
+                localStorage.removeItem('token')
                 this.$router.push('/');
             } catch (e) {
                 this.error = 'Не прошло!';
@@ -70,6 +71,10 @@ export default {
 
 .nb_link:hover {
     color: rgb(88, 93, 99);
+}
+
+.nb_li {
+    background-color: white;
 }
 
 ul {
