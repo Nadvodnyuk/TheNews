@@ -65,24 +65,16 @@ public class UserServiceImpl implements UserService {
     public UserEntity authenticate(SignInDto input) throws RuntimeException {
         try {
             UserEntity userUser = userRepo.findByUsername(input.getUsername()).orElseThrow();
-
-//            System.out.println("1" + userUser);
-
             Authentication authentication = new UsernamePasswordAuthenticationToken(
                     input.getUsername(), input.getPassword(), userUser.getAuthorities());
+            System.out.println("authServ:  " + authentication);
+            // Аутентификация пользователя
+            authenticationManager.authenticate(authentication);
 
-//            System.out.println("2" + authentication);
-
+            // Установка аутентификации в контекст безопасности
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
-//            System.out.println("3" + SecurityContextHolder.getContext().getAuthentication());
-
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                    input.getUsername(), input.getPassword()));
-
-//            System.out.println("4" + SecurityContextHolder.getContext().getAuthentication());
-
-            return userRepo.findByUsername(input.getUsername()).orElseThrow();
+            return userUser;
         } catch (AuthenticationException ex) {
             throw new RuntimeException("Authentication failed: " + ex.getMessage());
         }

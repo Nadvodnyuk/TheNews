@@ -7,6 +7,7 @@ import com.example.TheNews.exception.AlreadyExistException;
 import com.example.TheNews.service.facade.UserFacade;
 import com.example.TheNews.service.facade.impl.UserFacadeImpl;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -46,16 +47,12 @@ public class UserController {
         }
     }
 
-    @GetMapping("/both/users/me")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @GetMapping("/auth/users/me")
     public ResponseEntity<?> authenticatedUser() {
 
         try {
             System.out.println("Контроллер МИ " );
-
-            userFacade.authenticatedUserFacade();
-
-            return ResponseEntity.ok("Пользователь успешно авторизирован");
+            return ResponseEntity.ok(userFacade.authenticatedUserFacade());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e);
         }
@@ -63,10 +60,10 @@ public class UserController {
 
     @PostMapping("/both/users/log_out")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<?> logOut(HttpServletRequest request) {
+    public ResponseEntity<?> logOut(HttpServletRequest request, HttpServletResponse response) {
         try {
             System.out.println("запрос на выход" + request);
-            userFacade.logOutFacade(request);
+            userFacade.logOutFacade(request, response);
             return ResponseEntity.ok("Пользователь успешно вышел из аккаунта");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e);

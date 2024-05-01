@@ -5,7 +5,7 @@ class HomeDataService {
     return http.post("/both/users/log_out");
   }
   async me() {
-    return http.get("/both/users/me");
+    return http.get("/auth/users/me");
   }
 }
 

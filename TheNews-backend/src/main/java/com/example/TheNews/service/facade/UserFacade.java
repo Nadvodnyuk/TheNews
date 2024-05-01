@@ -5,6 +5,7 @@ import com.example.TheNews.dto.request.SignInDto;
 import com.example.TheNews.dto.response.SignInResponseDto;
 import com.example.TheNews.exception.NotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,10 +22,10 @@ public interface UserFacade {
     //Вход
     SignInResponseDto authenticateFacade(@RequestBody SignInDto loginUserDto) throws NotFoundException;
 
-    void authenticatedUserFacade();
+    boolean authenticatedUserFacade();
 
     //Выход
-    void logOutFacade(HttpServletRequest request);
+    void logOutFacade(HttpServletRequest request, HttpServletResponse response);
 
     long deleteFacade(DeleteUserDto user);
 }

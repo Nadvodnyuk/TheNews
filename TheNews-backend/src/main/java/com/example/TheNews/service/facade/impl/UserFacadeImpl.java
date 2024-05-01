@@ -11,6 +11,7 @@ import com.example.TheNews.service.JwtService;
 import com.example.TheNews.service.UserService;
 import com.example.TheNews.service.facade.UserFacade;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.stereotype.Service;
@@ -43,36 +45,41 @@ public class UserFacadeImpl implements UserFacade {
     public SignInResponseDto authenticateFacade(@RequestBody SignInDto loginUserDto) throws NotFoundException {
 
         UserEntity authenticatedUser = userService.authenticate(loginUserDto);
-//        Authentication authentication = new UsernamePasswordAuthenticationToken(authenticatedUser, null, authenticatedUser.getAuthorities());
-//
-//        // Устанавливаем аутентификацию в контекст безопасности
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwtToken = jwtService.generateToken(authenticatedUser);
-
+        System.out.println("authenticationEnd " + authenticatedUser);
         SignInResponseDto loginResponse = new SignInResponseDto();
         loginResponse.setToken(jwtToken);
         loginResponse.setExpiresIn(jwtService.getExpirationTime());
-        //SecurityContextHolder.getContext().getAuthentication().setAuthenticated(true);
+        System.out.println("Вход выполнен " + SecurityContextHolder.getContext().getAuthentication());
         return loginResponse;
     }
 
-    public void authenticatedUserFacade() {
+    public boolean authenticatedUserFacade() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         System.out.println("authentication " + authentication);
-        UserEntity currentUser = (UserEntity) authentication.getPrincipal();
-        System.out.println("currentUser " + currentUser);
-
+//        UserEntity currentUser = (UserEntity) authentication.getPrincipal();
+//        System.out.println("currentUser " + currentUser);
+        System.out.println(authentication.getPrincipal());
+        if (authentication.getPrincipal()=="anonymousUser") {
+            System.out.println("Аноним");
+            return false;}
+        else
+            return true;
     }
 
     //С.Выйти
-    public void logOutFacade(HttpServletRequest request) {
+    public void logOutFacade(HttpServletRequest request, HttpServletResponse response) {
         String authHeader = request.getHeader("Authorization");
+        System.out.println("Вызван логаут");
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             String token = authHeader.substring(7);
             jwtService.invalidateToken(token);
-
         }
-        SecurityContextHolder.clearContext();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null) {
+            new SecurityContextLogoutHandler().logout(request, response, authentication);
+        }
+        SecurityContextHolder.getContext().setAuthentication(null);
     }
 
     public long deleteFacade(DeleteUserDto user) {
