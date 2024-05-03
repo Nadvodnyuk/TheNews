@@ -1,12 +1,12 @@
 <template>
     <ul class="nav_bar">
         <li class="nb_li">
-            <router-link :to="{ name: 'loginPage' }" class="nb_link">
+            <router-link v-if="!token" :to="{ name: 'loginPage' }" class="nb_link">
                 Войти
             </router-link>
         </li>
         <li class="nb_li">
-            <button class="nb_li" @click="logoutFoo" type="button"> Выйти </button>
+            <button v-if="token" class="nb_li" @click="logoutFoo" type="button"> Выйти </button>
         </li>
     </ul>
 </template>
@@ -14,6 +14,8 @@
 <script>
 import HomeDataService from '../../services/HomeDataService';
 import { defineAsyncComponent } from 'vue';
+import { useCatalog } from '../../store/catalog.js';
+import { mapState, mapActions } from 'pinia';
 
 export default {
     name: 'TheNav',
@@ -22,12 +24,23 @@ export default {
             whoami: '',
         };
     },
+    computed: {
+        ...mapState(useCatalog, ['token']),
+    },
     methods: {
+        ...mapActions(useCatalog, ['setName']),
+        ...mapActions(useCatalog, ['setToken']),
+        ...mapActions(useCatalog, ['setRole']),
         async logoutFoo() {
             try {
                 const response = await HomeDataService.logout();
                 console.log(response);
                 localStorage.removeItem('token');
+                localStorage.removeItem('name');
+                localStorage.removeItem('role');
+                this.setName('');
+                this.setToken('');
+                this.setRole('');
                 this.$router.push('/');
             } catch (e) {
                 this.error = 'Не прошло!';

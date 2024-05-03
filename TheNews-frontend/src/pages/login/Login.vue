@@ -40,16 +40,9 @@ export default {
         };
     },
     methods: {
-        async retrieveMe() {
-            try {
-                console.log(localStorage.getItem('token'))
-                const response = await HomeDataService.me();
-                this.whoami = response.data;
-                console.log(response.data);
-            } catch (e) {
-                console.log(e);
-        }
-    },
+        ...mapActions(useCatalog, ['setName']),
+        ...mapActions(useCatalog, ['setToken']),
+        ...mapActions(useCatalog, ['setRole']),
         async submitForm() {
             try {
 
@@ -58,13 +51,14 @@ export default {
                         console.log(response.data);
                         localStorage.setItem('token', response.data.token);
                         localStorage.setItem('name', response.data.name);
-                        this.$emit('nameChanged',  response.data.name);
+                        this.setName(response.data.name);
+                        this.setToken(response.data.token);
+                        this.setRole(response.data.role);
                         localStorage.setItem('role', response.data.role);
                         this.submitted = true;
                     })
                 
                 this.$router.push('/');
-                this.retrieveMe();
             } catch (e) {
                 this.error = 'Проверьте все поля!';
             }
@@ -78,8 +72,6 @@ export default {
         //     window.scrollTo(0, 0);
         // },
 
-    },
-    mounted() {
     },
 }
 </script>

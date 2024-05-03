@@ -7,7 +7,7 @@ import comments from '../../components/comments.vue';
 <template>
     <div class="sub_header"></div>
     <div class="news_page">
-        <createArticle class="createArticleBtn" /> 
+        <createArticle v-if="role === 'ROLE_ADMIN'" class="createArticleBtn" /> 
         <article class="post">
             <header>
                 <div class="title">
@@ -53,11 +53,11 @@ import comments from '../../components/comments.vue';
             </p>
             <footer>
                 <ul class="stats">
-                    <li @click="deleteArticle">
+                    <li v-if="role === 'ROLE_ADMIN'" @click="deleteArticle">
                         Удалить статью
                     </li>
                     <li>
-                        <updateArticle class="updateArticleBtn" />
+                        <updateArticle v-if="role === 'ROLE_ADMIN'" class="updateArticleBtn" />
                     </li>
                     <li>
                         <button class="unstyled-button" @click="moreArticlesFlag = !moreArticlesFlag">
@@ -119,6 +119,9 @@ export default {
 
             }
         };
+    },
+    computed: {
+        ...mapState(useCatalog, ['role'])
     },
     methods: {
         scrollToTop() {

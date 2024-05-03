@@ -22,7 +22,7 @@ import HomeDataService from "../../services/HomeDataService";
       </router-link>
       <div class="person">
         <div class="name" @click="retrieveMe()">
-          {{ whoami }}
+          {{ name }}
         </div>
         <TheNav class="nab_bar" />
       </div>
@@ -35,42 +35,30 @@ export default {
   name: "TheHeader",
   data() {
     return {
-      whoami: "",
+      localStorageKey: 'name',
+      whoami: this.name,
     };
   },
   computed: {
-    localStorageWatcher() {
-      return localStorage.getItem("name");
-    },
+    ...mapState(useCatalog, ['name']),
+
   },
   methods: {
     async retrieveMe() {
       console.log(localStorage.getItem("token"));
       await HomeDataService.me()
         .then((response) => {
-          this.whoami = localStorage.getItem("name");
+          this.whoami = this.name;
           console.log(response.data);
         })
         .catch((e) => {
           console.log(e);
         });
     },
-    updateLocalStorageValue(event) {
-      if (event.key === "name") {
-        this.whoami = event.newValue;
-      }
-    },
     // scrollToTop() {
     //     // Прокручиваем страницу наверх (координаты 0, 0)
     //     window.scrollTo(0, 0);
     // },
-  },
-  mounted() {
-    this.whoami = localStorage.getItem("name");
-    window.addEventListener("storage", this.updateLocalStorageValue);
-  },
-  beforeDestroy() {
-    window.removeEventListener("storage", this.updateLocalStorageValue);
   },
 };
 </script>
