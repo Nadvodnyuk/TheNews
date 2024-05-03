@@ -27,14 +27,14 @@ export default {
             try {
                 const response = await HomeDataService.logout();
                 console.log(response);
-                localStorage.removeItem('token')
+                localStorage.removeItem('token');
                 this.$router.push('/');
             } catch (e) {
                 this.error = 'Не прошло!';
             }
         },
         async retrieveMe() {
-            HomeDataService.me()
+            await HomeDataService.me()
                 .then(response => {
                     this.whoami = response.data;
                     console.log(response.data);

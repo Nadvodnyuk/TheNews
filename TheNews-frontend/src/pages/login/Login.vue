@@ -53,13 +53,13 @@ export default {
         async submitForm() {
             try {
 
-                LoginDataService.login(this.login)
+                await LoginDataService.login(this.login)
                     .then(response => {
                         console.log(response.data);
                         localStorage.setItem('token', response.data.token);
                         this.submitted = true;
                     })
-                this.retrieveMe();
+                await this.retrieveMe();
                 this.$router.push('/');
             } catch (e) {
                 this.error = 'Проверьте все поля!';
