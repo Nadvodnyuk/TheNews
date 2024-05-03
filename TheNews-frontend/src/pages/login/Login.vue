@@ -58,6 +58,7 @@ export default {
                         console.log(response.data);
                         localStorage.setItem('token', response.data.token);
                         localStorage.setItem('name', response.data.name);
+                        this.$emit('nameChanged',  response.data.name);
                         localStorage.setItem('role', response.data.role);
                         this.submitted = true;
                     })
