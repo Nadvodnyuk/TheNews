@@ -39,18 +39,18 @@ export default {
     name: 'TheHeader',
     data() {
         return {
-            whoami: 'Иван',
+            whoami: " ",
         };
     },
     computed() {
-       
+
     },
     methods: {
         async retrieveMe() {
             console.log(localStorage.getItem('token'))
             await HomeDataService.me()
                 .then(response => {
-                    this.whoami = response.data;
+                    this.whoami = localStorage.getItem('name');
                     console.log(response.data);
                 })
                 .catch(e => {
@@ -63,6 +63,10 @@ export default {
         //     window.scrollTo(0, 0);
         // },
 
+    },
+    watch() {
+        this.whoami = localStorage.getItem('name');
+        console.log(localStorage.getItem('name'))
     },
     mounted() {
     },

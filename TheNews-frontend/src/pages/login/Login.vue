@@ -57,10 +57,13 @@ export default {
                     .then(response => {
                         console.log(response.data);
                         localStorage.setItem('token', response.data.token);
+                        localStorage.setItem('name', response.data.name);
+                        localStorage.setItem('role', response.data.role);
                         this.submitted = true;
                     })
-                await this.retrieveMe();
+                
                 this.$router.push('/');
+                this.retrieveMe();
             } catch (e) {
                 this.error = 'Проверьте все поля!';
             }

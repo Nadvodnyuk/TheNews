@@ -1,5 +1,5 @@
 package com.example.TheNews.dto.response;
-
+import com.example.TheNews.entity.Role;
 import lombok.*;
 
 @Data
@@ -7,6 +7,10 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SignInResponseDto {
+
+    private String name;
+
+    private Role role;
     private String token;
 
     private long expiresIn;

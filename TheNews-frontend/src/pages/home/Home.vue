@@ -143,6 +143,7 @@ export default {
             }
         },
     },
+    
     mounted() {
         this.date = this.printDate();
         this.time = this.printTime();
