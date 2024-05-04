@@ -6,7 +6,9 @@ export const useCatalog = defineStore("catalog-store", {
     return {
       name: localStorage.getItem('name') || '',
       token: localStorage.getItem('token') || '',
-      role: localStorage.getItem('role') || ''
+      role: localStorage.getItem('role') || '',
+      articleId: '',
+      articleAll: {},
     };
   },
 
@@ -24,6 +26,15 @@ export const useCatalog = defineStore("catalog-store", {
     setRole(role) {
       this.role = role;
       localStorage.setItem('role', role)
+    },
+
+    setArticleId(articleId) {
+      this.articleId = articleId;
+      console.log("this.articleId:", this.articleId);
+    },
+
+    setArticleAll(articleAll) {
+      this.articleAll = articleAll;
     }
   },
 });

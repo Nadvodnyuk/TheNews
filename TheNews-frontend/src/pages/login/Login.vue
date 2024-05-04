@@ -5,9 +5,22 @@
             <h1 class="login_header">Вход в личный аккаунт </h1>
             <div class="login_container">
                 <div class="info_input">
-                    <input type="text" v-model="login.username" placeholder=" Имя пользователя" id="login.username" required="" 
+                    <input 
+                    type="text" 
+                    v-model="login.username" 
+                    placeholder=" Имя пользователя" 
+                    id="login.username" 
+                    required="" 
+                    autocomplete="username"
                     />
-                    <input type="text" v-model="login.password" placeholder=" Пароль" id="login.password" required="" />
+                    <input 
+                    type="password" 
+                    v-model="login.password" 
+                    placeholder=" Пароль" 
+                    id="login.password" 
+                    required="" 
+                    autocomplete="current-password"
+                    />
                 </div>
                 <div class="login_btn">
                     <button type="submit"> Войти </button>
@@ -24,9 +37,8 @@
 
 <script>
 import { useCatalog } from '../../store/catalog.js';
-import { mapState, mapActions } from 'pinia';
+import { mapActions } from 'pinia';
 import LoginDataService from '../../services/LoginDataService';
-import HomeDataService from '../../services/HomeDataService';
 
 export default {
     name: 'Login',
@@ -40,12 +52,9 @@ export default {
         };
     },
     methods: {
-        ...mapActions(useCatalog, ['setName']),
-        ...mapActions(useCatalog, ['setToken']),
-        ...mapActions(useCatalog, ['setRole']),
+        ...mapActions(useCatalog, ['setName','setToken','setRole']),
         async submitForm() {
             try {
-
                 await LoginDataService.login(this.login)
                     .then(response => {
                         console.log(response.data);
