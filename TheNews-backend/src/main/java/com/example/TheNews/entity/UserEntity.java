@@ -52,14 +52,8 @@ public class UserEntity implements UserDetails {
 		return List.of(new SimpleGrantedAuthority(role.name()));
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userL")
-	private List<LikeEntity> likes;
-
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userA")
 	private List<ArticleEntity> articles;
-
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userC")
-	private List<CommentEntity> comments;
 
 	public UserEntity(String first_name, String last_name, Role role, String username, String password) {
 		this.first_name = first_name;
@@ -153,13 +147,6 @@ public class UserEntity implements UserDetails {
 		this.password = password;
 	}
 
-	public List<LikeEntity> getLikes() {
-		return likes;
-	}
-
-	public void setLikes(List<LikeEntity> likes) {
-		this.likes = likes;
-	}
 
 	public List<ArticleEntity> getArticles() {
 		return articles;
@@ -167,14 +154,6 @@ public class UserEntity implements UserDetails {
 
 	public void setArticles(List<ArticleEntity> articles) {
 		this.articles = articles;
-	}
-
-	public List<CommentEntity> getComments() {
-		return comments;
-	}
-
-	public void setComments(List<CommentEntity> comments) {
-		this.comments = comments;
 	}
 
 	@Override

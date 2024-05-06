@@ -24,7 +24,7 @@ import comments from "../../components/comments.vue";
         </div>
         <div class="meta">
           <p class="published">
-            {{ article.publication_date }}
+            {{ formatDate(article.publication_date) }}
           </p>
         </div>
       </header>
@@ -38,8 +38,13 @@ import comments from "../../components/comments.vue";
       </div>
       <footer>
         <ul class="stats">
-          <li v-if="role === 'ROLE_ADMIN'" @click="deleteArticle">
-            Удалить статью
+          <li v-if="role === 'ROLE_ADMIN'">
+            <button
+              class="unstyled-button"
+              @click="deleteArticle(article.article_id)"
+            >
+              Удалить статью
+            </button>
           </li>
           <li>
             <updateArticle
@@ -56,19 +61,22 @@ import comments from "../../components/comments.vue";
               {{ !moreArticlesFlag ? "Показать больше" : "Показать меньше" }}
             </button>
           </li>
-          <li>
-            <button class="unstyled-button" @click="likedFlag = !likedFlag">
+          <li v-if="role === 'ROLE_USER'">
+            <button
+              class="unstyled-button"
+              @click="toggleLikedFlag(article.article_id)"
+            >
               <img
                 class="mini"
                 src="/img/heart.svg"
                 alt="mini like"
-                v-show="!likedFlag"
+                v-show="!likedFlags[article.article_id]"
               />
               <img
                 class="mini"
                 src="/img/blue-heart.svg"
                 alt="mini like"
-                v-show="likedFlag"
+                v-show="likedFlags[article.article_id]"
               />
             </button>
             <button class="unstyled-button">3</button>
@@ -123,13 +131,18 @@ export default {
       errors: {
         comment: "",
       },
-
+      like: {
+        userL: "",
+        articleL: "",
+      },
+      likedFlags: {},
       comments: {},
     };
   },
   computed: {
     ...mapState(useCatalog, ["role"]),
     ...mapState(useCatalog, ["articleAll"]),
+    ...mapState(useCatalog, ["id"]),
   },
   methods: {
     ...mapActions(useCatalog, ["setArticleAll"]),
@@ -166,10 +179,57 @@ export default {
         await HomeDataService.getAll().then((response) => {
           console.log(response.data);
           this.setArticleAll(response.data);
+          response.data.forEach((article) => {
+            this.$set(this.likedFlags, article.article_id, false); // Инициализация likedFlags для каждой статьи
+          });
         });
       } catch (e) {
         this.error = "Проверьте все поля!";
       }
+    },
+    async deleteArticle(id) {
+      try {
+        await HomeDataService.deleteArticle(id).then((response) => {
+          console.log(response.data);
+          this.getAll();
+        });
+      } catch (e) {
+        this.error = "Проверьте все поля!";
+      }
+    },
+    async toggleLikedFlag(articleId) {
+      try {
+        const currentState = this.likedFlags[articleId];
+        this.$set(this.likedFlags, articleId, !currentState);
+        const user_id = this.id;
+        await this.liking(user_id, articleId);
+      } catch (e) {
+        this.error = "Не удалось поставить лайк!";
+      }
+    },
+    async liking(user_id, article_id) {
+      try {
+        let like = {
+          userL: user_id,
+          articleL: article_id,
+        };
+        await HomeDataService.createLike(like).then((response) => {
+          console.log(response.data);
+        });
+      } catch (e) {
+        this.error = "Не удалось поставить лайк!";
+      }
+    },
+    formatDate(dateString) {
+      const date = new Date(dateString);
+      return date.toLocaleString("ru-RU", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+      });
     },
   },
   async created() {

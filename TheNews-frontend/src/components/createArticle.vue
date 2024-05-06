@@ -130,7 +130,7 @@ export default {
       try {
         await HomeDataService.getAll().then((response) => {
           console.log(response.data);
-          this.setArticleAll = response.data;
+          this.setArticleAll(response.data);
         });
       } catch (e) {
         this.error = "Проверьте все поля!";
@@ -140,8 +140,8 @@ export default {
       try {
         await HomeDataService.createArticle(this.article).then((response) => {
           console.log(response.data);
+          this.getAll();
         });
-        await this.getAll();
       } catch (e) {
         this.error = "Проверьте все поля!";
       }

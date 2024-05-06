@@ -48,6 +48,7 @@ public class UserFacadeImpl implements UserFacade {
         String jwtToken = jwtService.generateToken(authenticatedUser);
         System.out.println("authenticationEnd " + authenticatedUser);
         SignInResponseDto loginResponse = new SignInResponseDto();
+        loginResponse.setUser_id(authenticatedUser. getUser_id());
         loginResponse.setName(authenticatedUser.getFirst_name()+" "+authenticatedUser.getLast_name());
         loginResponse.setRole(authenticatedUser.getRole());
         loginResponse.setToken(jwtToken);

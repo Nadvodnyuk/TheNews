@@ -4,6 +4,7 @@ export const useCatalog = defineStore("catalog-store", {
   id: "news",
   state: () => {
     return {
+      id: localStorage.getItem('id') || '',
       name: localStorage.getItem('name') || '',
       token: localStorage.getItem('token') || '',
       role: localStorage.getItem('role') || '',
@@ -13,6 +14,11 @@ export const useCatalog = defineStore("catalog-store", {
   },
 
   actions: {
+    setId(id) {
+      this.id = id;
+      localStorage.setItem('id', id);
+    },
+
     setName(name) {
       this.name = name;
       localStorage.setItem('name', name);
@@ -34,7 +40,7 @@ export const useCatalog = defineStore("catalog-store", {
     },
 
     setArticleAll(articleAll) {
-      this.articleAll = articleAll;
+      this.articleAll = articleAll.reverse();
     }
   },
 });

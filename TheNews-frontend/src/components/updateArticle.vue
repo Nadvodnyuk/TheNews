@@ -18,7 +18,7 @@
       <span v-if="validationErrors.title" class="error-message">{{
         validationErrors.title
       }}</span>
-      <input v-model="article.tags" placeholder="Теги" class="artTags" />
+      <input v-model="article.topics" placeholder="Теги" class="artTags" />
       <span v-if="validationErrors.topics" class="error-message">{{
         validationErrors.topics
       }}</span>
@@ -115,6 +115,7 @@ export default {
     },
 
     openupdateArticleForm() {
+      this.getArticle();
       this.isFormVisible = true;
     },
 
@@ -129,8 +130,10 @@ export default {
       if (!this.validateForm()) {
         return;
       }
+      this.updateArticle();
       this.isFormVisible = false;
       this.isArticleupdated = true;
+      this.getArticle();
     },
     async getArticle() {
       try {
@@ -145,31 +148,51 @@ export default {
         this.error = "Проверьте все поля!";
       }
     },
-    async updateArticle() {
+    async getAll() {
       try {
-        await HomeDataService.updateArticle(this.article).then((response) => {
+        await HomeDataService.getAll().then((response) => {
           console.log(response.data);
-          this.article.title = response.data.title;
-          this.article.article_text = response.data.article_text;
-          this.article.topics = response.data.topics;
-          this.article.image_url = response.data.image_url;
+          this.setArticleAll(response.data);
         });
       } catch (e) {
         this.error = "Проверьте все поля!";
       }
     },
-    watch: {
+    async updateArticle() {
+      try {
+        await HomeDataService.updateArticle(this.articleId, this.article).then((response) => {
+          console.log(response.data);
+          this.article.title = response.data.title;
+          this.article.article_text = response.data.article_text;
+          this.article.topics = response.data.topics;
+          this.article.image_url = response.data.image_url;
+          this.getAll();
+        });
+      } catch (e) {
+        this.error = "Проверьте все поля!";
+      }
+    },
+  },
+  watch: {
       articleId(newVal) {
         this.getArticle();
       },
     },
-  },
 };
 </script>
 
 <style>
 .updateArticleBtn {
-  background-color: white;
+  border: none;
+  padding: 0;
+  background: none;
+  display: inline-block;
+  font-family: "Raleway", Helvetica, sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  line-height: 2;
+  text-transform: uppercase;
+  color: #738392;
 }
 
 .updateArtTitle {

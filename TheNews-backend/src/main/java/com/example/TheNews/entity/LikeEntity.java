@@ -23,14 +23,6 @@ public class LikeEntity {
     @JoinColumn(name = "articleL")
     private ArticleEntity articleL;
 
-    public long getLike_id() {
-        return like_id;
-    }
-
-    public void setLike_id(long like_id) {
-        this.like_id = like_id;
-    }
-
     public UserEntity getUserL() {
         return userL;
     }
