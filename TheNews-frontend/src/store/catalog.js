@@ -10,6 +10,7 @@ export const useCatalog = defineStore("catalog-store", {
       role: localStorage.getItem('role') || '',
       articleId: '',
       articleAll: {},
+      likeNums: {},
     };
   },
 
@@ -36,11 +37,14 @@ export const useCatalog = defineStore("catalog-store", {
 
     setArticleId(articleId) {
       this.articleId = articleId;
-      console.log("this.articleId:", this.articleId);
     },
 
     setArticleAll(articleAll) {
       this.articleAll = articleAll.reverse();
+    },
+    
+    setLikeNums(likeNums) {
+      this.likeNums = likeNums;
     }
   },
 });

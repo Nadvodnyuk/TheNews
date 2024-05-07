@@ -62,10 +62,11 @@ import http from "../../http-common";
               {{ !moreArticlesFlag ? "Показать больше" : "Показать меньше" }}
             </button>
           </li>
-          <li v-if="role === 'ROLE_USER'">
+          <li>
             <button
               class="unstyled-button"
               @click="toggleLikedFlag(article.article_id)"
+              v-if="role === 'ROLE_USER'"
             >
               <img
                 class="mini"
@@ -80,7 +81,16 @@ import http from "../../http-common";
                 v-show="likedFlags[article.article_id]"
               />
             </button>
-            <button class="unstyled-button">3</button>
+            <img
+              class="mini"
+              src="/img/heart.svg"
+              alt="mini like"
+              v-show="!likedFlags[article.article_id]"
+              v-if="role !== 'ROLE_USER'"
+            />
+            <div class="unstyled-button">
+              {{ likeNums[article.article_id] }}
+            </div>
           </li>
           <li>
             <button class="unstyled-button" @click="commentFlag = !commentFlag">
@@ -137,6 +147,7 @@ export default {
         articleL: "",
       },
       likedFlags: {},
+      likeNum: {},
       comments: {},
     };
   },
@@ -144,10 +155,12 @@ export default {
     ...mapState(useCatalog, ["role"]),
     ...mapState(useCatalog, ["articleAll"]),
     ...mapState(useCatalog, ["id"]),
+    ...mapState(useCatalog, ["likeNums"]),
   },
   methods: {
     ...mapActions(useCatalog, ["setArticleAll"]),
     ...mapActions(useCatalog, ["setArticleId"]),
+    ...mapActions(useCatalog, ["setLikeNums"]),
     scrollToTop() {
       // Прокручиваем страницу наверх (координаты 0, 0)
       window.scrollTo(0, 0);
@@ -182,7 +195,13 @@ export default {
           this.likedFlags = Object.fromEntries(
             response.data.map((article) => [article.article_id, false])
           );
-          console.log("this.likedFlags", this.likedFlags);
+          this.likeNum = Object.fromEntries(
+            response.data.map((article) => [article.article_id, 0])
+          );
+          response.data.forEach((article) => {
+            this.getNum(article.article_id);
+          });
+          this.setLikeNums(this.likeNum);
         });
       } catch (e) {
         this.error = "Проверьте все поля!";
@@ -201,16 +220,26 @@ export default {
     async toggleLikedFlag(articleId) {
       try {
         const currentState = this.likedFlags[articleId];
-        console.log("currentState", this.likedFlags);
-        console.log("articleId", articleId);
         this.likedFlags[articleId] = !currentState;
-        console.log("this.likedFlags", this.likedFlags);
         const user_id = this.id;
         if (this.likedFlags[articleId]) {
           await this.liking(user_id, articleId);
         } else {
           await http.delete(`/user/likes/${user_id}/${articleId}`);
         }
+        this.getNum(articleId);
+        this.setLikeNums(this.likeNum);
+      } catch (e) {
+        this.error = "Не удалось поставить лайк!";
+      }
+    },
+    async getNum(articleId) {
+      try {
+        await HomeDataService.getLikeNum(articleId).then((response) => {
+          this.likeNum[articleId] = response.data;
+          console.log(response.data);
+        });
+        this.setLikeNums(this.likeNum);
       } catch (e) {
         this.error = "Не удалось поставить лайк!";
       }
