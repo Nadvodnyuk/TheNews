@@ -21,8 +21,8 @@ public class ArticleDto {
     private Integer like_num;
     private Integer comment_num;
     private java.sql.Timestamp publication_date;
-    private List<LikeEntity> likes;
-    private List<CommentEntity> comments;
+//    private List<LikeEntity> likes;
+//    private List<CommentEntity> comments;
     private String topics;
 
     public long getArticle_id() {
@@ -81,21 +81,21 @@ public class ArticleDto {
         this.publication_date = publication_date;
     }
 
-    public List<LikeEntity> getLikes() {
-        return likes;
-    }
-
-    public void setLikes(List<LikeEntity> likes) {
-        this.likes = likes;
-    }
-
-    public List<CommentEntity> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<CommentEntity> comments) {
-        this.comments = comments;
-    }
+//    public List<LikeEntity> getLikes() {
+//        return likes;
+//    }
+//
+//    public void setLikes(List<LikeEntity> likes) {
+//        this.likes = likes;
+//    }
+//
+//    public List<CommentEntity> getComments() {
+//        return comments;
+//    }
+//
+//    public void setComments(List<CommentEntity> comments) {
+//        this.comments = comments;
+//    }
 
     public String getTopics() {
         return topics;

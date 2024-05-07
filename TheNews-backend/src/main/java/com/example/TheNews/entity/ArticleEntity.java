@@ -42,10 +42,6 @@ public class ArticleEntity {
     @Column(name = "publicationDate")
     private java.sql.Timestamp publicationDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userId")
-    private UserEntity userA;
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "articleL")
     private List<LikeEntity> likes;
 
@@ -106,14 +102,6 @@ public class ArticleEntity {
 
     public void setPublication_date(Timestamp publication_date) {
         this.publicationDate = publication_date;
-    }
-
-    public UserEntity getUserA() {
-        return userA;
-    }
-
-    public void setUserA(UserEntity userA) {
-        this.userA = userA;
     }
 
     public List<LikeEntity> getLikes() {
