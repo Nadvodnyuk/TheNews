@@ -177,11 +177,11 @@ export default {
     async getAll() {
       try {
         await HomeDataService.getAll().then((response) => {
-          console.log(response.data);
           this.setArticleAll(response.data);
-          response.data.forEach((article) => {
-            this.$set(this.likedFlags, article.article_id, false); // Инициализация likedFlags для каждой статьи
-          });
+          this.likedFlags = Object.fromEntries(
+            response.data.map((article) => [article.article_id, false])
+          );
+          console.log("this.likedFlags", this.likedFlags);
         });
       } catch (e) {
         this.error = "Проверьте все поля!";
@@ -200,7 +200,10 @@ export default {
     async toggleLikedFlag(articleId) {
       try {
         const currentState = this.likedFlags[articleId];
-        this.$set(this.likedFlags, articleId, !currentState);
+        console.log("currentState", this.likedFlags);
+        console.log("articleId", articleId);
+        this.likedFlags[articleId]= !currentState;
+        console.log("this.likedFlags", this.likedFlags);
         const user_id = this.id;
         await this.liking(user_id, articleId);
       } catch (e) {
@@ -209,6 +212,7 @@ export default {
     },
     async liking(user_id, article_id) {
       try {
+        console.log(user_id, article_id);
         let like = {
           userL: user_id,
           articleL: article_id,
