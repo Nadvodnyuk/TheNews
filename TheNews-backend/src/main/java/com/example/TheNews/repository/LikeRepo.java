@@ -11,8 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface LikeRepo extends JpaRepository<LikeEntity, Long> {
     List<LikeEntity> findByArticleL(ArticleEntity article_id);
+    List<LikeEntity> findByUserL(UserEntity user_id);
 
-    List<LikeEntity> findByArticleLAndUserL(ArticleEntity article_id, UserEntity user_id);
+    boolean existsByArticleLAndUserL(ArticleEntity articleL, UserEntity userL);
 
     @Transactional(rollbackFor = Exception.class)
     void deleteByArticleLAndUserL(ArticleEntity article_id, UserEntity user_id);
