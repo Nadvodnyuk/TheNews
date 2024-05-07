@@ -1,5 +1,6 @@
 package com.example.TheNews.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -39,13 +40,12 @@ public class ArticleEntity {
     @Column(name = "comment_num")
     private Integer comment_num;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "publicationDate")
     private java.sql.Timestamp publicationDate;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "articleL")
-    private List<LikeEntity> likes;
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "articleC")
+    @JsonIgnore
     private List<CommentEntity> comments;
 
     public long getArticle_id() {
@@ -104,13 +104,6 @@ public class ArticleEntity {
         this.publicationDate = publication_date;
     }
 
-    public List<LikeEntity> getLikes() {
-        return likes != null ? likes : Collections.emptyList();
-    }
-
-    public void setLikes(List<LikeEntity> likes) {
-        this.likes = likes;
-    }
 
     public List<CommentEntity> getComments() {
         return comments != null ? comments : Collections.emptyList();

@@ -43,8 +43,8 @@ class HomeDataService {
   async createLike(data) {//user
     return http.post("/user/likes/postLike", data);
   }
-  async deleteLike(userId, articleId) {//user
-    return http.delete(`/user/likes/${userId}/${articleId}`);
+  async deleteLike(userL, articleL) {//user
+    return http.delete(`/user/likes/${userL}/${articleL}`);
   }
 }
 

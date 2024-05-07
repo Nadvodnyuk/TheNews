@@ -2,6 +2,7 @@
 import updateArticle from "../../components/updateArticle.vue";
 import createArticle from "../../components/createArticle.vue";
 import comments from "../../components/comments.vue";
+import http from "../../http-common";
 </script>
 
 <template>
@@ -208,15 +209,7 @@ export default {
         if (this.likedFlags[articleId]) {
           await this.liking(user_id, articleId);
         } else {
-          try {
-            await HomeDataService.deleteLike(user_id, articleId).then(
-              (response) => {
-                console.log(response.data);
-              }
-            );
-          } catch (e) {
-            this.error = "Проверьте все поля!";
-          }
+          await http.delete(`/user/likes/${user_id}/${articleId}`);
         }
       } catch (e) {
         this.error = "Не удалось поставить лайк!";

@@ -1,12 +1,17 @@
 package com.example.TheNews.controller;
 
 import com.example.TheNews.dto.request.LikeDto;
+import com.example.TheNews.entity.LikeEntity;
+import com.example.TheNews.repository.LikeRepo;
 import com.example.TheNews.service.facade.LikeFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.modelmapper.ModelMapper;
+
+import java.util.List;
+
 @CrossOrigin(origins = "http://localhost:8081")
 @RestController
 public class LikeController {
@@ -14,6 +19,9 @@ public class LikeController {
     private ModelMapper modelMapper;
     @Autowired
     private LikeFacade likeFacade;
+
+    @Autowired
+    private LikeRepo likeRepo;
 
     //Ф.Вывести лайки для статьи
 
@@ -57,6 +65,13 @@ public class LikeController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e);
         }
+    }
+
+    @GetMapping ("/admin/likes")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> getAllLikes() {
+        List<LikeEntity> likes = likeRepo.findAll();
+        return ResponseEntity.ok(likes);
     }
 }
 //удаление лайка пользователем(с проверкой пользователяAuth.../Principal)

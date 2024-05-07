@@ -15,11 +15,11 @@ public class LikeEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long like_id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "userL")
     private UserEntity userL;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "articleL")
     private ArticleEntity articleL;
 
