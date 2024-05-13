@@ -3,6 +3,7 @@ package com.example.TheNews.controller;
 import com.example.TheNews.dto.request.LikeDto;
 import com.example.TheNews.entity.LikeEntity;
 import com.example.TheNews.repository.LikeRepo;
+import com.example.TheNews.service.LikeService;
 import com.example.TheNews.service.facade.LikeFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,9 @@ public class LikeController {
     private ModelMapper modelMapper;
     @Autowired
     private LikeFacade likeFacade;
+
+    @Autowired
+    private LikeService likeService;
 
     @Autowired
     private LikeRepo likeRepo;
@@ -38,6 +42,15 @@ public class LikeController {
             return ResponseEntity.badRequest().body(e);
         }
     }
+    @PostMapping("/auth/likes/isLiked")
+    public ResponseEntity<?> isLiked(@RequestParam long user_id, @RequestParam long article_id) {
+        try {
+            return ResponseEntity.ok(likeFacade.isLikedBy(user_id, article_id));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e);
+        }
+    }
+
 
     @PostMapping("/user/likes/postLike")
     @PreAuthorize("hasRole('USER')")
@@ -73,6 +86,9 @@ public class LikeController {
         List<LikeEntity> likes = likeRepo.findAll();
         return ResponseEntity.ok(likes);
     }
+
+
+
 }
 //удаление лайка пользователем(с проверкой пользователяAuth.../Principal)
 

@@ -1,6 +1,6 @@
 <template>
     <div 
-    class="comment" 
+    class="comments" 
     v-show="commentFlag" 
     v-for="(comments, key, index) in comments" 
     :key="key"
@@ -55,7 +55,7 @@
 <script>
 
 export default {
-    name: 'App',
+    name: 'comments',
     data() {
         return {
             size: 30,

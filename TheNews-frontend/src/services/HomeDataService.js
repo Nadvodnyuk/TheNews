@@ -47,6 +47,10 @@ class HomeDataService {
   async getLikeNum(article_id) {
     return http.post(`/auth/likes/likeNum?article_id=${article_id}`);
   }
+
+  async isLiked(user_id, article_id) {
+    return http.post(`/auth/likes/isLiked?user_id=${user_id}&article_id=${article_id}`)
+  }
   async createLike(data) {
     //user
     return http.post("/user/likes/postLike", data);

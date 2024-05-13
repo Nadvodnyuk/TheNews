@@ -200,6 +200,7 @@ export default {
           );
           response.data.forEach((article) => {
             this.getNum(article.article_id);
+            this.isLiked(this.id, article.article_id);
           });
           this.setLikeNums(this.likeNum);
         });
@@ -244,6 +245,17 @@ export default {
         this.error = "Не удалось поставить лайк!";
       }
     },
+    async isLiked(id, articleId) {
+      try {
+        await HomeDataService.isLiked(id, articleId).then((response) => {
+          this.likedFlags[articleId] = response.data;
+          console.log(response.data);
+        });
+      } catch (e) {
+        this.error = "!";
+      }
+    },
+
     async liking(user_id, article_id) {
       try {
         console.log(user_id, article_id);

@@ -22,7 +22,7 @@ public class LikeFacadeImpl implements LikeFacade {
     private UserService userService;
 
     //C.Вывести кол-во лайков
-    public int likeNumFacade(long article_id){
+    public int likeNumFacade(long article_id) {
 
         try {
             ArticleEntity art = articleService.getOne(article_id);
@@ -31,6 +31,18 @@ public class LikeFacadeImpl implements LikeFacade {
             throw new RuntimeException(e);
         }
     }
+
+    public boolean isLikedBy(long user_id, long article_id) {
+        try {
+            ArticleEntity art = articleService.getOne(article_id);
+            UserEntity user = userService.getOne(user_id);
+            return likeService.isLikedByUserAndArticle(user, art);
+
+        } catch (NotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     ///Для авторизованного:
     //C.Поставить лайк
     public void putLikeFacade(LikeDto likeDto){
