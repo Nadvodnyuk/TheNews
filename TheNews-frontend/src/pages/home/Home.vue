@@ -164,7 +164,7 @@ export default {
       },
       likedFlags: {},
       likeNum: {},
-      comments: {},
+      comment: {},
       commentFlag: {},
       articleId: "",
     };
@@ -228,7 +228,7 @@ export default {
           this.commentFlag = Object.fromEntries(
             response.data.map((article) => [article.article_id, false])
           );
-          this.comments = Object.fromEntries(
+          this.comment = Object.fromEntries(
             response.data.map((article) => [article.article_id, []])
           );
           response.data.forEach((article) => {
@@ -237,7 +237,7 @@ export default {
           });
           this.setLikeNums(this.likeNum);
           this.setcommentFlags(this.commentFlag);
-          this.setCommentAll(this.comments);
+          this.setCommentAll(this.comment);
         });
       } catch (e) {
         this.error = "Проверьте все поля!";
