@@ -176,6 +176,7 @@ export default {
       "id",
       "likeNums",
       "commentFlags",
+      "commentAll",
     ]),
   },
   methods: {
@@ -184,6 +185,7 @@ export default {
       "setArticleId",
       "setLikeNums",
       "setCommentFlags",
+      "setCommentAll",
     ]),
 
     scrollToTop() {
@@ -226,12 +228,16 @@ export default {
           this.commentFlag = Object.fromEntries(
             response.data.map((article) => [article.article_id, false])
           );
+          this.comments = Object.fromEntries(
+            response.data.map((article) => [article.article_id, []])
+          );
           response.data.forEach((article) => {
             this.getNum(article.article_id);
             this.isLiked(this.id, article.article_id);
           });
           this.setLikeNums(this.likeNum);
           this.setcommentFlags(this.commentFlag);
+          this.setCommentAll(this.comments);
         });
       } catch (e) {
         this.error = "Проверьте все поля!";
@@ -255,7 +261,11 @@ export default {
         if (this.likedFlags[articleId]) {
           await this.liking(user_id, articleId);
         } else {
-          await http.delete(`/user/likes/${user_id}/${articleId}`);
+          await HomeDataService.deleteLike(user_id, articleId).then(
+            (response) => {
+              console.log(response.data);
+            }
+          );
         }
         this.getNum(articleId);
         this.setLikeNums(this.likeNum);

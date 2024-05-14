@@ -12,6 +12,7 @@ export const useCatalog = defineStore("catalog-store", {
       articleAll: {},
       likeNums: {},
       commentFlags: {},
+      commentAll: {},
     };
   },
 
@@ -51,5 +52,10 @@ export const useCatalog = defineStore("catalog-store", {
     setCommentFlags(commentFlags) {
       this.commentFlags = commentFlags;
     },
+
+    setCommentAll(commentAll) {
+      this.commentAll = commentAll;
+    },
+
   },
 });

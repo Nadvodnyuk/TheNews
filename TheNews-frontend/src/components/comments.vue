@@ -1,11 +1,15 @@
 <template>
-  <div class="comments" v-show="commentFlags">
-    <!-- <div class="title_comment">
-      <p>
-        {{ comment[key] }}
-      </p>
-      <h3>Комментарий {{ index + 1 }}</h3>
-    </div> -->
+  <div class="comments" v-show="commentFlags[articleId]">
+    <div v-if="commentFlags[articleId]">
+        <div v-if="commentAll[articleId] && commentAll[articleId].length">
+          <div v-for="(comment, index) in commentAll[articleId]" :key="index">
+            <p>{{ comment }}</p>
+          </div>
+        </div>
+        <div v-else>
+          <p>Нет комментариев</p>
+        </div>
+      </div>
     <div class="comment_more">
       <ul class="state">
         <li>
@@ -58,21 +62,27 @@ export default {
   name: "comments",
   data() {
     return {
-      size: 30,
+      page: 0,
       commentFlag: false,
       moreCommentsFlag: false,
       sentFlag: false,
       errors: {
         comment: "",
       },
-
       comment: {
         comment_text: "",
       },
+      commentAll: {},
     };
   },
   computed: {
     ...mapState(useCatalog, ["id", "articleId", "commentFlags"]),
+
+    loadComments() {
+      if (this.commentFlags[this.articleId]) {
+        this.fetchComments();
+      }
+    },
   },
   methods: {
     ...mapActions(useCatalog, ["setCommentFlags"]),
@@ -89,12 +99,25 @@ export default {
     printTime() {
       return new Date().toLocaleTimeString();
     },
+
     validateComment() {
       this.errors.comment =
         this.comment.comment_text.length <= 100
           ? ""
           : "Comment has more than 1000 characters.";
     },
+
+    async fetchComments() {
+      await HomeDataService.getComment()
+        .then((response) => {
+          console.log(response.data);
+          this.commentAll[this.articleId] = response.data;
+        })
+        .catch((error) => {
+          console.error("Ошибка при получении комментариев:", error);
+        });
+    },
+
     async submitComment() {
       console.log("Submit comment...");
       this.validateComment();
@@ -115,6 +138,7 @@ export default {
       }
     },
   },
+
   mounted() {
     this.date = this.printDate();
     this.time = this.printTime();
