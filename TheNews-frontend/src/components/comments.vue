@@ -1,9 +1,5 @@
 <template>
-  <div
-    class="comments"
-    v-show="commentFlags"
-
-  >
+  <div class="comments" v-show="commentFlags">
     <!-- <div class="title_comment">
       <p>
         {{ comment[key] }}
@@ -41,12 +37,11 @@
           <button
             class="put_comm_btn"
             @click="
-              submitComment;
+              submitComment();
               sentFlag = true;
             "
           >
-             Отправить
-            комментарий
+            Отправить комментарий
           </button>
         </li>
       </ul>
@@ -72,7 +67,7 @@ export default {
       },
 
       comment: {
-        comment_text:""
+        comment_text: "",
       },
     };
   },
@@ -106,12 +101,17 @@ export default {
       if (!this.errors.comment) {
         console.log("Form submitted:", { comment: this.comment.comment_text });
         try {
-        await HomeDataService.createComment(id, parseInt(articleId),this.comment).then((response) => {
-          console.log(response.data);
-        });
-      } catch (e) {
-        this.error = "!";
-      }
+          await HomeDataService.createComment(
+            this.id,
+            this.articleId,
+            this.comment
+          ).then((response) => {
+            console.log(response.data);
+          });
+        } catch (e) {
+          console.log(e);
+          this.e = "!";
+        }
       }
     },
   },
@@ -164,11 +164,12 @@ export default {
   background-color: white;
   border: 1px solid black;
 }
- 
+
 .comment_bar {
   padding: 2em;
   white-space: normal;
 }
+
 .comment_more {
   display: flex;
   align-items: center;

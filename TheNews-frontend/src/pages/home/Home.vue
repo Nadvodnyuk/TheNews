@@ -93,7 +93,15 @@ import http from "../../http-common";
             </div>
           </li>
           <li>
-            <button class="unstyled-button" @click="commentFlag[article.article_id] = !commentFlag[article.article_id]; setCommentFlags(commentFlag)">
+            <button
+              class="unstyled-button"
+              @click="
+                commentFlag[article.article_id] =
+                  !commentFlag[article.article_id];
+                setCommentFlags(commentFlag);
+                setArticleId(article.article_id);
+              "
+            >
               <img
                 class="mini"
                 src="/img/comment2.svg"
@@ -107,13 +115,22 @@ import http from "../../http-common";
                 v-show="commentFlags[article.article_id]"
               />
             </button>
-            <button class="unstyled-button" @click="commentFlag[article.article_id] = !commentFlag[article.article_id]; setCommentFlags(commentFlag)">
+            <button
+              class="unstyled-button"
+              @click="
+                commentFlag[article.article_id] =
+                  !commentFlag[article.article_id];
+                setCommentFlags(commentFlag);
+              "
+            >
               15
             </button>
           </li>
         </ul>
       </footer>
-      <comments />
+      <div v-show="commentFlags[article.article_id]">
+        <comments />
+      </div>
     </article>
     <div class="space"></div>
   </div>
@@ -149,6 +166,7 @@ export default {
       likeNum: {},
       comments: {},
       commentFlag: {},
+      articleId: "",
     };
   },
   computed: {
@@ -161,7 +179,12 @@ export default {
     ]),
   },
   methods: {
-    ...mapActions(useCatalog, ["setArticleAll", "setArticleId", "setLikeNums", "setCommentFlags"]),
+    ...mapActions(useCatalog, [
+      "setArticleAll",
+      "setArticleId",
+      "setLikeNums",
+      "setCommentFlags",
+    ]),
 
     scrollToTop() {
       // Прокручиваем страницу наверх (координаты 0, 0)

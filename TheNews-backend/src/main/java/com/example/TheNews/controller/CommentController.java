@@ -40,14 +40,17 @@ public class CommentController {
         }
     }
 
-    @PostMapping("/user/comments/postComment/{userC}/{articleC}")
+    @PostMapping("/user/comments/postComment")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> postComment(
-                                        @PathVariable long userC,
-                                        @PathVariable long articleC,
+            @RequestParam long user_id,
+            @RequestParam long article_id,
                                         @RequestBody CreateCommentDto comment) {
         try {
-            commentFacade.createCommentFacade(userC, comment, articleC);
+            System.out.println("userC " + user_id);
+            System.out.println("articleC " + article_id);
+            System.out.println("comment " +comment);
+            commentFacade.createCommentFacade(user_id, comment, article_id);
             return ResponseEntity.ok("Комментарий успешно сохранен");
         } catch (NotFoundException e) {
             throw new RuntimeException(e);
