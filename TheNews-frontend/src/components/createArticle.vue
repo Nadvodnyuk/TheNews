@@ -41,7 +41,13 @@
         </span>
       </div>
       <div class="publishDiv">
-        <button @click="createArticleAndCloseForm(); createArticle()" class="publishArticleBtn">
+        <button
+          @click="
+            createArticleAndCloseForm();
+            createArticle();
+          "
+          class="publishArticleBtn"
+        >
           Создать
         </button>
       </div>

@@ -93,21 +93,21 @@ import http from "../../http-common";
             </div>
           </li>
           <li>
-            <button class="unstyled-button" @click="commentFlag = !commentFlag">
+            <button class="unstyled-button" @click="commentFlag[article.article_id] = !commentFlag[article.article_id]; setCommentFlags(commentFlag)">
               <img
                 class="mini"
                 src="/img/comment2.svg"
                 alt="mini like"
-                v-show="!commentFlag"
+                v-show="!commentFlags[article.article_id]"
               />
               <img
                 class="mini"
                 src="/img/comment-open.svg"
                 alt="mini like"
-                v-show="commentFlag"
+                v-show="commentFlags[article.article_id]"
               />
             </button>
-            <button class="unstyled-button" @click="commentFlag = !commentFlag">
+            <button class="unstyled-button" @click="commentFlag[article.article_id] = !commentFlag[article.article_id]; setCommentFlags(commentFlag)">
               15
             </button>
           </li>
@@ -133,7 +133,6 @@ export default {
       date: "",
       time: "",
       myNewComment: "",
-      commentFlag: false,
       likeFlag: false,
       moreArticlesFlag: false,
       moreCommentsFlag: false,
@@ -149,18 +148,21 @@ export default {
       likedFlags: {},
       likeNum: {},
       comments: {},
+      commentFlag: {},
     };
   },
   computed: {
-    ...mapState(useCatalog, ["role"]),
-    ...mapState(useCatalog, ["articleAll"]),
-    ...mapState(useCatalog, ["id"]),
-    ...mapState(useCatalog, ["likeNums"]),
+    ...mapState(useCatalog, [
+      "role",
+      "articleAll",
+      "id",
+      "likeNums",
+      "commentFlags",
+    ]),
   },
   methods: {
-    ...mapActions(useCatalog, ["setArticleAll"]),
-    ...mapActions(useCatalog, ["setArticleId"]),
-    ...mapActions(useCatalog, ["setLikeNums"]),
+    ...mapActions(useCatalog, ["setArticleAll", "setArticleId", "setLikeNums", "setCommentFlags"]),
+
     scrollToTop() {
       // Прокручиваем страницу наверх (координаты 0, 0)
       window.scrollTo(0, 0);
@@ -198,11 +200,15 @@ export default {
           this.likeNum = Object.fromEntries(
             response.data.map((article) => [article.article_id, 0])
           );
+          this.commentFlag = Object.fromEntries(
+            response.data.map((article) => [article.article_id, false])
+          );
           response.data.forEach((article) => {
             this.getNum(article.article_id);
             this.isLiked(this.id, article.article_id);
           });
           this.setLikeNums(this.likeNum);
+          this.setcommentFlags(this.commentFlag);
         });
       } catch (e) {
         this.error = "Проверьте все поля!";

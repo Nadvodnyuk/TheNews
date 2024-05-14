@@ -35,9 +35,9 @@ class HomeDataService {
   async getComment() {
     return http.get("/auth/comments/showComments");
   }
-  async createComment(userId, articleId) {
+  async createComment(userId, articleId, data) {
     //user
-    return http.delete(`/user/comments/postComment/${userId}/${articleId}`);
+    return http.post(`/user/comments/postComment/${userId}/${articleId}`, data);
   }
   async deleteComment(id) {
     //admin

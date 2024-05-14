@@ -11,6 +11,7 @@ export const useCatalog = defineStore("catalog-store", {
       articleId: '',
       articleAll: {},
       likeNums: {},
+      commentFlags: {},
     };
   },
 
@@ -45,6 +46,10 @@ export const useCatalog = defineStore("catalog-store", {
     
     setLikeNums(likeNums) {
       this.likeNums = likeNums;
-    }
+    },
+
+    setCommentFlags(commentFlags) {
+      this.commentFlags = commentFlags;
+    },
   },
 });
