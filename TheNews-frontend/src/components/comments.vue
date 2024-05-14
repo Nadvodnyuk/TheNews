@@ -2,15 +2,14 @@
   <div
     class="comments"
     v-show="commentFlags"
-    v-for="(comments, key, index) in comments"
-    :key="key"
+
   >
-    <div class="title_comment">
+    <!-- <div class="title_comment">
       <p>
-        {{ comments[key] }}
+        {{ comment[key] }}
       </p>
       <h3>Комментарий {{ index + 1 }}</h3>
-    </div>
+    </div> -->
     <div class="comment_more">
       <ul class="state">
         <li>
@@ -27,7 +26,7 @@
         rows="14"
         wrap="soft"
         class="leave_comment"
-        v-model="comments.comment_text"
+        v-model="comment.comment_text"
         @input="validateComment"
         placeholder="Оставить комментарий"
       >
@@ -40,13 +39,14 @@
       <ul class="state">
         <li>
           <button
-            class="unstyled-button"
+            class="put_comm_btn"
             @click="
-              sentFlag = true;
               submitComment;
+              sentFlag = true;
             "
           >
-            Отправить комментарий
+             Отправить
+            комментарий
           </button>
         </li>
       </ul>
@@ -71,7 +71,7 @@ export default {
         comment: "",
       },
 
-      comments: {
+      comment: {
         comment_text:""
       },
     };
@@ -96,16 +96,17 @@ export default {
     },
     validateComment() {
       this.errors.comment =
-        this.comments.comment_text.length <= 100
+        this.comment.comment_text.length <= 100
           ? ""
           : "Comment has more than 1000 characters.";
     },
     async submitComment() {
+      console.log("Submit comment...");
       this.validateComment();
       if (!this.errors.comment) {
-        console.log("Form submitted:", { comment: this.comments.comment_text });
+        console.log("Form submitted:", { comment: this.comment.comment_text });
         try {
-        await HomeDataService.createComment(id, articleId,this.comments).then((response) => {
+        await HomeDataService.createComment(id, parseInt(articleId),this.comment).then((response) => {
           console.log(response.data);
         });
       } catch (e) {
@@ -152,7 +153,18 @@ export default {
   padding-top: 10px;
   padding-left: 10px;
   text-align: start;
+  caret-color: rgb(0, 0, 0);
 }
+
+.leave_comment:focus::placeholder {
+  color: transparent;
+}
+
+.put_comm_btn {
+  background-color: white;
+  border: 1px solid black;
+}
+ 
 .comment_bar {
   padding: 2em;
   white-space: normal;
