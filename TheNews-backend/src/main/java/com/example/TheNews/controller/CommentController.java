@@ -21,20 +21,11 @@ public class CommentController {
     @Autowired
     private CommentFacade commentFacade;
 
-    //Ф.Вывести комменты для статьи
-
-    ///Для авторизованного:
-    //Ф.Написать коммент
-
-    ///Admin:
-    //Удалить коммент
-
-
-    @GetMapping("/auth/comments/showComments")
-    public ResponseEntity<?> getCommentsForArticle(@RequestParam int page,
-                                                   @RequestParam long article_с) {
+    @GetMapping("/auth/comments/showComments/{article_id}/{page}")
+    public ResponseEntity<?> getCommentsForArticle(@PathVariable long article_id,
+                                                   @PathVariable int page) {
         try {
-            return ResponseEntity.ok(commentFacade.getCommentsByArticleIdWithPaginationFacade(article_с, page));
+            return ResponseEntity.ok(commentFacade.getCommentsByArticleIdWithPaginationFacade(article_id, page));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e);
         }
@@ -47,9 +38,6 @@ public class CommentController {
             @RequestParam long article_id,
                                         @RequestBody CreateCommentDto comment) {
         try {
-            System.out.println("userC " + user_id);
-            System.out.println("articleC " + article_id);
-            System.out.println("comment " +comment);
             commentFacade.createCommentFacade(user_id, comment, article_id);
             return ResponseEntity.ok("Комментарий успешно сохранен");
         } catch (NotFoundException e) {
@@ -59,7 +47,7 @@ public class CommentController {
         }
     }
 
-    //удаление комма пользователем(с проверкой пользователяAuth.../Principal)
+    //
 
     @DeleteMapping("/admin/comments/{comment_id}")
     @PreAuthorize("hasRole('ADMIN')")
@@ -71,8 +59,4 @@ public class CommentController {
             return ResponseEntity.badRequest().body(e);
         }
     }
-    //удаление комма админом( без проверки(т.к. может удалить все коммы, а юзер только свои))
-//
-
-
 }

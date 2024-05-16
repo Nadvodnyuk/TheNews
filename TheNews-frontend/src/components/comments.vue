@@ -1,19 +1,17 @@
 <template>
   <div class="comments" v-show="commentFlags[articleId]">
-    <div v-if="commentFlags[articleId]">
-        <div v-if="commentAll[articleId] && commentAll[articleId].length">
-          <div v-for="(comment, index) in commentAll[articleId]" :key="index">
-            <p>{{ comment }}</p>
-          </div>
-        </div>
-        <div v-else>
-          <p>Нет комментариев</p>
-        </div>
+    <div v-if="commentAll[articleId] && commentAll[articleId].length" class="title_comment">
+      <div v-for="(comment, index) in commentAll[articleId]" :key="index">
+        <p>{{ comment.comment_text }}</p>
       </div>
+    </div>
+    <div v-else>
+      <p>Нет комментариев</p>
+    </div>
     <div class="comment_more">
       <ul class="state">
         <li>
-          <button class="nostyle" @click="moreCommentsFlag = !moreCommentsFlag">
+          <button class="nostyle" @click="moreCommentsFlag = !moreCommentsFlag; setPage(page + 1);">
             Ещё комментарии
           </button>
         </li>
@@ -26,7 +24,7 @@
         rows="14"
         wrap="soft"
         class="leave_comment"
-        v-model="comment.comment_text"
+        v-model="comment_text.comment_text"
         @input="validateComment"
         placeholder="Оставить комментарий"
       >
@@ -62,21 +60,19 @@ export default {
   name: "comments",
   data() {
     return {
-      page: 0,
       commentFlag: false,
       moreCommentsFlag: false,
       sentFlag: false,
       errors: {
         comment: "",
       },
-      comment: {
+      comment_text: {
         comment_text: "",
       },
-      commentAll: {},
     };
   },
   computed: {
-    ...mapState(useCatalog, ["id", "articleId", "commentFlags"]),
+    ...mapState(useCatalog, ["id", "articleId", "commentFlags", "commentAll", "page"]),
 
     loadComments() {
       if (this.commentFlags[this.articleId]) {
@@ -85,7 +81,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(useCatalog, ["setCommentFlags"]),
+    ...mapActions(useCatalog, ["setCommentFlags", "setCommentAll", "setPage"]),
 
     scrollToTop() {
       // Прокручиваем страницу наверх (координаты 0, 0)
@@ -102,16 +98,25 @@ export default {
 
     validateComment() {
       this.errors.comment =
-        this.comment.comment_text.length <= 100
+        this.comment_text.comment_text.length <= 100
           ? ""
           : "Comment has more than 1000 characters.";
     },
 
     async fetchComments() {
-      await HomeDataService.getComment()
+      await HomeDataService.getComments(this.articleId, this.page)
         .then((response) => {
-          console.log(response.data);
-          this.commentAll[this.articleId] = response.data;
+          let comments = {};
+
+          response.data.forEach((comment) => {
+            if (comments[this.articleId]) {
+              comments[this.articleId].push(comment);
+            } else {
+              comments[this.articleId] = [comment];
+            }
+          });
+
+          this.setCommentAll(comments);
         })
         .catch((error) => {
           console.error("Ошибка при получении комментариев:", error);
@@ -122,17 +127,20 @@ export default {
       console.log("Submit comment...");
       this.validateComment();
       if (!this.errors.comment) {
-        console.log("Form submitted:", { comment: this.comment.comment_text });
+        console.log("Form submitted:", {
+          comment: this.comment_text.comment_text,
+        });
         try {
           await HomeDataService.createComment(
             this.id,
             this.articleId,
-            this.comment
+            this.comment_text
           ).then((response) => {
-            console.log(response.data);
+            console.log("createComment", response.data);
+            this.fetchComments();
           });
         } catch (e) {
-          console.log(e);
+          console.log("e", e);
           this.e = "!";
         }
       }

@@ -2,7 +2,6 @@
 import updateArticle from "../../components/updateArticle.vue";
 import createArticle from "../../components/createArticle.vue";
 import comments from "../../components/comments.vue";
-import http from "../../http-common";
 </script>
 
 <template>
@@ -95,12 +94,7 @@ import http from "../../http-common";
           <li>
             <button
               class="unstyled-button"
-              @click="
-                commentFlag[article.article_id] =
-                  !commentFlag[article.article_id];
-                setCommentFlags(commentFlag);
-                setArticleId(article.article_id);
-              "
+              @click="commenting(article.article_id)"
             >
               <img
                 class="mini"
@@ -166,7 +160,6 @@ export default {
       likeNum: {},
       comment: {},
       commentFlag: {},
-      articleId: "",
     };
   },
   computed: {
@@ -174,9 +167,11 @@ export default {
       "role",
       "articleAll",
       "id",
+      "page",
       "likeNums",
       "commentFlags",
       "commentAll",
+      "articleId",
     ]),
   },
   methods: {
@@ -246,7 +241,7 @@ export default {
     async deleteArticle(id) {
       try {
         await HomeDataService.deleteArticle(id).then((response) => {
-          console.log(response.data);
+          console.log("deleteArticle", response.data);
           this.getAll();
         });
       } catch (e) {
@@ -263,7 +258,7 @@ export default {
         } else {
           await HomeDataService.deleteLike(user_id, articleId).then(
             (response) => {
-              console.log(response.data);
+              console.log("deleteLike", response.data);
             }
           );
         }
@@ -277,7 +272,7 @@ export default {
       try {
         await HomeDataService.getLikeNum(articleId).then((response) => {
           this.likeNum[articleId] = response.data;
-          console.log(response.data);
+          console.log("getLikeNum", response.data);
         });
         this.setLikeNums(this.likeNum);
       } catch (e) {
@@ -288,7 +283,7 @@ export default {
       try {
         await HomeDataService.isLiked(id, articleId).then((response) => {
           this.likedFlags[articleId] = response.data;
-          console.log(response.data);
+          console.log("isLiked", response.data);
         });
       } catch (e) {
         this.error = "!";
@@ -297,18 +292,51 @@ export default {
 
     async liking(user_id, article_id) {
       try {
-        console.log(user_id, article_id);
+        console.log("user_id, article_id", user_id, article_id);
         let like = {
           userL: user_id,
           articleL: article_id,
         };
         await HomeDataService.createLike(like).then((response) => {
-          console.log(response.data);
+          console.log("createLike", response.data);
         });
       } catch (e) {
         this.error = "Не удалось поставить лайк!";
       }
     },
+
+    async commenting(article_id) {
+      try {
+        this.commentFlag[article_id] = !this.commentFlag[article_id];
+        this.setCommentFlags(this.commentFlag);
+        this.setArticleId(article_id);
+        await this.fetchComments(article_id);
+        console.log("this.commentAll", this.commentAll);
+      } catch (e) {
+        this.error = "Не удалось поставить лайк!";
+      }
+    },
+
+    async fetchComments(article_id) {
+      await HomeDataService.getComments(article_id, this.page)
+        .then((response) => {
+          let comments = {};
+
+          response.data.forEach((comment) => {
+            if (comments[article_id]) {
+              comments[article_id].push(comment);
+            } else {
+              comments[article_id] = [comment];
+            }
+          });
+
+          this.setCommentAll(comments);
+        })
+        .catch((error) => {
+          console.error("Ошибка при получении комментариев:", error);
+        });
+    },
+
     formatDate(dateString) {
       const date = new Date(dateString);
       return date.toLocaleString("ru-RU", {
@@ -323,7 +351,7 @@ export default {
   },
   async created() {
     await this.getAll();
-    console.log(this.articleAll);
+    console.log("this.articleAll", this.articleAll);
   },
   mounted() {
     this.date = this.printDate();

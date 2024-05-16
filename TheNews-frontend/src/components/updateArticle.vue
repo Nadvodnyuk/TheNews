@@ -151,7 +151,7 @@ export default {
     async getAll() {
       try {
         await HomeDataService.getAll().then((response) => {
-          console.log(response.data);
+          console.log("getAll", response.data);
           this.setArticleAll(response.data);
         });
       } catch (e) {
@@ -161,7 +161,7 @@ export default {
     async updateArticle() {
       try {
         await HomeDataService.updateArticle(this.articleId, this.article).then((response) => {
-          console.log(response.data);
+          console.log("updateArticle", response.data);
           this.article.title = response.data.title;
           this.article.article_text = response.data.article_text;
           this.article.topics = response.data.topics;

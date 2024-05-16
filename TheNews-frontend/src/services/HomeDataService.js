@@ -32,12 +32,15 @@ class HomeDataService {
     return http.delete(`/admin/articles/${id}`);
   }
 
-  async getComment() {
-    return http.get("/auth/comments/showComments");
+  async getComments(article_id, page) {
+    return http.get(`/auth/comments/showComments/${article_id}/${page}`);
   }
   async createComment(user_id, article_id, data) {
     //user
-    return http.post(`/user/comments/postComment?user_id=${user_id}&article_id=${article_id}`, data);
+    return http.post(
+      `/user/comments/postComment?user_id=${user_id}&article_id=${article_id}`,
+      data
+    );
   }
   async deleteComment(id) {
     //admin
@@ -49,7 +52,9 @@ class HomeDataService {
   }
 
   async isLiked(user_id, article_id) {
-    return http.post(`/auth/likes/isLiked?user_id=${user_id}&article_id=${article_id}`)
+    return http.post(
+      `/auth/likes/isLiked?user_id=${user_id}&article_id=${article_id}`
+    );
   }
   async createLike(data) {
     //user
