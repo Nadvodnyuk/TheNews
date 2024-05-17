@@ -5,27 +5,25 @@ const instance = axios.create({
   withCredentials: true,
   headers: {
     "Content-type": "application/json",
-    "Accept": "application/json"
-  }
+    Accept: "application/json",
+  },
 });
 
 // Перехватываем запросы перед отправкой и добавляем заголовок Authorization, если токен есть
 instance.interceptors.request.use(
-  config => {
+  (config) => {
     const token = localStorage.getItem("token");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
   },
-  error => {
+  (error) => {
     return Promise.reject(error);
   }
 );
 
 export default instance;
-
-
 
 // // Получаем токен из localStorage
 // const token = localStorage.getItem("token");

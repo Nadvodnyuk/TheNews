@@ -1,6 +1,6 @@
 <script setup>
-import TheHeader from './components/header/TheHeader.vue'
-import Footer from './components/footer/TheFooter.vue'
+import TheHeader from "./components/header/TheHeader.vue";
+import Footer from "./components/footer/TheFooter.vue";
 </script>
 
 <template>
@@ -10,8 +10,7 @@ import Footer from './components/footer/TheFooter.vue'
     </div>
 
     <div class="body">
-      <router-view>
-      </router-view>
+      <router-view> </router-view>
     </div>
 
     <div class="footer">
@@ -21,9 +20,9 @@ import Footer from './components/footer/TheFooter.vue'
 </template>
 
 <script>
-  export default  {
-    created () {
-      localStorage.clear();
-  }
-}
+export default {
+  created() {
+    localStorage.clear();
+  },
+};
 </script>

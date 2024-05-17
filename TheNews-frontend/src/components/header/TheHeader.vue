@@ -35,13 +35,12 @@ export default {
   name: "TheHeader",
   data() {
     return {
-      localStorageKey: 'name',
+      localStorageKey: "name",
       whoami: this.name,
     };
   },
   computed: {
-    ...mapState(useCatalog, ['name']),
-
+    ...mapState(useCatalog, ["name"]),
   },
   methods: {
     async retrieveMe() {

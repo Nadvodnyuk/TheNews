@@ -1,101 +1,99 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap");
 
 .sub_header {
-    height: 120px;
+  height: 120px;
 }
 
 .login_page {
-    background-color: none;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: auto;
-    opacity: 100%;
+  background-color: none;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: auto;
+  opacity: 100%;
 }
 
-
-
 .login_block {
-    margin: 200px auto;
-    width: 30%;
-    height: auto;
-    background-color: white;
-    margin: 0 auto;
-    border-radius: 5%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: 1px solid blue;
-    padding: 0px;
+  margin: 200px auto;
+  width: 30%;
+  height: auto;
+  background-color: white;
+  margin: 0 auto;
+  border-radius: 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid blue;
+  padding: 0px;
 }
 
 .login_header {
-    align-items: center;
-    vertical-align: top;
-    margin-bottom: 50px;
-    margin-top: 30px;
-    font-family: 'Montserrat', bold;
-    font-size: 25px;
+  align-items: center;
+  vertical-align: top;
+  margin-bottom: 50px;
+  margin-top: 30px;
+  font-family: "Montserrat", bold;
+  font-size: 25px;
 }
 
 .login_container {
-    width: 85%;
-    margin: 20px;
+  width: 85%;
+  margin: 20px;
 }
 
 input:-webkit-autofill {
-    transition: all 5000s ease-in-out;
+  transition: all 5000s ease-in-out;
 }
 
 input:focus {
-    outline: none;
-    border-color: none;
+  outline: none;
+  border-color: none;
 }
 
 .info_input {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 .info_input input {
-    margin-bottom: 30px;
-    height: 20px;
-    width: 100%;
-    border: none;
-    border-bottom: 1px solid grey;
+  margin-bottom: 30px;
+  height: 20px;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid grey;
 }
 
 .login_btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: auto;
-    margin-top: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+  margin-top: 30px;
 }
 
 .login_btn button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    outline: none;
-	border: 1px solid #fff;
-	border-radius: 50px;
-	height: 46px;
-	font-size: 16px;
-	font-weight: 600;
-	color: #444;
-	background-color: #fff;
-	box-shadow: 0 4px 6px rgb(65 132 144 / 10%), 0 1px 3px rgb(0 0 0 / 8%);
-	cursor: pointer;
-	touch-action: manipulation;  
-	transition: box-shadow 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  outline: none;
+  border: 1px solid #fff;
+  border-radius: 50px;
+  height: 46px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #444;
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgb(65 132 144 / 10%), 0 1px 3px rgb(0 0 0 / 8%);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: box-shadow 0.2s;
 }
 
 .create_acc_ref {
-    margin-top: 30px;
-    display: flex;
-    align-items: bottom;
-    justify-content: end;
+  margin-top: 30px;
+  display: flex;
+  align-items: bottom;
+  justify-content: end;
 }

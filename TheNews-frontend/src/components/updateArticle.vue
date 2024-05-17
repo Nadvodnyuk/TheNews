@@ -160,24 +160,26 @@ export default {
     },
     async updateArticle() {
       try {
-        await HomeDataService.updateArticle(this.articleId, this.article).then((response) => {
-          console.log("updateArticle", response.data);
-          this.article.title = response.data.title;
-          this.article.article_text = response.data.article_text;
-          this.article.topics = response.data.topics;
-          this.article.image_url = response.data.image_url;
-          this.getAll();
-        });
+        await HomeDataService.updateArticle(this.articleId, this.article).then(
+          (response) => {
+            console.log("updateArticle", response.data);
+            this.article.title = response.data.title;
+            this.article.article_text = response.data.article_text;
+            this.article.topics = response.data.topics;
+            this.article.image_url = response.data.image_url;
+            this.getAll();
+          }
+        );
       } catch (e) {
         this.error = "Проверьте все поля!";
       }
     },
   },
   watch: {
-      articleId(newVal) {
-        this.getArticle();
-      },
+    articleId(newVal) {
+      this.getArticle();
     },
+  },
 };
 </script>
 
