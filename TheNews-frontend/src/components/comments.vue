@@ -1,8 +1,40 @@
 <template>
+  <br />
   <div class="comments" v-show="commentFlags[articleId]">
-    <div v-if="commentAll[articleId] && commentAll[articleId].length" class="title_comment">
+    <div
+      v-if="commentAll[articleId] && commentAll[articleId].length"
+      class="title_comment"
+    >
+      <br />
       <div v-for="(comment, index) in commentAll[articleId]" :key="index">
-        <p>{{ comment.comment_text }}</p>
+        <div class="comment_trash">
+          {{ comment.comment_text }}
+          <button
+            @click="deleteComment(comment.comment_id)"
+            v-if="role === 'ROLE_ADMIN'"
+            class="nostyle"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-trash"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"
+              />
+              <path
+                fill-rule="evenodd"
+                d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
+              />
+            </svg>
+          </button>
+        </div>
+        <p class="comment_date">
+          {{ formatDate(comment.comment_date) }}
+        </p>
       </div>
     </div>
     <div v-else>
@@ -11,42 +43,45 @@
     <div class="comment_more">
       <ul class="state">
         <li>
-          <button class="nostyle" @click="moreCommentsFlag = !moreCommentsFlag; setPage(page + 1);">
+          <button
+            class="nostyle"
+            @click="fetchMoreComments()"
+            v-if="
+              this.commentPages[this.articleId] <
+              commentNums[this.articleId] / 3
+            "
+          >
             Ещё комментарии
           </button>
         </li>
       </ul>
     </div>
-    <div class="comment_bar">
-      <textarea
-        type="input"
-        cols="60"
-        rows="14"
-        wrap="soft"
-        class="leave_comment"
-        v-model="comment_text.comment_text"
-        @input="validateComment"
-        placeholder="Оставить комментарий"
-      >
-      </textarea>
-    </div>
-    <p v-if="errors.comment">
-      {{ errors.comment }}
-    </p>
-    <div class="comment_more">
-      <ul class="state">
-        <li>
-          <button
-            class="put_comm_btn"
-            @click="
-              submitComment();
-              sentFlag = true;
-            "
-          >
-            Отправить комментарий
-          </button>
-        </li>
-      </ul>
+    <div v-if="role === 'ROLE_USER'">
+      <div class="comment_bar">
+        <textarea
+          type="input"
+          cols="60"
+          rows="14"
+          wrap="soft"
+          class="leave_comment"
+          v-model="comment_text.comment_text"
+          @input="validateComment"
+          placeholder="Оставить комментарий"
+        >
+        </textarea>
+      </div>
+      <p v-if="errors.comment">
+        {{ errors.comment }}
+      </p>
+      <div class="comment_more">
+        <ul class="state">
+          <li>
+            <button class="put_comm_btn" @click="submitComment()">
+              Отправить комментарий
+            </button>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -69,10 +104,20 @@ export default {
       comment_text: {
         comment_text: "",
       },
+      pages: {},
     };
   },
   computed: {
-    ...mapState(useCatalog, ["id", "articleId", "commentFlags", "commentAll", "page"]),
+    ...mapState(useCatalog, [
+      "id",
+      "articleId",
+      "commentFlags",
+      "commentAll",
+      "page",
+      "commentPages",
+      "role",
+      "commentNums",
+    ]),
 
     loadComments() {
       if (this.commentFlags[this.articleId]) {
@@ -81,20 +126,15 @@ export default {
     },
   },
   methods: {
-    ...mapActions(useCatalog, ["setCommentFlags", "setCommentAll", "setPage"]),
-
-    scrollToTop() {
-      // Прокручиваем страницу наверх (координаты 0, 0)
-      window.scrollTo(0, 0);
-    },
-
-    printDate() {
-      return new Date().toLocaleDateString();
-    },
-
-    printTime() {
-      return new Date().toLocaleTimeString();
-    },
+    ...mapActions(useCatalog, [
+      "setCommentFlags",
+      "setCommentAll",
+      "setPage",
+      "setCommentPages",
+      "formatDate",
+      "scrollToTop",
+      "setCommentNums"
+    ]),
 
     validateComment() {
       this.errors.comment =
@@ -104,23 +144,51 @@ export default {
     },
 
     async fetchComments() {
-      await HomeDataService.getComments(this.articleId, this.page)
+      await HomeDataService.getComments(
+        this.articleId,
+        this.commentPages[this.articleId]
+      )
         .then((response) => {
-          let comments = {};
+          let existingComments = this.commentAll[this.articleId] || [];
+          let newComments = response.data;
 
-          response.data.forEach((comment) => {
-            if (comments[this.articleId]) {
-              comments[this.articleId].push(comment);
-            } else {
-              comments[this.articleId] = [comment];
-            }
+          this.setCommentAll({
+            ...this.commentAll,
+            [this.articleId]: [...existingComments, ...newComments],
           });
-
-          this.setCommentAll(comments);
         })
         .catch((error) => {
           console.error("Ошибка при получении комментариев:", error);
         });
+    },
+
+    async deleteComment(article_id) {
+      await HomeDataService.deleteComment(article_id)
+        .then((response) => {
+          this.setCommentPages({
+            ...this.commentPages,
+            [this.articleId]: 1,
+          });
+          this.setCommentAll({
+            ...this.commentAll,
+            [this.articleId]: [],
+          });
+          this.fetchComments();
+          this.getCommentNum();
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.error("Ошибка при получении комментариев:", error);
+        });
+    },
+
+    async fetchMoreComments() {
+      this.moreCommentsFlag = !this.moreCommentsFlag;
+      this.setCommentPages({
+        ...this.commentPages,
+        [this.articleId]: this.commentPages[this.articleId] + 1,
+      });
+      await this.fetchComments();
     },
 
     async submitComment() {
@@ -137,7 +205,17 @@ export default {
             this.comment_text
           ).then((response) => {
             console.log("createComment", response.data);
+            this.setCommentPages({
+              ...this.commentPages,
+              [this.articleId]: 1,
+            });
+            this.setCommentAll({
+              ...this.commentAll,
+              [this.articleId]: [],
+            });
             this.fetchComments();
+            this.sentFlag = true;
+            this.comment_text.comment_text = "";
           });
         } catch (e) {
           console.log("e", e);
@@ -145,11 +223,19 @@ export default {
         }
       }
     },
-  },
 
-  mounted() {
-    this.date = this.printDate();
-    this.time = this.printTime();
+    async getCommentNum() {
+      try {
+        let commentNum = {};
+        await HomeDataService.getCommentNum(this.articleId).then((response) => {
+          commentNum[this.articleId] = response.data;
+          console.log("getcommentNum", response.data);
+        });
+        this.setCommentNums(commentNum);
+      } catch (e) {
+        console.log("e", e);
+      }
+    },
   },
 };
 </script>
@@ -166,13 +252,13 @@ export default {
 }
 
 .title_comment {
+  border-top: solid 1px rgba(160, 160, 160, 0.3);
   flex-grow: 1;
-  padding: 2em 2em 0 2em;
+  padding: 0 2em 0 2em;
 }
 
 .leave_comment {
   margin-bottom: 20px;
-  /* height: 100%; */
   align-items: center;
   justify-content: center;
   display: flex;
@@ -246,5 +332,16 @@ export default {
   line-height: 2;
   text-transform: uppercase;
   color: #738392;
+}
+
+.comment_date {
+  font-size: 0.6em;
+  text-align: right;
+}
+
+.comment_trash {
+  display: flex;
+  justify-content: space-between;
+  margin: 15px 0 15px 0;
 }
 </style>

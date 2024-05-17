@@ -21,7 +21,7 @@ public class CommentEntity {
     private String comment_text;
 
     @Column(name = "comment_date")
-    private java.sql.Timestamp comment_date;
+    private java.sql.Timestamp commentDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userC")
@@ -48,11 +48,11 @@ public class CommentEntity {
     }
 
     public Timestamp getComment_date() {
-        return comment_date;
+        return commentDate;
     }
 
     public void setComment_date(Timestamp comment_date) {
-        this.comment_date = comment_date;
+        this.commentDate = comment_date;
     }
 
     public UserEntity getUserC() {
@@ -73,6 +73,6 @@ public class CommentEntity {
 
     @Override
     public String toString() {
-        return "User [id=" + comment_id + ", date=" + comment_date + "]";
+        return "User [id=" + comment_id + ", date=" + commentDate + "]";
     }
 }

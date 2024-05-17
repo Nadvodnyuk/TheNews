@@ -11,9 +11,11 @@ export const useCatalog = defineStore("catalog-store", {
       articleId: "",
       articleAll: {},
       likeNums: {},
+      commentNums: {},
       commentFlags: {},
       commentAll: {},
       page: 1,
+      commentPages: {},
     };
   },
 
@@ -50,6 +52,10 @@ export const useCatalog = defineStore("catalog-store", {
       this.likeNums = likeNums;
     },
 
+    setCommentNums(commentNums) {
+      this.commentNums = commentNums;
+    },
+
     setCommentFlags(commentFlags) {
       this.commentFlags = commentFlags;
     },
@@ -60,6 +66,26 @@ export const useCatalog = defineStore("catalog-store", {
 
     setPage(page) {
       this.page = page;
+    },
+
+    setCommentPages(commentPages) {
+      this.commentPages = commentPages;
+    },
+
+    formatDate(dateString) {
+      const date = new Date(dateString);
+      return date.toLocaleString("ru-RU", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+      });
+    },
+
+    scrollToTop() {
+      window.scrollTo(0, 0);
     },
   },
 });

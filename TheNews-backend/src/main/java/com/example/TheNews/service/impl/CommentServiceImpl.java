@@ -2,6 +2,7 @@ package com.example.TheNews.service.impl;
 
 import com.example.TheNews.entity.ArticleEntity;
 import com.example.TheNews.entity.CommentEntity;
+import com.example.TheNews.entity.LikeEntity;
 import com.example.TheNews.entity.UserEntity;
 import com.example.TheNews.repository.CommentRepo;
 import com.example.TheNews.service.CommentService;
@@ -26,7 +27,13 @@ public class CommentServiceImpl implements CommentService {
         PageRequest pageRequest = PageRequest.of(pageNumber, 3);
 
         // Загружаем комментарии из базы данных с учетом пагинации
-        return commentRepo.findByArticleC(article_с, pageRequest);
+        // return commentRepo.findByArticleC(article_с, pageRequest);
+        return commentRepo.findByArticleCOrderByCommentDateDesc(article_с, pageRequest);
+    }
+
+    public int getCommentsByArticleId(ArticleEntity article_c) {
+        List<CommentEntity> likeNum = commentRepo.findByArticleC(article_c);
+        return likeNum.size();
     }
 
     //Для создания коммента

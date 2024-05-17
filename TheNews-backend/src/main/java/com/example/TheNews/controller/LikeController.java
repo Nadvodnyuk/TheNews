@@ -27,13 +27,6 @@ public class LikeController {
     @Autowired
     private LikeRepo likeRepo;
 
-    //Ф.Вывести лайки для статьи
-
-    ///Для авторизованного:
-    //Ф.Поставить лайк
-
-    //Ф.Удалить лайк
-
     @PostMapping("/auth/likes/likeNum")
     public ResponseEntity<?> likeNum(@RequestParam long article_id) {
         try {
@@ -42,6 +35,7 @@ public class LikeController {
             return ResponseEntity.badRequest().body(e);
         }
     }
+
     @PostMapping("/auth/likes/isLiked")
     public ResponseEntity<?> isLiked(@RequestParam long user_id, @RequestParam long article_id) {
         try {
@@ -50,7 +44,6 @@ public class LikeController {
             return ResponseEntity.badRequest().body(e);
         }
     }
-
 
     @PostMapping("/user/likes/postLike")
     @PreAuthorize("hasRole('USER')")
@@ -62,9 +55,7 @@ public class LikeController {
             return ResponseEntity.badRequest().body(e);
         }
     }
-    //(с проверкой пользователяAuth.../Principal)
 
-    //лайк удаляем взяв айди поста и Id пользователя, в функцию удалить прередаем оба
     @DeleteMapping("/user/likes/{userL}/{articleL}")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> deleteLike(@PathVariable long userL,
@@ -86,10 +77,4 @@ public class LikeController {
         List<LikeEntity> likes = likeRepo.findAll();
         return ResponseEntity.ok(likes);
     }
-
-
-
 }
-//удаление лайка пользователем(с проверкой пользователяAuth.../Principal)
-
- 

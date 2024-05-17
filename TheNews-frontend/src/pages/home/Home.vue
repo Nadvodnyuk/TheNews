@@ -117,7 +117,7 @@ import comments from "../../components/comments.vue";
                 setCommentFlags(commentFlag);
               "
             >
-              15
+              {{ commentNums[article.article_id] }}
             </button>
           </li>
         </ul>
@@ -158,7 +158,7 @@ export default {
       },
       likedFlags: {},
       likeNum: {},
-      comment: {},
+      commentNum: {},
       commentFlag: {},
     };
   },
@@ -169,8 +169,10 @@ export default {
       "id",
       "page",
       "likeNums",
+      "commentNums",
       "commentFlags",
       "commentAll",
+      "commentPages",
       "articleId",
     ]),
   },
@@ -179,22 +181,13 @@ export default {
       "setArticleAll",
       "setArticleId",
       "setLikeNums",
+      "setCommentNums",
       "setCommentFlags",
       "setCommentAll",
+      "setCommentPages",
+      "formatDate",
+      "scrollToTop",
     ]),
-
-    scrollToTop() {
-      // Прокручиваем страницу наверх (координаты 0, 0)
-      window.scrollTo(0, 0);
-    },
-
-    printDate() {
-      return new Date().toLocaleDateString();
-    },
-
-    printTime() {
-      return new Date().toLocaleTimeString();
-    },
 
     validateComment() {
       this.errors.comment =
@@ -213,31 +206,47 @@ export default {
     async getAll() {
       try {
         await HomeDataService.getAll().then((response) => {
+          let pages = {};
+          let comment = {};
+
           this.setArticleAll(response.data);
+
           this.likedFlags = Object.fromEntries(
             response.data.map((article) => [article.article_id, false])
           );
           this.likeNum = Object.fromEntries(
             response.data.map((article) => [article.article_id, 0])
           );
+          this.commentNum = Object.fromEntries(
+            response.data.map((article) => [article.article_id, 0])
+          );
           this.commentFlag = Object.fromEntries(
             response.data.map((article) => [article.article_id, false])
           );
-          this.comment = Object.fromEntries(
+          comment = Object.fromEntries(
             response.data.map((article) => [article.article_id, []])
           );
+          pages = Object.fromEntries(
+            response.data.map((article) => [article.article_id, 1])
+          );
+
           response.data.forEach((article) => {
-            this.getNum(article.article_id);
+            this.getLikeNum(article.article_id);
+            this.getCommentNum(article.article_id);
             this.isLiked(this.id, article.article_id);
           });
+
           this.setLikeNums(this.likeNum);
-          this.setcommentFlags(this.commentFlag);
-          this.setCommentAll(this.comment);
+          this.setCommentNums(this.commentNum);
+          this.setCommentFlags(this.commentFlag);
+          this.setCommentAll(comment);
+          this.setCommentPages(pages);
         });
       } catch (e) {
-        this.error = "Проверьте все поля!";
+        console.log("e", e);
       }
     },
+
     async deleteArticle(id) {
       try {
         await HomeDataService.deleteArticle(id).then((response) => {
@@ -245,9 +254,10 @@ export default {
           this.getAll();
         });
       } catch (e) {
-        this.error = "Проверьте все поля!";
+        console.log("e", e);
       }
     },
+
     async toggleLikedFlag(articleId) {
       try {
         const currentState = this.likedFlags[articleId];
@@ -262,13 +272,14 @@ export default {
             }
           );
         }
-        this.getNum(articleId);
+        this.getLikeNum(articleId);
         this.setLikeNums(this.likeNum);
       } catch (e) {
-        this.error = "Не удалось поставить лайк!";
+        console.log("e", e);
       }
     },
-    async getNum(articleId) {
+
+    async getLikeNum(articleId) {
       try {
         await HomeDataService.getLikeNum(articleId).then((response) => {
           this.likeNum[articleId] = response.data;
@@ -276,17 +287,32 @@ export default {
         });
         this.setLikeNums(this.likeNum);
       } catch (e) {
-        this.error = "Не удалось поставить лайк!";
+        console.log("e", e);
       }
     },
-    async isLiked(id, articleId) {
+
+    async getCommentNum(articleId) {
       try {
-        await HomeDataService.isLiked(id, articleId).then((response) => {
-          this.likedFlags[articleId] = response.data;
-          console.log("isLiked", response.data);
+        await HomeDataService.getCommentNum(articleId).then((response) => {
+          this.commentNum[articleId] = response.data;
+          console.log("getcommentNum", response.data);
         });
+        this.setCommentNums(this.commentNum);
       } catch (e) {
-        this.error = "!";
+        console.log("e", e);
+      }
+    },
+
+    async isLiked(id, articleId) {
+      if (id) {
+        try {
+          await HomeDataService.isLiked(id, articleId).then((response) => {
+            this.likedFlags[articleId] = response.data;
+            console.log("isLiked", response.data);
+          });
+        } catch (e) {
+          console.log("e", e);
+        }
       }
     },
 
@@ -301,7 +327,7 @@ export default {
           console.log("createLike", response.data);
         });
       } catch (e) {
-        this.error = "Не удалось поставить лайк!";
+        console.log("e", e);
       }
     },
 
@@ -313,12 +339,15 @@ export default {
         await this.fetchComments(article_id);
         console.log("this.commentAll", this.commentAll);
       } catch (e) {
-        this.error = "Не удалось поставить лайк!";
+        console.log("e", e);
       }
     },
 
     async fetchComments(article_id) {
-      await HomeDataService.getComments(article_id, this.page)
+      await HomeDataService.getComments(
+        article_id,
+        this.commentPages[article_id]
+      )
         .then((response) => {
           let comments = {};
 
@@ -329,33 +358,17 @@ export default {
               comments[article_id] = [comment];
             }
           });
-
           this.setCommentAll(comments);
         })
         .catch((error) => {
           console.error("Ошибка при получении комментариев:", error);
         });
     },
-
-    formatDate(dateString) {
-      const date = new Date(dateString);
-      return date.toLocaleString("ru-RU", {
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: false,
-      });
-    },
   },
+
   async created() {
     await this.getAll();
     console.log("this.articleAll", this.articleAll);
-  },
-  mounted() {
-    this.date = this.printDate();
-    this.time = this.printTime();
   },
 };
 </script>

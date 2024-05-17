@@ -37,7 +37,16 @@ public class CommentFacadeImpl implements CommentFacade {
 
     //Вывести все комменты к статье
     //С.Вывести все комменты к статье
-    //Я не уверена, работает ли
+
+    public int commentNumFacade(long article_id) {
+        try {
+            ArticleEntity art = articleService.getOne(article_id);
+            return commentService.getCommentsByArticleId(art);
+        } catch (NotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public List<CommentDto> getCommentsByArticleIdWithPaginationFacade(long article_c, int page) throws NotFoundException {
         ArticleEntity art = articleService.getOne(article_c);
         List<CommentEntity> threeCommentsEntity = commentService.getCommentsByArticleIdWithPagination(art, page);

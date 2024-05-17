@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 @Service
 public interface CommentFacade {
 
+    int commentNumFacade(long article_id);
+
     //Вывести все комменты к статье
     List<CommentDto> getCommentsByArticleIdWithPaginationFacade(long article_c, int page)
             throws NotFoundException;

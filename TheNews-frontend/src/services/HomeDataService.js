@@ -32,6 +32,9 @@ class HomeDataService {
     return http.delete(`/admin/articles/${id}`);
   }
 
+  async getCommentNum(article_id) {
+    return http.post(`/auth/comments/commentNum?article_id=${article_id}`);
+  }
   async getComments(article_id, page) {
     return http.get(`/auth/comments/showComments/${article_id}/${page}`);
   }

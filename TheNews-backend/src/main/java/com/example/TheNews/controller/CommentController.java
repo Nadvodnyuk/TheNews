@@ -21,6 +21,15 @@ public class CommentController {
     @Autowired
     private CommentFacade commentFacade;
 
+    @PostMapping("/auth/comments/commentNum")
+    public ResponseEntity<?> commentNum(@RequestParam long article_id) {
+        try {
+            return ResponseEntity.ok(commentFacade.commentNumFacade(article_id));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e);
+        }
+    }
+
     @GetMapping("/auth/comments/showComments/{article_id}/{page}")
     public ResponseEntity<?> getCommentsForArticle(@PathVariable long article_id,
                                                    @PathVariable int page) {
