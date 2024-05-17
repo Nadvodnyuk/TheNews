@@ -2,6 +2,7 @@ package com.example.TheNews.service;
 
 import com.example.TheNews.entity.ArticleEntity;
 import com.example.TheNews.entity.CommentEntity;
+import com.example.TheNews.entity.LikeEntity;
 import com.example.TheNews.entity.UserEntity;
 import com.example.TheNews.repository.CommentRepo;
 import com.example.TheNews.service.impl.CommentServiceImpl;
@@ -49,12 +50,12 @@ public class CommentServiceTests {
             .like_num(2)
             .comment_num(1)
             .publicationDate(java.sql.Timestamp.valueOf(LocalDateTime.now()))
-            .userA(user).build();
+            .build();
 
     CommentEntity comment = CommentEntity.builder()
             .comment_id(1)
             .comment_text("Wow!")
-            .comment_date(java.sql.Timestamp.valueOf(LocalDateTime.now()))
+            .commentDate(java.sql.Timestamp.valueOf(LocalDateTime.now()))
             .userC(user)
             .articleC(article).build();
 
@@ -63,11 +64,22 @@ public class CommentServiceTests {
         List<CommentEntity> comments = Mockito.mock(List.class);
         int page = 1;
 
-        when(commentRepo.findByArticleC(article, PageRequest.of(page-1, 3))).thenReturn(comments);
+        when(commentRepo.findByArticleCOrderByCommentDateDesc(article, PageRequest.of(page-1, 3))).thenReturn(comments);
 
         List<CommentEntity> threeComments = commentService.getCommentsByArticleIdWithPagination(article, page);
 
         Assertions.assertThat(threeComments).isNotNull();
+    }
+
+    @Test
+    public void CommentService_getCommentsByArticleId_ReturnsInt() {
+        List<CommentEntity> commentNum = Mockito.mock(List.class);
+
+        when(commentRepo.findByArticleC(article)).thenReturn(commentNum);
+
+        int saveComment = commentService.getCommentsByArticleId(article);
+
+        Assertions.assertThat(saveComment).isNotNull();
     }
 
     @Test

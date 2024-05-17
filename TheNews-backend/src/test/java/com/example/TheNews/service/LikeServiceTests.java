@@ -67,17 +67,13 @@ public class LikeServiceTests {
         Assertions.assertThat(saveLike).isNotNull();
     }
 
-//    @Test
-//    public void LikeService_isLikedByUserAndArticle_ReturnsBoolean() {
-//        boolean isLiked = Mockito.mock(List.class);
-//
-//        when(likeRepo.findByArticleLAndUserL(article, user))
-//                .thenReturn(isLiked);
-//
-//        boolean saveLike = likeService.isLikedByUserAndArticle(user, article);
-//
-//        Assertions.assertThat(saveLike).isTrue();
-//    }
+    @Test
+    public void LikeService_isLikedByUserAndArticle_ReturnsBoolean() {
+        when(likeRepo.existsByArticleLAndUserL(article, user)).thenReturn(true);
+        boolean saveLike = likeService.isLikedByUserAndArticle(user, article);
+
+        Assertions.assertThat(saveLike).isTrue();
+    }
 
     @Test
     public void LikeService_CreateLike_ReturnsVoid() {

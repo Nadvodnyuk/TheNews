@@ -133,7 +133,7 @@ export default {
       "setCommentPages",
       "formatDate",
       "scrollToTop",
-      "setCommentNums"
+      "setCommentNums",
     ]),
 
     validateComment() {

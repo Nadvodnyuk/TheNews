@@ -48,7 +48,7 @@ public class ArticleServiceTests {
             .like_num(2)
             .comment_num(1)
             .publicationDate(java.sql.Timestamp.valueOf(LocalDateTime.now()))
-            .userA(user).build();
+            .build();
 
     @Test
     public void ArticleService_getAllLatestArticles_ReturnsList() {

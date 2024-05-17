@@ -49,18 +49,16 @@ public class CommentControllerTests {
 
     @Test
     public void CommentController_getCommentsForArticle_ReturnsList() throws Exception {
-        int article_с = 1;
+        int article_id = 1;
         int page = 1;
         CommentDto commentDto = CommentDto.builder()
                 .comment_id(1)
                 .comment_text("comment")
                 .comment_date(java.sql.Timestamp.valueOf(LocalDateTime.now())).build();
 
-        when(commentFacade.getCommentsByArticleIdWithPaginationFacade(page, article_с))
+        when(commentFacade.getCommentsByArticleIdWithPaginationFacade(article_id, page))
                 .thenReturn(Arrays.asList(commentDto));
-        mockMvc.perform(get("/auth/comments/showComments")
-                        .param("page", String.valueOf(page))
-                        .param("article_с", String.valueOf(article_с)))
+        mockMvc.perform(get("/auth/comments/showComments/{article_id}/{page}", article_id, page))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.size()",
                         CoreMatchers.is(Arrays.asList(commentDto).size())));
@@ -70,10 +68,12 @@ public class CommentControllerTests {
     public void CommentController_postComment_ReturnsOk() throws Exception {
         CreateCommentDto createCommentDto = CreateCommentDto.builder()
                 .comment_text("comment").build();
-        int userС = 1;
-        int articleС = 1;
-        doNothing().when(commentFacade).createCommentFacade(userС, createCommentDto, articleС);
-        mockMvc.perform(post("/comments/postComment/1/1")
+        int user_id = 1;
+        int article_id = 1;
+        doNothing().when(commentFacade).createCommentFacade(user_id, createCommentDto, article_id);
+        mockMvc.perform(post("/user/comments/postComment")
+                        .param("user_id", String.valueOf(user_id))
+                        .param("article_id", String.valueOf(article_id))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(createCommentDto)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -85,7 +85,7 @@ public class CommentControllerTests {
         int comment_id = 1;
         doNothing().when(commentFacade).deleteFacade(comment_id);
 
-        ResultActions response = mockMvc.perform(delete("/admin/comments/1")
+        ResultActions response = mockMvc.perform(delete("/admin/comments/{comment_id}", comment_id)
                 .contentType(MediaType.APPLICATION_JSON));
 
         response.andExpect(MockMvcResultMatchers.status().isOk());

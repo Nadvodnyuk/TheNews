@@ -26,7 +26,6 @@ public class LikeServiceImpl implements LikeService {
         return likeNum.size();
     }
 
-
     public boolean isLikedByUserAndArticle(UserEntity user_l, ArticleEntity article_l) {
         boolean isLiked = likeRepo.existsByArticleLAndUserL(article_l, user_l);
         if (isLiked)
