@@ -35,7 +35,7 @@ public class ArticleServiceImpl implements ArticleService {
         article.setArticle_text(text);
         article.setImage_url(imageUrl);
         java.sql.Timestamp currentDateTime = java.sql.Timestamp.valueOf(LocalDateTime.now());
-        article.setPublication_date(currentDateTime);
+        article.setPublicationDate(currentDateTime);
         article.setTopics(topics);
 
         // Сохраняем статью в базе данных
@@ -61,7 +61,7 @@ public class ArticleServiceImpl implements ArticleService {
         article.setArticle_text(text);
         article.setImage_url(imageUrl);
         java.sql.Timestamp currentDateTime = java.sql.Timestamp.valueOf(LocalDateTime.now());
-        article.setPublication_date(currentDateTime);
+        article.setPublicationDate(currentDateTime);
         article.setTopics(topics);
 
         // Сохраняем статью в базе данных
@@ -71,5 +71,9 @@ public class ArticleServiceImpl implements ArticleService {
     //Удаление статьи:
     public void delete(Long art_id) {
         articleRepo.deleteById(art_id);
+    }
+
+    public void saveArticles(List<ArticleEntity> articles) {
+        articleRepo.saveAll(articles);
     }
 }

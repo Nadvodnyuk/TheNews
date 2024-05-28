@@ -23,4 +23,6 @@ public interface ArticleFacade {
 
     //Удаление статьи:
     void deleteFacade(Long art_id);
+
+
 }

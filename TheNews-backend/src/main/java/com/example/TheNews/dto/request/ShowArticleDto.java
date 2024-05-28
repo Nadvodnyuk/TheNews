@@ -9,12 +9,4 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 public class ShowArticleDto {
     private java.sql.Timestamp publicationDate;
-
-    public Timestamp getPublicationDate() {
-        return publicationDate;
-    }
-
-    public void setPublicationDate(Timestamp publicationDate) {
-        this.publicationDate = publicationDate;
-    }
 }

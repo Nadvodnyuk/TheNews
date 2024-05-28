@@ -22,32 +22,12 @@ public class ArticleFacadeImpl implements ArticleFacade {
 
     @Autowired
     private ModelMapper modelMapper;
-    /*
-    Вытащить из БД все статьи за 24ч  {
-        С.Получить все статьи
-        Вернуть в ДТОСтатьи
-    }
-    //Создать статью 
-        С.Создать статью
-
-    //Получитьт статью по ИД
-        С.Получить статью по айди
-        Вернуть в ДТОСтатью
-
-    //Изменить статью
-        С.Изменить статью
-
-    //Удалить статью по ИД
-        С.Удалить статью по ИД
-    */
 
     //Для списка статей:
     public List<ArticleDto> getAllLatestArticlesFacade() {
         List<ArticleEntity> articles = articleService.getAllLatestArticles();
-        // Create Conversion Type
         Type listType = new TypeToken<List<ArticleDto>>() {
         }.getType();
-        // Convert List of Entity objects to a List of DTOs objects
         List<ArticleDto> ArticlesDto = new ModelMapper().map(articles, listType);
         return ArticlesDto;
     }

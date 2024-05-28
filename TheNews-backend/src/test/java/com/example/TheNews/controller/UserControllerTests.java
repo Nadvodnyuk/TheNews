@@ -46,7 +46,7 @@ public class UserControllerTests {
     private UserService userService;
 
     @MockBean
-    private JwtService jwtService; // Создаем заглушку для JwtService
+    private JwtService jwtService;
 
     @Test
     public void UserController_register_ReturnString() throws Exception {
@@ -70,7 +70,6 @@ public class UserControllerTests {
                 .password("222")
                 .build();
 
-        // Создаем объект SignInResponseDto, который будет возвращаться из метода authenticateFacade
         SignInResponseDto responseDto = SignInResponseDto.builder()
                 .user_id(1)
                 .name("Test User")
@@ -79,15 +78,13 @@ public class UserControllerTests {
                 .expiresIn(3600)
                 .build();
 
-        // Настраиваем мок для возвращения объекта SignInResponseDto
         when(userFacade.authenticateFacade(loginUserDto)).thenReturn(responseDto);
 
-        // Выполняем запрос на вход
         mockMvc.perform(post("/auth/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(loginUserDto)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(content().json(objectMapper.writeValueAsString(responseDto))); // Проверяем, что ответ содержит ожидаемый объект SignInResponseDto
+                .andExpect(content().json(objectMapper.writeValueAsString(responseDto)));
     }
 
     @Test

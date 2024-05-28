@@ -12,11 +12,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface CommentService {
-    public List<CommentEntity> getCommentsByArticleIdWithPagination(ArticleEntity article_с, int page);
+    List<CommentEntity> getCommentsByArticleIdWithPagination(ArticleEntity article_с, int page);
 
-    public int getCommentsByArticleId(ArticleEntity article_c);
-    public void createComment(UserEntity user_c, String comment_text, ArticleEntity article_c);
+    int getCommentsByArticleId(ArticleEntity article_c);
+    void createComment(UserEntity user_c, String comment_text, ArticleEntity article_c);
 
-    public void delete(Long comment_id);
+    void delete(Long comment_id);
 
 }

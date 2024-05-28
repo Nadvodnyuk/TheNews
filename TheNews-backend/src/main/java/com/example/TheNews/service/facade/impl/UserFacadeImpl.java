@@ -43,28 +43,20 @@ public class UserFacadeImpl implements UserFacade {
 
     //С.Вход
     public SignInResponseDto authenticateFacade(@RequestBody SignInDto loginUserDto) throws NotFoundException {
-
         UserEntity authenticatedUser = userService.authenticate(loginUserDto);
         String jwtToken = jwtService.generateToken(authenticatedUser);
-        System.out.println("authenticationEnd " + authenticatedUser);
         SignInResponseDto loginResponse = new SignInResponseDto();
         loginResponse.setUser_id(authenticatedUser. getUser_id());
         loginResponse.setName(authenticatedUser.getFirst_name()+" "+authenticatedUser.getLast_name());
         loginResponse.setRole(authenticatedUser.getRole());
         loginResponse.setToken(jwtToken);
         loginResponse.setExpiresIn(jwtService.getExpirationTime());
-        System.out.println("Вход выполнен " + SecurityContextHolder.getContext().getAuthentication());
         return loginResponse;
     }
 
     public boolean authenticatedUserFacade() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println("authentication " + authentication);
-//        UserEntity currentUser = (UserEntity) authentication.getPrincipal();
-//        System.out.println("currentUser " + currentUser);
-        System.out.println(authentication.getPrincipal());
         if (authentication.getPrincipal()=="anonymousUser") {
-            System.out.println("Аноним");
             return false;}
         else
             return true;
@@ -73,7 +65,6 @@ public class UserFacadeImpl implements UserFacade {
     //С.Выйти
     public void logOutFacade(HttpServletRequest request, HttpServletResponse response) {
         String authHeader = request.getHeader("Authorization");
-        System.out.println("Вызван логаут");
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             String token = authHeader.substring(7);
             jwtService.invalidateToken(token);

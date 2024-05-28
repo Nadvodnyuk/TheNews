@@ -32,6 +32,7 @@ public class LikeFacadeImpl implements LikeFacade {
         }
     }
 
+    //Лайкнутые посты пользователем
     public boolean isLikedBy(long user_id, long article_id) {
         try {
             ArticleEntity art = articleService.getOne(article_id);

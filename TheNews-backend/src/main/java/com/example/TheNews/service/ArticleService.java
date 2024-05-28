@@ -10,13 +10,14 @@ import java.util.List;
 
 public interface ArticleService {
 
-    public List<ArticleEntity> getAllLatestArticles();
+    List<ArticleEntity> getAllLatestArticles();
 
-    public void createArticle(String title, String text, String imageUrl, String topics);
+    void createArticle(String title, String text, String imageUrl, String topics);
 
-    public ArticleEntity getOne(Long art_id) throws NotFoundException;
+    ArticleEntity getOne(Long art_id) throws NotFoundException;
 
-    public void editArticle(long article_id, String title, String text, String imageUrl, String topics);
+    void editArticle(long article_id, String title, String text, String imageUrl, String topics);
+    void delete(Long art_id);
 
-    public void delete(Long art_id);
+    void saveArticles(List<ArticleEntity> articles);
 }

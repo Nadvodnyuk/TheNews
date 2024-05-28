@@ -53,21 +53,11 @@ public class UserServiceImpl implements UserService {
         return userRepo.save(user);
     }
 
-//Регистрация
-
-//    public UserEntity registration(UserEntity username) throws AlreadyExistException {
-//        if (userRepo.findByUsername(username.getUsername()) != null) {
-//            throw new AlreadyExistException("Пользователь с таким именем существует");
-//        }
-//        return userRepo.save(username);
-//    }
-
     public UserEntity authenticate(SignInDto input) throws RuntimeException {
         try {
             UserEntity userUser = userRepo.findByUsername(input.getUsername()).orElseThrow();
             Authentication authentication = new UsernamePasswordAuthenticationToken(
                     input.getUsername(), input.getPassword(), userUser.getAuthorities());
-            System.out.println("authServ:  " + authentication);
             // Аутентификация пользователя
             authenticationManager.authenticate(authentication);
 

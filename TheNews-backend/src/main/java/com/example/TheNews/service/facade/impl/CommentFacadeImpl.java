@@ -35,8 +35,7 @@ public class CommentFacadeImpl implements CommentFacade {
     @Autowired
     private ModelMapper modelMapper;
 
-    //Вывести все комменты к статье
-    //С.Вывести все комменты к статье
+    //Количество комментриев
 
     public int commentNumFacade(long article_id) {
         try {
@@ -47,13 +46,12 @@ public class CommentFacadeImpl implements CommentFacade {
         }
     }
 
+    //Вывести все комменты к статье
     public List<CommentDto> getCommentsByArticleIdWithPaginationFacade(long article_c, int page) throws NotFoundException {
         ArticleEntity art = articleService.getOne(article_c);
         List<CommentEntity> threeCommentsEntity = commentService.getCommentsByArticleIdWithPagination(art, page);
-        // Create Conversion Type
         Type listType = new TypeToken<List<CommentDto>>() {
         }.getType();
-        // Convert List of Entity objects to a List of DTOs objects
         List<CommentDto> threeComments = new ModelMapper().map(threeCommentsEntity, listType);
         return threeComments;
     }

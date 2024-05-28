@@ -23,21 +23,6 @@ public class LikeEntity {
     @JoinColumn(name = "articleL")
     private ArticleEntity articleL;
 
-    public UserEntity getUserL() {
-        return userL;
-    }
-
-    public void setUserL(UserEntity userL) {
-        this.userL = userL;
-    }
-
-    public ArticleEntity getArticleL() {
-        return articleL;
-    }
-
-    public void setArticleL(ArticleEntity articleL) {
-        this.articleL = articleL;
-    }
 
     @Override
     public String toString() {

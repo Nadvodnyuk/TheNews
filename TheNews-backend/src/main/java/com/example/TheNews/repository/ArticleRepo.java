@@ -11,5 +11,5 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ArticleRepo extends JpaRepository<ArticleEntity, Long> {
-    List<ArticleEntity> findByPublicationDateAfter(Timestamp date);//Список статей после даты TS
+    List<ArticleEntity> findByPublicationDateAfter(Timestamp date);
 }

@@ -86,7 +86,6 @@ public class LikeServiceTests {
     @Test
     public void LikeService_delete_ReturnsVoid() {
 
-//        when(likeRepo.deleteByArticleLAndUserL(article, user)).thenReturn(Optional.ofNullable(like));
         doNothing().when(likeRepo).deleteByArticleLAndUserL(like.getArticleL(), like.getUserL());
 
         assertAll(() -> likeService.delete(like.getUserL(), like.getArticleL()));

@@ -44,9 +44,9 @@ public class CommentServiceImpl implements CommentService {
         // Устанавливаем автора, текст, дату публикации коммента
         comment.setUserC(user_c);
         comment.setComment_text(comment_text);
-        comment.setArticleС(article_с);
+        comment.setArticleC(article_с);
         java.sql.Timestamp currentDateTime = java.sql.Timestamp.valueOf(LocalDateTime.now());
-        comment.setComment_date(currentDateTime);
+        comment.setCommentDate(currentDateTime);
 
         // Сохраняем статью в базе данных
         commentRepo.save(comment);

@@ -44,7 +44,7 @@ public class ArticleControllerTests {
     private ArticleService articleService;
 
     @MockBean
-    private JwtService jwtService; // Создаем заглушку для JwtService
+    private JwtService jwtService;
 
     @Test
     public void ArticleController_getAllArticles_ReturnsList() throws Exception {

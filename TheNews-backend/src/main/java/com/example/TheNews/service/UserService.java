@@ -14,14 +14,14 @@ import java.util.List;
 @Service
 
 public interface UserService {
-    public UserEntity registerUser(String firstName, String lastName, String username, String password);
+    UserEntity registerUser(String firstName, String lastName, String username, String password);
 
-    public UserEntity authenticate(SignInDto input) throws RuntimeException;
+    UserEntity authenticate(SignInDto input) throws RuntimeException;
 
-    public UserEntity getOne(Long art_id) throws NotFoundException;
+    UserEntity getOne(Long art_id) throws NotFoundException;
 
-    public List<UserEntity> allUsers();
+    List<UserEntity> allUsers();
 
-    public long delete(Long user_id);
+    long delete(Long user_id);
 
 }

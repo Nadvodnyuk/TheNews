@@ -45,7 +45,7 @@ public class CommentControllerTests {
     private CommentService commentService;
 
     @MockBean
-    private JwtService jwtService; // Создаем заглушку для JwtService
+    private JwtService jwtService;
 
     @Test
     public void CommentController_getCommentsForArticle_ReturnsList() throws Exception {
