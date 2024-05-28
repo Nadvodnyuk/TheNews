@@ -28,7 +28,9 @@ public class ArticleEntity {
     @Column(name = "topics")
     private String topics;
 
-    @Column(name = "article_text")
+//    @Lob
+
+    @Column(name = "article_text", length = 5000)
     private String article_text;
 
     @Column(name = "image_url")

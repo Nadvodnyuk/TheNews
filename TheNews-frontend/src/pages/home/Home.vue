@@ -33,7 +33,7 @@ import comments from "../../components/comments.vue";
           <img :src="article.image_url" alt="" />
         </a>
         <p>
-          {{ article.article_text }}
+          {{ article.article_text.length > 100 && article.article_id !== expandedArticleId ? article.article_text.slice(0,100) + '...' : article.article_text }}
         </p>
       </div>
       <footer>
@@ -52,14 +52,6 @@ import comments from "../../components/comments.vue";
               class="updateArticleBtn"
               @click="setArticleId(article.article_id)"
             />
-          </li>
-          <li>
-            <button
-              class="unstyled-button"
-              @click="moreArticlesFlag = !moreArticlesFlag"
-            >
-              {{ !moreArticlesFlag ? "Показать больше" : "Показать меньше" }}
-            </button>
           </li>
           <li>
             <button
@@ -120,6 +112,14 @@ import comments from "../../components/comments.vue";
               {{ commentNums[article.article_id] }}
             </button>
           </li>
+          <li>
+            <button
+              class="unstyled-button"
+              @click="toggleExpandedArticle(article.article_id)"
+            >
+              {{ article.article_id === expandedArticleId ? "Показать меньше" : "Показать больше" }}
+            </button>
+          </li>
         </ul>
       </footer>
       <div v-show="commentFlags[article.article_id]">
@@ -145,7 +145,7 @@ export default {
       time: "",
       myNewComment: "",
       likeFlag: false,
-      moreArticlesFlag: false,
+      expandedArticleId: null,
       moreCommentsFlag: false,
       sentFlag: false,
       likedFlag: false,
@@ -194,6 +194,14 @@ export default {
         this.myNewComment.length <= 100
           ? ""
           : "Comment has more than 1000 characters.";
+    },
+
+    toggleExpandedArticle(articleId) {
+      if (this.expandedArticleId === articleId) {
+        this.expandedArticleId = null;
+      } else {
+        this.expandedArticleId = articleId;
+      }
     },
 
     submitComment() {
