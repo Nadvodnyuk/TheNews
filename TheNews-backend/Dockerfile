@@ -1,7 +1,9 @@
-FROM openjdk:8-jre-alpine
+FROM maven:3.8.5-openjdk-17
 
-WORKDIR /TheNews/TheNews-backend
+WORKDIR /TheNews-backend
 
-COPY target/app.jar ./app.jar
+COPY . .
 
-CMD ["/usr/bin/java", "-jar", "app.jar"]
+RUN mvn clean install
+
+CMD mvn spring-boot:run

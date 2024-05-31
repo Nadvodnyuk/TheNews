@@ -1,11 +1,13 @@
 FROM node:latest
 
-WORKDIR /TheNews/TheNews-frontend
+WORKDIR /TheNews-frontend
 
-COPY . .
+COPY package*.json ./
 
 RUN npm install
 
-RUN npm run build
+COPY . .
+
+EXPOSE 8081
 
 CMD ["npm", "run", "serve"]

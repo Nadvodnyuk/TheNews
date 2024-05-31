@@ -3,12 +3,12 @@ services:
   postgres:
     container_name: postgres
     image: postgres:latest
+    ports:
+      - "5432:5432"
     environment:
       POSTGRES_DB: postgres
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 231703
-    ports:
-      - "5432:5432"
   backend:
     container_name: backend
     build: ./TheNews-backend
@@ -16,6 +16,11 @@ services:
       - "8080:8080"
     depends_on:
       - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/postgres
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 231703
+      SPRING_CORS_ALLOWED_ORIGINS: '*'
   frontend:
     container_name: frontend
     build: ./TheNews-frontend
@@ -23,13 +28,3 @@ services:
       - "8081:8081"
     depends_on:
       - backend
-  nginx:
-    container_name: nginx
-    image: proxy
-    build: ./.nginx
-    depends_on:
-      - backend
-      - frontend
-    ports:
-      - 80:80
-      - 443:443
