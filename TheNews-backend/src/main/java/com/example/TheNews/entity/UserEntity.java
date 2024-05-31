@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Arrays;
 
 @Getter
 @Setter
@@ -48,9 +49,10 @@ public class UserEntity implements UserDetails {
 	@Column(name = "role", nullable = false)
 	private Role role;
 
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return List.of(new SimpleGrantedAuthority(role.name()));
+		return Arrays.asList(new SimpleGrantedAuthority(role.name()));
 	}
 
 	public UserEntity(String first_name, String last_name, Role role, String username, String password) {

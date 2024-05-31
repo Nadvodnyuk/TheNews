@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
 
     public UserEntity authenticate(SignInDto input) throws RuntimeException {
         try {
-            UserEntity userUser = userRepo.findByUsername(input.getUsername()).orElseThrow();
+            UserEntity userUser = userRepo.findByUsername(input.getUsername()).orElseThrow(() -> new RuntimeException("User not found"));
             Authentication authentication = new UsernamePasswordAuthenticationToken(
                     input.getUsername(), input.getPassword(), userUser.getAuthorities());
             // Аутентификация пользователя
