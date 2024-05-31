@@ -9,7 +9,6 @@ const instance = axios.create({
   },
 });
 
-// Перехватываем запросы перед отправкой и добавляем заголовок Authorization, если токен есть
 instance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
@@ -24,25 +23,3 @@ instance.interceptors.request.use(
 );
 
 export default instance;
-
-// // Получаем токен из localStorage
-// const token = localStorage.getItem("token");
-
-// // Проверяем, что токен существует и не равен null
-// if (token) {
-//   // Если токен существует, создаем экземпляр axios с заголовком Authorization
-//   axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-// } else {
-//   // Если токен отсутствует, удаляем заголовок Authorization (если он был установлен ранее)
-//   delete axios.defaults.headers.common["Authorization"];
-// }
-
-// // Создаем экземпляр axios с базовым URL и другими настройками
-// export default axios.create({
-//   baseURL: "http://localhost:8080/",
-//   withCredentials: true,
-//   headers: {
-//     "Content-type": "application/json",
-//     "Accept": "application/json"
-//   }
-// });
