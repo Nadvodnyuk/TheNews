@@ -1,9 +1,21 @@
-FROM adoptopenjdk:8-jdk-hotspot
+# Stage 1: Build the application
+#FROM maven:3.8.5-openjdk-17 AS build
+#WORKDIR /app
+#COPY . .
+#RUN mvn clean install -DskipTests
 
-WORKDIR /TheNews-backend
+# Stage 2: Run the application
+#FROM adoptopenjdk:8-jre-hotspot
+#WORKDIR /TheNews-backend
+#COPY --from=build /app/target/TheNews-0.0.1-SNAPSHOT.jar /TheNews-backend/TheNews-0.0.1-SNAPSHOT.jar
+#CMD ["java", "-jar", "/TheNews-backend/TheNews-0.0.1-SNAPSHOT.jar"]
+
+FROM maven:3.8.1-jdk-8
+
+WORKDIR /app
 
 COPY . .
 
-RUN ./mvnw clean install
+RUN mvn clean install -DskipTests
 
-CMD ["./mvnw", "spring-boot:run"]
+CMD ["java", "-jar", "/TheNews-backend/TheNews-0.0.1-SNAPSHOT.jar"]
