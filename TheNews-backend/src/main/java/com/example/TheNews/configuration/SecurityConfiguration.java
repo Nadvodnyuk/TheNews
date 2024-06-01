@@ -18,7 +18,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.List;
 import java.util.Arrays;
 
-import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -30,16 +31,18 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        RequestMatcher optionsMatcher = new AntPathRequestMatcher("/**", HttpMethod.OPTIONS.toString());
+
         http.cors(Customizer.withDefaults()).csrf(csrf -> csrf.disable())
                 .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers(HttpMethod.OPTIONS,"/**").permitAll()
-                        .requestMatchers(antMatcher("/auth/**")).permitAll()
-                        .requestMatchers(antMatcher("/admin/**")).hasRole("ADMIN")
-                        .requestMatchers(antMatcher("/user/**")).hasRole("USER")
-                        .requestMatchers(antMatcher("/both/**")).hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(optionsMatcher).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/auth/**")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/admin/**")).hasRole("ADMIN")
+                        .requestMatchers(new AntPathRequestMatcher("/user/**")).hasRole("USER")
+                        .requestMatchers(new AntPathRequestMatcher("/both/**")).hasAnyRole("USER", "ADMIN")
                         .anyRequest().authenticated());
         return http.build();
     }

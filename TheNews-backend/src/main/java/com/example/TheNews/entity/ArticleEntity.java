@@ -1,7 +1,7 @@
 package com.example.TheNews.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
 
 import java.sql.Timestamp;
@@ -28,9 +28,7 @@ public class ArticleEntity {
     @Column(name = "topics")
     private String topics;
 
-//    @Lob
-
-    @Column(name = "article_text", length = 5000)
+    @Column(name = "article_text", columnDefinition = "TEXT")
     private String article_text;
 
     @Column(name = "image_url")
@@ -44,20 +42,11 @@ public class ArticleEntity {
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "publicationDate")
-    private java.sql.Timestamp publicationDate;
+    private java.util.Date publicationDate;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "articleC")
     @JsonIgnore
     private List<CommentEntity> comments;
-
-    public Timestamp getPublication_date() {
-        return publicationDate;
-    }
-
-    public void setPublication_date(Timestamp publication_date) {
-        this.publicationDate = publication_date;
-    }
-
 
     @Override
     public String toString() {
@@ -67,3 +56,4 @@ public class ArticleEntity {
                 ", publication date=" + publicationDate + "]";
     }
 }
+

@@ -1,9 +1,9 @@
-FROM maven:3.8.5-openjdk-17
+FROM adoptopenjdk:8-jdk-hotspot
 
 WORKDIR /TheNews-backend
 
 COPY . .
 
-RUN mvn clean install
+RUN ./mvnw clean install
 
-CMD mvn spring-boot:run
+CMD ["./mvnw", "spring-boot:run"]
