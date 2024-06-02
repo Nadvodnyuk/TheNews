@@ -20,14 +20,14 @@ public class ArticleDto {
     private String image_url;
     private Integer like_num;
     private Integer comment_num;
-    private java.sql.Timestamp publication_date;
+    private java.sql.Timestamp publicationDate;
     private String topics;
 
-    public Timestamp getPublication_date() {
-        return publication_date;
+    public Timestamp getPublicationDate() {
+        return publicationDate;
     }
 
-    public void setPublication_date(Timestamp publication_date) {
-        this.publication_date = publication_date;
+    public void setPublicationDate(Timestamp publicationDate) {
+        this.publicationDate = publicationDate;
     }
 }
