@@ -214,6 +214,7 @@ export default {
               [this.articleId]: [],
             });
             this.fetchComments();
+            this.getCommentNum();
             this.sentFlag = true;
             this.comment_text.comment_text = "";
           });
