@@ -24,7 +24,7 @@ import comments from "../../components/comments.vue";
         </div>
         <div class="meta">
           <p class="published">
-            {{ formatDate(article.publication_date) }}
+            {{ formatDate(article.publicationDate) }}
           </p>
         </div>
       </header>
