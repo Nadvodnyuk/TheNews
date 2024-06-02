@@ -1,7 +1,7 @@
 FROM node:latest
 
-#WORKDIR /TheNews-frontend
-WORKDIR /TheNews/TheNews-frontend
+WORKDIR /TheNews-frontend
+#WORKDIR /TheNews/TheNews-frontend
 
 
 COPY package*.json ./
