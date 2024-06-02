@@ -33,7 +33,7 @@
           </button>
         </div>
         <p class="comment_date">
-          {{ formatDate(comment.comment_date) }}
+          {{ formatDate(comment.commentDate) }}
         </p>
       </div>
     </div>

@@ -13,6 +13,6 @@ import lombok.*;
 public class CommentDto {
     private long comment_id;
     private String comment_text;
-    private java.sql.Timestamp comment_date;
+    private java.sql.Timestamp commentDate;
 }
 
