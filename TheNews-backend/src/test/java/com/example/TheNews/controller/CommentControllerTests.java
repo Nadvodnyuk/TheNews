@@ -54,7 +54,7 @@ public class CommentControllerTests {
         CommentDto commentDto = CommentDto.builder()
                 .comment_id(1)
                 .comment_text("comment")
-                .comment_date(java.sql.Timestamp.valueOf(LocalDateTime.now())).build();
+                .commentDate(java.sql.Timestamp.valueOf(LocalDateTime.now())).build();
 
         when(commentFacade.getCommentsByArticleIdWithPaginationFacade(article_id, page))
                 .thenReturn(Arrays.asList(commentDto));
