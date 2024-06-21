@@ -21,6 +21,7 @@ public class CommentController {
     @Autowired
     private CommentFacade commentFacade;
 
+    //ок
     @PostMapping("/auth/comments/commentNum")
     public ResponseEntity<?> commentNum(@RequestParam long article_id) {
         try {
@@ -30,6 +31,7 @@ public class CommentController {
         }
     }
 
+    //ок
     @GetMapping("/auth/comments/showComments/{article_id}/{page}")
     public ResponseEntity<?> getCommentsForArticle(@PathVariable long article_id,
                                                    @PathVariable int page) {
@@ -40,6 +42,7 @@ public class CommentController {
         }
     }
 
+    //ок
     @PostMapping("/user/comments/postComment")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> postComment(
@@ -56,8 +59,7 @@ public class CommentController {
         }
     }
 
-    //
-
+    //ок
     @DeleteMapping("/admin/comments/{comment_id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deleteComment(@PathVariable long comment_id) {

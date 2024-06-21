@@ -7,7 +7,6 @@ import com.example.TheNews.service.ArticleService;
 import com.example.TheNews.service.JwtService;
 import com.example.TheNews.service.facade.ArticleFacade;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,7 +19,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-
 import java.util.Arrays;
 
 import static org.mockito.Mockito.doNothing;

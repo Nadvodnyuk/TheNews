@@ -1,7 +1,6 @@
 package com.example.TheNews.service;
 
 import com.example.TheNews.entity.ArticleEntity;
-
 import com.example.TheNews.entity.UserEntity;
 import org.springframework.stereotype.Service;
 

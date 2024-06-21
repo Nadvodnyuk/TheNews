@@ -27,6 +27,7 @@ public class LikeController {
     @Autowired
     private LikeRepo likeRepo;
 
+    //ок
     @PostMapping("/auth/likes/likeNum")
     public ResponseEntity<?> likeNum(@RequestParam long article_id) {
         try {
@@ -36,6 +37,7 @@ public class LikeController {
         }
     }
 
+    //ок
     @PostMapping("/auth/likes/isLiked")
     public ResponseEntity<?> isLiked(@RequestParam long user_id, @RequestParam long article_id) {
         try {
@@ -45,6 +47,7 @@ public class LikeController {
         }
     }
 
+    //ок
     @PostMapping("/user/likes/postLike")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> postLike(@RequestBody LikeDto likeDto) {
@@ -56,6 +59,7 @@ public class LikeController {
         }
     }
 
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     @DeleteMapping("/user/likes/{userL}/{articleL}")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> deleteLike(@PathVariable long userL,
@@ -71,6 +75,7 @@ public class LikeController {
         }
     }
 
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     @GetMapping ("/admin/likes")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> getAllLikes() {

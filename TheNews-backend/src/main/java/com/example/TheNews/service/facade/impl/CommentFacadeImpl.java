@@ -1,7 +1,5 @@
 package com.example.TheNews.service.facade.impl;
 
-import com.example.TheNews.dto.request.DeleteCommentDto;
-import com.example.TheNews.dto.request.DeleteUserDto;
 import com.example.TheNews.entity.ArticleEntity;
 import com.example.TheNews.entity.CommentEntity;
 import com.example.TheNews.entity.UserEntity;
@@ -16,11 +14,10 @@ import com.example.TheNews.dto.response.CommentDto;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-
 import java.lang.reflect.Type;
 import java.util.List;
 import org.springframework.stereotype.Service;
+
 @Service
 public class CommentFacadeImpl implements CommentFacade {
     @Autowired

@@ -1,12 +1,8 @@
 package com.example.TheNews.repository;
 
 import java.util.List;
-
 import com.example.TheNews.entity.CommentEntity;
 import com.example.TheNews.entity.ArticleEntity;
-
-
-import com.example.TheNews.entity.LikeEntity;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 

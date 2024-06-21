@@ -3,10 +3,7 @@ package com.example.TheNews.service;
 
 import com.example.TheNews.dto.request.SignInDto;
 import com.example.TheNews.entity.UserEntity;
-import com.example.TheNews.exception.AlreadyExistException;
 import com.example.TheNews.exception.NotFoundException;
-import com.example.TheNews.repository.UserRepo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

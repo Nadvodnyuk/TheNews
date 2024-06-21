@@ -1,12 +1,8 @@
 package com.example.TheNews.dto.response;
 
-import com.example.TheNews.entity.CommentEntity;
-import com.example.TheNews.entity.LikeEntity;
+
 import lombok.Data;
-
 import java.sql.Timestamp;
-import java.util.List;
-
 import lombok.*;
 
 @Data

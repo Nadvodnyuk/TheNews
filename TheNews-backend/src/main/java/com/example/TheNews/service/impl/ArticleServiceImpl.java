@@ -2,10 +2,8 @@ package com.example.TheNews.service.impl;
 
 import java.time.LocalDateTime;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.example.TheNews.entity.ArticleEntity;
 import com.example.TheNews.exception.NotFoundException;
 import com.example.TheNews.repository.ArticleRepo;

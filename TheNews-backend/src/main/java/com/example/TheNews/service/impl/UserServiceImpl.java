@@ -2,7 +2,6 @@ package com.example.TheNews.service.impl;
 
 import com.example.TheNews.dto.request.SignInDto;
 import com.example.TheNews.entity.UserEntity;
-import com.example.TheNews.exception.AlreadyExistException;
 import com.example.TheNews.exception.NotFoundException;
 import com.example.TheNews.repository.UserRepo;
 import com.example.TheNews.service.UserService;
@@ -14,10 +13,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import static com.example.TheNews.entity.Role.ROLE_USER;
 
 @Service
@@ -71,11 +68,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public List<UserEntity> allUsers() {
-        List<UserEntity> users = new ArrayList<>();
-
-        userRepo.findAll().forEach(users::add);
-
-        return users;
+        return new ArrayList<>(userRepo.findAll());
     }
 
     public UserEntity getOne(Long art_id) throws NotFoundException {

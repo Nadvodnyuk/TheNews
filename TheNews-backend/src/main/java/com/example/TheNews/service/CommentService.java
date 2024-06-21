@@ -2,12 +2,8 @@ package com.example.TheNews.service;
 
 import com.example.TheNews.entity.CommentEntity;
 import com.example.TheNews.entity.UserEntity;
-import com.example.TheNews.exception.NotFoundException;
 import com.example.TheNews.entity.ArticleEntity;
-
-
 import java.util.List;
-
 import org.springframework.stereotype.Service;
 
 @Service

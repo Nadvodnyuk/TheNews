@@ -3,16 +3,13 @@ package com.example.TheNews.controller;
 import com.example.TheNews.dto.request.DeleteUserDto;
 import com.example.TheNews.dto.request.SignInDto;
 import com.example.TheNews.dto.request.SignUpDto;
-import com.example.TheNews.exception.AlreadyExistException;
 import com.example.TheNews.service.facade.UserFacade;
-import com.example.TheNews.service.facade.impl.UserFacadeImpl;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -24,6 +21,7 @@ public class UserController {
     @Autowired
     private UserFacade userFacade;
 
+    //ок
     @PostMapping("/auth/sign_up")
     public ResponseEntity<?> register(@RequestBody SignUpDto regUserDto) {
         try {
@@ -37,32 +35,32 @@ public class UserController {
         }
     }
 
+    //ок
     @PostMapping("/auth/login")
     public ResponseEntity<?> authenticate(@RequestBody SignInDto loginUserDto) {
         try {
-            System.out.println("Контроллер входа");
             return ResponseEntity.ok(userFacade.authenticateFacade(loginUserDto));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e);
         }
     }
 
+    //ок
     @GetMapping("/auth/users/me")
     public ResponseEntity<?> authenticatedUser() {
 
         try {
-            System.out.println("Контроллер МИ " );
             return ResponseEntity.ok(userFacade.authenticatedUserFacade());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e);
         }
     }
 
+    //ок
     @PostMapping("/both/users/log_out")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> logOut(HttpServletRequest request, HttpServletResponse response) {
         try {
-            System.out.println("запрос на выход" + request);
             userFacade.logOutFacade(request, response);
             return ResponseEntity.ok("Пользователь успешно вышел из аккаунта");
         } catch (Exception e) {
@@ -70,6 +68,7 @@ public class UserController {
         }
     }
 
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     @DeleteMapping("/admin/users/{user_id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deleteUser(@PathVariable long user_id) {

@@ -3,12 +3,8 @@ package com.example.TheNews.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import lombok.*;
-
-import java.sql.Timestamp;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.List;
-import java.util.Collections;
+
 
 @Getter
 @Setter

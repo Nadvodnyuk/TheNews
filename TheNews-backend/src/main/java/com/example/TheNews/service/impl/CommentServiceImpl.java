@@ -2,14 +2,11 @@ package com.example.TheNews.service.impl;
 
 import com.example.TheNews.entity.ArticleEntity;
 import com.example.TheNews.entity.CommentEntity;
-import com.example.TheNews.entity.LikeEntity;
 import com.example.TheNews.entity.UserEntity;
 import com.example.TheNews.repository.CommentRepo;
 import com.example.TheNews.service.CommentService;
-
 import java.time.LocalDateTime;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;

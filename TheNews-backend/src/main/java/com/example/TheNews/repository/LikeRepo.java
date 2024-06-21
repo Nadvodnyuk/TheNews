@@ -2,9 +2,7 @@ package com.example.TheNews.repository;
 
 import com.example.TheNews.entity.ArticleEntity;
 import com.example.TheNews.entity.LikeEntity;
-
 import java.util.List;
-
 import com.example.TheNews.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;

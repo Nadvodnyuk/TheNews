@@ -1,7 +1,6 @@
 package com.example.TheNews.service.facade;
 
 import com.example.TheNews.dto.request.LikeDto;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 @Service
 public interface LikeFacade {

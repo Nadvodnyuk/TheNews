@@ -7,7 +7,6 @@ import com.example.TheNews.repository.LikeRepo;
 import com.example.TheNews.service.LikeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -27,11 +26,7 @@ public class LikeServiceImpl implements LikeService {
     }
 
     public boolean isLikedByUserAndArticle(UserEntity user_l, ArticleEntity article_l) {
-        boolean isLiked = likeRepo.existsByArticleLAndUserL(article_l, user_l);
-        if (isLiked)
-            return true;
-        else
-            return false;
+        return likeRepo.existsByArticleLAndUserL(article_l, user_l);
     }
 
     public void createLike(UserEntity user_l, ArticleEntity article_l) {

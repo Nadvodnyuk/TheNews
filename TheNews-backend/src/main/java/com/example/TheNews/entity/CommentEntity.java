@@ -3,7 +3,6 @@ package com.example.TheNews.entity;
 import javax.persistence.*;
 import lombok.*;
 
-import java.sql.Timestamp;
 
 @Getter
 @Setter
