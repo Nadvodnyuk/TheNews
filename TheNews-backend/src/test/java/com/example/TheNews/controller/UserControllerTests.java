@@ -108,9 +108,7 @@ public class UserControllerTests {
     @Test
     public void UserController_deleteUser_ReturnString() throws Exception {
         long user_id = 1;
-        DeleteUserDto user = new DeleteUserDto();
-        user.setUser_id(user_id);
-        when(userFacade.deleteFacade(user)).thenReturn(user_id);
+        when(userFacade.deleteFacade(user_id)).thenReturn(user_id);
         mockMvc.perform(delete("/admin/users/{user_id}", user_id)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk());

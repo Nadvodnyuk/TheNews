@@ -14,5 +14,5 @@ public interface LikeFacade {
     void putLikeFacade(LikeDto likeDto);
 
     //C.Удалить лайк
-    void deleteLikeFacade(LikeDto likeDto);
+    void deleteLikeFacade(long userL, long articleL);
 }

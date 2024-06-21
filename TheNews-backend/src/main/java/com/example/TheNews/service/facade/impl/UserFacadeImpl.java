@@ -71,7 +71,7 @@ public class UserFacadeImpl implements UserFacade {
         SecurityContextHolder.getContext().setAuthentication(null);
     }
 
-    public long deleteFacade(DeleteUserDto user) {
-        return (userService.delete(user.getUser_id()));
+    public long deleteFacade(long user_id) {
+        return (userService.delete(user_id));
     }
 }

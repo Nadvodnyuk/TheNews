@@ -18,7 +18,7 @@ public class ArticleController {
     @Autowired
     private ArticleFacade articleFacade;
 
-    //ок
+
     @GetMapping("/auth/articles/all")
     public ResponseEntity<?> getAllArticles() {
         try {
@@ -28,7 +28,7 @@ public class ArticleController {
         }
     }
 
-    //ок
+
     @PostMapping("/admin/articles/create")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> createArticle(@RequestBody CreateArticleDto article) {
@@ -40,7 +40,7 @@ public class ArticleController {
         }
     }
 
-    //ок
+
     @GetMapping("/admin/articles/{article_id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> getArticleById(@PathVariable long article_id) {
@@ -53,21 +53,20 @@ public class ArticleController {
         }
     }
 
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
     @PutMapping("/admin/articles/update/{article_id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> updateArticle(@PathVariable long article_id,
                                            @RequestBody EditArticleDto article) {
         try {
-            article.setArticle_id(article_id);
-            articleFacade.editArticleFacade(article);
+            articleFacade.editArticleFacade(article, article_id);
             return ResponseEntity.ok("Статья успешно обновлена");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e);
         }
     }
 
-    //ок
+
     @DeleteMapping("/admin/articles/{article_id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deleteArticle(@PathVariable long article_id) {

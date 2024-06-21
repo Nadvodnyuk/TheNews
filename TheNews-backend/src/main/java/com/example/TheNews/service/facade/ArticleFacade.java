@@ -18,7 +18,7 @@ public interface ArticleFacade {
     ArticleDto getOneFacade(Long art_id) throws NotFoundException;
 
     //Для изменения статьи
-    void editArticleFacade(EditArticleDto editArticleDto);
+    void editArticleFacade(EditArticleDto editArticleDto, long article_id);
 
     //Удаление статьи:
     void deleteFacade(Long art_id);

@@ -57,10 +57,10 @@ public class LikeFacadeImpl implements LikeFacade {
     }
 
     //C.Удалить лайк
-    public void deleteLikeFacade(LikeDto likeDto){
+    public void deleteLikeFacade(long userL, long articleL){
         try {
-            ArticleEntity art = articleService.getOne(likeDto.getArticleL());
-            UserEntity user = userService.getOne(likeDto.getUserL());
+            ArticleEntity art = articleService.getOne(articleL);
+            UserEntity user = userService.getOne(userL);
             likeService.delete(user, art);
         } catch (NotFoundException e) {
             throw new RuntimeException(e);

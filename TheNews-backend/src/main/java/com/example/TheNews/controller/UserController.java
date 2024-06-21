@@ -1,6 +1,5 @@
 package com.example.TheNews.controller;
 
-import com.example.TheNews.dto.request.DeleteUserDto;
 import com.example.TheNews.dto.request.SignInDto;
 import com.example.TheNews.dto.request.SignUpDto;
 import com.example.TheNews.service.facade.UserFacade;
@@ -21,7 +20,7 @@ public class UserController {
     @Autowired
     private UserFacade userFacade;
 
-    //ок
+
     @PostMapping("/auth/sign_up")
     public ResponseEntity<?> register(@RequestBody SignUpDto regUserDto) {
         try {
@@ -35,7 +34,7 @@ public class UserController {
         }
     }
 
-    //ок
+
     @PostMapping("/auth/login")
     public ResponseEntity<?> authenticate(@RequestBody SignInDto loginUserDto) {
         try {
@@ -45,7 +44,7 @@ public class UserController {
         }
     }
 
-    //ок
+
     @GetMapping("/auth/users/me")
     public ResponseEntity<?> authenticatedUser() {
 
@@ -56,7 +55,7 @@ public class UserController {
         }
     }
 
-    //ок
+
     @PostMapping("/both/users/log_out")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> logOut(HttpServletRequest request, HttpServletResponse response) {
@@ -68,14 +67,12 @@ public class UserController {
         }
     }
 
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
     @DeleteMapping("/admin/users/{user_id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deleteUser(@PathVariable long user_id) {
         try {
-            DeleteUserDto user = new DeleteUserDto();
-            user.setUser_id(user_id);
-            return ResponseEntity.ok(userFacade.deleteFacade(user));
+            return ResponseEntity.ok(userFacade.deleteFacade(user_id));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e);
         }

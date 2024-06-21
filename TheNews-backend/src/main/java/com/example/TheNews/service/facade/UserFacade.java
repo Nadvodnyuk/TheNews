@@ -26,5 +26,5 @@ public interface UserFacade {
     //Выход
     void logOutFacade(HttpServletRequest request, HttpServletResponse response);
 
-    long deleteFacade(DeleteUserDto user);
+    long deleteFacade(long user_id);
 }

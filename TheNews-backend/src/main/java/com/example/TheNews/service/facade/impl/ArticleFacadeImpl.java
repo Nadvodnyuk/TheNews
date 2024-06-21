@@ -48,7 +48,8 @@ public class ArticleFacadeImpl implements ArticleFacade {
     }
 
     //Для изменения статьи
-    public void editArticleFacade(EditArticleDto editArticleDto) {
+    public void editArticleFacade(EditArticleDto editArticleDto,  long article_id) {
+        editArticleDto.setArticle_id(article_id);
         articleService.editArticle(editArticleDto.getArticle_id(),
                 editArticleDto.getTitle(),
                 editArticleDto.getArticle_text(),

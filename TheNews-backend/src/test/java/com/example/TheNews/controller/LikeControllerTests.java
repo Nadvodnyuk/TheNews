@@ -65,7 +65,7 @@ public class LikeControllerTests {
     }
 
     @Test
-    public void LikeController_deleteComment_ReturnString() throws Exception {
+    public void LikeController_deleteLike_ReturnString() throws Exception {
         LikeDto likeDto = LikeDto.builder()
                 .userL(1).articleL(1).build();
 

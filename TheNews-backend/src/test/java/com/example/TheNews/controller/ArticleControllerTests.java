@@ -106,7 +106,7 @@ public class ArticleControllerTests {
                 .article_text("Text")
                 .image_url("Image").build();
 
-        doNothing().when(articleFacade).editArticleFacade(editArticleDto);
+        doNothing().when(articleFacade).editArticleFacade(editArticleDto, editArticleDto.getArticle_id());
         mockMvc.perform(put("/admin/articles/update/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(editArticleDto)))
