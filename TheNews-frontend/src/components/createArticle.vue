@@ -18,7 +18,14 @@
       <span v-if="validationErrors.title" class="error-message">{{
         validationErrors.title
       }}</span>
-      <input v-model="article.topics" placeholder="Теги" class="artTags" />
+      <a-select
+        v-model:value="value"
+        mode="multiple"
+        style="width: 100%"
+        placeholder="Теги"
+        :options="getAllThemes()"
+        @change="handleChange"
+      ></a-select>
       <span v-if="validationErrors.topics" class="error-message">{{
         validationErrors.topics
       }}</span>
@@ -137,6 +144,17 @@ export default {
         await HomeDataService.getAll().then((response) => {
           console.log(response.data);
           this.setArticleAll(response.data);
+        });
+      } catch (e) {
+        this.error = "Проверьте все поля!";
+      }
+    },
+
+    async getAllThemes() {
+      try {
+        await HomeDataService.getAllThemes().then((response) => {
+          console.log(response.data);
+          this.setTheme(response.data);
         });
       } catch (e) {
         this.error = "Проверьте все поля!";

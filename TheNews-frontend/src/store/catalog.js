@@ -16,6 +16,7 @@ export const useCatalog = defineStore("catalog-store", {
       commentAll: {},
       page: 1,
       commentPages: {},
+      theme: {}
     };
   },
 
@@ -46,6 +47,10 @@ export const useCatalog = defineStore("catalog-store", {
 
     setArticleAll(articleAll) {
       this.articleAll = articleAll.reverse();
+    },
+
+    setTheme(theme) {
+      this.theme = theme;
     },
 
     setLikeNums(likeNums) {
