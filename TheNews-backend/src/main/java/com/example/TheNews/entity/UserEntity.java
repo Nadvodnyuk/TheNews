@@ -9,10 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import java.util.Arrays;
+import java.util.*;
 
 @Getter
 @Setter
@@ -49,6 +46,15 @@ public class UserEntity implements UserDetails {
 	@Column(name = "role", nullable = false)
 	private Role role;
 
+	@ElementCollection
+	@CollectionTable(name = "user_favorite_topics", joinColumns = @JoinColumn(name = "user_id"))
+	@Column(name = "topic")
+	private Set<Theme> favoriteTopics;
+
+	@ElementCollection
+	@CollectionTable(name = "user_blocked_topics", joinColumns = @JoinColumn(name = "user_id"))
+	@Column(name = "topic")
+	private Set<Theme> blockedTopics;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

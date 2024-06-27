@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import lombok.*;
 import java.util.List;
+import java.util.Set;
 
 
 @Getter
@@ -21,8 +22,10 @@ public class ArticleEntity {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "topics")
-    private String topics;
+    @ElementCollection
+    @CollectionTable(name = "article_topics", joinColumns = @JoinColumn(name = "article_id"))
+    @Column(name = "topic")
+    private Set<Theme> topics;
 
     @Column(name = "article_text", columnDefinition = "TEXT")
     private String article_text;

@@ -1,6 +1,7 @@
 package com.example.TheNews.service;
 
 import com.example.TheNews.entity.ArticleEntity;
+import com.example.TheNews.entity.Theme;
 import com.example.TheNews.entity.UserEntity;
 import com.example.TheNews.exception.NotFoundException;
 import com.example.TheNews.repository.ArticleRepo;
@@ -14,6 +15,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -89,7 +91,7 @@ public class ArticleServiceTests {
                 "Updated article",
                 "This is the updated article",
                 "Updated image",
-                "Updated topics"));
+                EnumSet.of(Theme.WEATHER)));
     }
 
     @Test

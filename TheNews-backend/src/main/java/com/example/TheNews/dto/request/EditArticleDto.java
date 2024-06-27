@@ -1,6 +1,9 @@
 package com.example.TheNews.dto.request;
 
+import com.example.TheNews.entity.Theme;
 import lombok.*;
+
+import java.util.Set;
 
 
 @Builder
@@ -12,5 +15,5 @@ public class EditArticleDto {
     private String title;
     private String article_text;
     private String image_url;
-    private String topics;
+    private Set<Theme> topics;
 }

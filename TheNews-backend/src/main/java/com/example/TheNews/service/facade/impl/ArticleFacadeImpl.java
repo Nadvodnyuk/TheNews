@@ -1,6 +1,7 @@
 package com.example.TheNews.service.facade.impl;
 
 import com.example.TheNews.entity.ArticleEntity;
+import com.example.TheNews.entity.Theme;
 import com.example.TheNews.exception.NotFoundException;
 import com.example.TheNews.service.ArticleService;
 import com.example.TheNews.service.facade.ArticleFacade;
@@ -59,5 +60,14 @@ public class ArticleFacadeImpl implements ArticleFacade {
     //Удаление статьи:
     public void deleteFacade(Long art_id) {
         articleService.delete(art_id);
+    }
+
+
+    public List<ArticleDto> getArticlesByUserPreferencesFacade(Set<Theme> favoriteTopics, Set<Theme> blockedTopics) {
+        List<ArticleEntity> articles = articleService.getArticlesByUserPreferences(favoriteTopics, blockedTopics);
+        Type listType = new TypeToken<List<ArticleDto>>() {
+        }.getType();
+        List<ArticleDto> ArticlesDto = new ModelMapper().map(articles, listType);
+        return ArticlesDto;
     }
 }

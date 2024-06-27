@@ -2,6 +2,7 @@ package com.example.TheNews.controller;
 
 import com.example.TheNews.dto.request.CreateArticleDto;
 import com.example.TheNews.dto.request.EditArticleDto;
+import com.example.TheNews.entity.Theme;
 import com.example.TheNews.exception.NotFoundException;
 import com.example.TheNews.service.facade.ArticleFacade;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -9,6 +10,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Set;
+
 @CrossOrigin(origins = "http://localhost:8081")
 @RestController
 public class ArticleController {
@@ -73,6 +77,18 @@ public class ArticleController {
         try {
             articleFacade.deleteFacade(article_id);
             return ResponseEntity.ok("Статья успешно удалена");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e);
+        }
+    }
+
+    @GetMapping("/user/articles/filtered")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> getFilteredArticles(
+            @RequestParam Set<Theme> favoriteTopics,
+            @RequestParam Set<Theme> blockedTopics) {
+        try {
+            return ResponseEntity.ok(articleFacade.getArticlesByUserPreferencesFacade(favoriteTopics, blockedTopics));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e);
         }
