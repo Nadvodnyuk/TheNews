@@ -16,7 +16,7 @@ export const useCatalog = defineStore("catalog-store", {
       commentAll: {},
       page: 1,
       commentPages: {},
-      theme: {}
+      theme: []
     };
   },
 
@@ -50,7 +50,7 @@ export const useCatalog = defineStore("catalog-store", {
     },
 
     setTheme(theme) {
-      this.theme = theme;
+      this.theme = Object.values(theme);
     },
 
     setLikeNums(likeNums) {

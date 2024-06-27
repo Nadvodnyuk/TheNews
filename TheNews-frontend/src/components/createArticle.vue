@@ -19,12 +19,11 @@
         validationErrors.title
       }}</span>
       <a-select
-        v-model:value="value"
+        v-model="article.topics"
         mode="multiple"
         style="width: 100%"
         placeholder="Теги"
-        :options="theme"
-        @change="handleChange"
+        :options="formattedThemes"
       ></a-select>
       <span v-if="validationErrors.topics" class="error-message">{{
         validationErrors.topics
@@ -70,13 +69,14 @@ import HomeDataService from "../services/HomeDataService";
 export default {
   data() {
     return {
+      themes: 0,
       isFormVisible: false,
       isArticleCreated: false,
       article: {
         title: "",
         article_text: "",
         image_url: "",
-        topics: "",
+        topics: [],
       },
       validationErrors: {
         title: "",
@@ -87,6 +87,10 @@ export default {
   },
   computed: {
     ...mapState(useCatalog, ["theme"]),
+    formattedThemes() {
+      this.themes = this.theme[0];
+      return this.themes.map(t => ({ value: t, label: t}));
+    }
   },
   methods: {
     ...mapActions(useCatalog, ["setArticleAll"]),
@@ -107,7 +111,7 @@ export default {
         isValid = false;
       }
 
-      if (!this.article.topics.trim()) {
+      if (!this.article.topics.length) {
         this.validationErrors.topics = "Пожалуйста, введите теги статьи";
         isValid = false;
       }
@@ -158,7 +162,7 @@ export default {
         await HomeDataService.createArticle(this.article).then((response) => {
           console.log(response.data);
           this.getAll();
-          this.getThe();
+          this.getTheme();
         });
       } catch (e) {
         this.error = "Проверьте все поля!";
