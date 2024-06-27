@@ -187,6 +187,7 @@ export default {
       "setCommentPages",
       "formatDate",
       "scrollToTop",
+      "setTheme"
     ]),
 
     validateComment() {
@@ -351,6 +352,17 @@ export default {
       }
     },
 
+    async getAllThemes() {
+      try {
+        await HomeDataService.getAllThemes().then((response) => {
+          console.log(response.data);
+          this.setTheme(response.data);
+        });
+      } catch (e) {
+        this.error = "Проверьте все поля!";
+      }
+    },
+
     async fetchComments(article_id) {
       await HomeDataService.getComments(
         article_id,
@@ -376,6 +388,7 @@ export default {
 
   async created() {
     await this.getAll();
+    await this.getAllThemes();
     console.log("this.articleAll", this.articleAll);
   },
 };

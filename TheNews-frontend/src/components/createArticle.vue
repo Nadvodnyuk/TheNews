@@ -23,7 +23,7 @@
         mode="multiple"
         style="width: 100%"
         placeholder="Теги"
-        :options="getAllThemes()"
+        :options="theme"
         @change="handleChange"
       ></a-select>
       <span v-if="validationErrors.topics" class="error-message">{{
@@ -84,6 +84,9 @@ export default {
         article_text: "",
       },
     };
+  },
+  computed: {
+    ...mapState(useCatalog, ["theme"]),
   },
   methods: {
     ...mapActions(useCatalog, ["setArticleAll"]),
@@ -150,21 +153,12 @@ export default {
       }
     },
 
-    async getAllThemes() {
-      try {
-        await HomeDataService.getAllThemes().then((response) => {
-          console.log(response.data);
-          this.setTheme(response.data);
-        });
-      } catch (e) {
-        this.error = "Проверьте все поля!";
-      }
-    },
     async createArticle() {
       try {
         await HomeDataService.createArticle(this.article).then((response) => {
           console.log(response.data);
           this.getAll();
+          this.getThe();
         });
       } catch (e) {
         this.error = "Проверьте все поля!";
