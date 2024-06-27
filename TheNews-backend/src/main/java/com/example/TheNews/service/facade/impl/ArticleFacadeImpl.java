@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
 import java.util.*;
+import java.util.stream.Collectors;
+
 @Service
 public class ArticleFacadeImpl implements ArticleFacade {
 
@@ -36,9 +38,13 @@ public class ArticleFacadeImpl implements ArticleFacade {
     //Для создания статьи:
 
     public void createArticleFacade(CreateArticleDto createArticleDto) {
+        Set<Theme> themes = createArticleDto.getTopics().stream()
+                .map(Theme::valueOf)
+                .collect(Collectors.toSet());
         articleService.createArticle(createArticleDto.getTitle(),
                 createArticleDto.getArticle_text(),
-                createArticleDto.getImage_url(), createArticleDto.getTopics());
+                createArticleDto.getImage_url(),
+                themes);
     }
 
     //Для получения одной статьи:

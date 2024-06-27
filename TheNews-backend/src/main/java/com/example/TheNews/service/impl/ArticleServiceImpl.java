@@ -38,7 +38,7 @@ public class ArticleServiceImpl implements ArticleService {
         article.setImage_url(imageUrl);
         java.sql.Timestamp currentDateTime = java.sql.Timestamp.valueOf(LocalDateTime.now());
         article.setPublicationDate(currentDateTime);
-//        article.setTopics(topics);
+        article.setTopics(topics);
 
         // Сохраняем статью в базе данных
         articleRepo.save(article);

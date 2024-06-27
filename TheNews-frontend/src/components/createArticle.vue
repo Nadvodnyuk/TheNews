@@ -24,6 +24,7 @@
         style="width: 100%"
         placeholder="Теги"
         :options="formattedThemes"
+        @change="handleTopicChange"
       ></a-select>
       <span v-if="validationErrors.topics" class="error-message">{{
         validationErrors.topics
@@ -47,13 +48,7 @@
         </span>
       </div>
       <div class="publishDiv">
-        <button
-          @click="
-            createArticleAndCloseForm();
-            createArticle();
-          "
-          class="publishArticleBtn"
-        >
+        <button @click="createArticleAndCloseForm()" class="publishArticleBtn">
           Создать
         </button>
       </div>
@@ -89,8 +84,8 @@ export default {
     ...mapState(useCatalog, ["theme"]),
     formattedThemes() {
       this.themes = this.theme[0];
-      return this.themes.map(t => ({ value: t, label: t}));
-    }
+      return this.themes.map((t) => ({ value: t, label: t }));
+    },
   },
   methods: {
     ...mapActions(useCatalog, ["setArticleAll"]),
@@ -135,7 +130,9 @@ export default {
       this.isFormVisible = false;
       this.validationErrors = "";
     },
-
+    handleTopicChange(value) {
+      this.article.topics = value;
+    },
     handleFileUpload(event) {
       this.article.image_url = event.target.files[0];
     },
@@ -145,6 +142,7 @@ export default {
       }
       this.isFormVisible = false;
       this.isArticleCreated = true;
+      this.createArticle();
     },
     async getAll() {
       try {
@@ -159,6 +157,7 @@ export default {
 
     async createArticle() {
       try {
+        console.log(this.article.topics);
         await HomeDataService.createArticle(this.article).then((response) => {
           console.log(response.data);
           this.getAll();
