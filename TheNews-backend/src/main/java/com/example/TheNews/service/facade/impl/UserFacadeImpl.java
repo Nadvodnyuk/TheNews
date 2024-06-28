@@ -52,7 +52,8 @@ public class UserFacadeImpl implements UserFacade {
         loginResponse.setRole(authenticatedUser.getRole());
         loginResponse.setToken(jwtToken);
         loginResponse.setExpiresIn(jwtService.getExpirationTime());
-
+        loginResponse.setFavoriteTopics(authenticatedUser.getFavoriteTopics());
+        loginResponse.setBlockedTopics(authenticatedUser.getBlockedTopics());
         return loginResponse;
     }
 

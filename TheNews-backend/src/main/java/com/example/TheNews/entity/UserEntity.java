@@ -1,6 +1,5 @@
 package com.example.TheNews.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;

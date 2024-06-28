@@ -36,7 +36,12 @@ import comments from "../../components/comments.vue";
           <img :src="article.image_url" alt="" />
         </a>
         <p>
-          {{ article.article_text.length > 100 && article.article_id !== expandedArticleId ? article.article_text.slice(0,100) + '...' : article.article_text }}
+          {{
+            article.article_text.length > 100 &&
+            article.article_id !== expandedArticleId
+              ? article.article_text.slice(0, 100) + "..."
+              : article.article_text
+          }}
         </p>
       </div>
       <footer>
@@ -120,7 +125,11 @@ import comments from "../../components/comments.vue";
               class="unstyled-button"
               @click="toggleExpandedArticle(article.article_id)"
             >
-              {{ article.article_id === expandedArticleId ? "Показать меньше" : "Показать больше" }}
+              {{
+                article.article_id === expandedArticleId
+                  ? "Показать меньше"
+                  : "Показать больше"
+              }}
             </button>
           </li>
         </ul>
@@ -190,7 +199,7 @@ export default {
       "setCommentPages",
       "formatDate",
       "scrollToTop",
-      "setTheme"
+      "setTheme",
     ]),
 
     validateComment() {
@@ -217,6 +226,7 @@ export default {
 
     async getAll() {
       try {
+        await this.getAllThemes();
         await HomeDataService.getAll().then((response) => {
           let pages = {};
           let comment = {};
@@ -355,7 +365,7 @@ export default {
     async getAllThemes() {
       try {
         await HomeDataService.getAllThemes().then((response) => {
-          console.log(response.data);
+          console.log("getAllThemes", response.data);
           this.setTheme(response.data);
         });
       } catch (e) {

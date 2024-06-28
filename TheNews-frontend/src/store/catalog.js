@@ -8,6 +8,8 @@ export const useCatalog = defineStore("catalog-store", {
       name: localStorage.getItem("name") || "",
       token: localStorage.getItem("token") || "",
       role: localStorage.getItem("role") || "",
+      favorite: [],
+      blocked: [],
       articleId: "",
       articleAll: {},
       likeNums: {},
@@ -39,6 +41,16 @@ export const useCatalog = defineStore("catalog-store", {
     setRole(role) {
       this.role = role;
       localStorage.setItem("role", role);
+    },
+
+    setFavorite(favorite) {
+      this.favorite = favorite;
+      console.log(this.favorite);
+    },
+
+    setBlocked(blocked) {
+      this.blocked = blocked;
+      console.log(this.blocked);
     },
 
     setArticleId(articleId) {

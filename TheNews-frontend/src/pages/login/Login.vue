@@ -52,7 +52,14 @@ export default {
     };
   },
   methods: {
-    ...mapActions(useCatalog, ["setName", "setToken", "setRole", "setId"]),
+    ...mapActions(useCatalog, [
+      "setName",
+      "setToken",
+      "setRole",
+      "setId",
+      "setFavorite",
+      "setBlocked",
+    ]),
     async submitForm() {
       try {
         await LoginDataService.login(this.login).then((response) => {
@@ -63,6 +70,8 @@ export default {
           this.setName(response.data.name);
           this.setToken(response.data.token);
           this.setRole(response.data.role);
+          this.setFavorite(response.data.favoriteTopics);
+          this.setBlocked(response.data.blockedTopics);
           localStorage.setItem("role", response.data.role);
           this.submitted = true;
         });
@@ -76,10 +85,6 @@ export default {
       this.submitted = false;
       this.tutorial = {};
     },
-    // scrollToTop() {
-    //     // Прокручиваем страницу наверх (координаты 0, 0)
-    //     window.scrollTo(0, 0);
-    // },
   },
 };
 </script>

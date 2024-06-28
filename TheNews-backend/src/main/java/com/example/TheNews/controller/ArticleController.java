@@ -22,9 +22,9 @@ public class ArticleController {
 
 
     @GetMapping("/auth/articles/all")
-    public ResponseEntity<?> getAllArticles() {
+    public ResponseEntity<?> getAllArticles(Authentication authentication) {
         try {
-            return ResponseEntity.ok(articleFacade.getAllLatestArticlesFacade());
+            return ResponseEntity.ok(articleFacade.getArticlesByUserPreferencesFacade(authentication));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e);
         }
@@ -75,17 +75,6 @@ public class ArticleController {
         try {
             articleFacade.deleteFacade(article_id);
             return ResponseEntity.ok("Статья успешно удалена");
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e);
-        }
-    }
-
-    @GetMapping("/auth/articles/filtered")
-    public ResponseEntity<?> getFilteredArticles(
-            Authentication authentication) {
-        try {
-
-            return ResponseEntity.ok(articleFacade.getArticlesByUserPreferencesFacade(authentication));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e);
         }

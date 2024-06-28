@@ -1,7 +1,10 @@
 package com.example.TheNews.dto.response;
 
 import com.example.TheNews.entity.Role;
+import com.example.TheNews.entity.Theme;
 import lombok.*;
+
+import java.util.Set;
 
 @Data
 @Builder
@@ -13,4 +16,6 @@ public class SignInResponseDto {
     private Role role;
     private String token;
     private long expiresIn;
+    private Set<Theme> favoriteTopics;
+    private Set<Theme> blockedTopics;
 }

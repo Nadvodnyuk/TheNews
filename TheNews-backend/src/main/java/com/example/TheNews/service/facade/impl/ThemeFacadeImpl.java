@@ -2,7 +2,6 @@ package com.example.TheNews.service.facade.impl;
 
 import com.example.TheNews.dto.response.ThemeDto;
 import com.example.TheNews.entity.Theme;
-import com.example.TheNews.service.ThemeService;
 import com.example.TheNews.service.facade.ThemeFacade;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

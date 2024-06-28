@@ -1,6 +1,5 @@
 package com.example.TheNews.controller;
 
-import com.example.TheNews.dto.request.DeleteUserDto;
 import com.example.TheNews.dto.request.SignInDto;
 import com.example.TheNews.dto.request.SignUpDto;
 import com.example.TheNews.dto.response.SignInResponseDto;

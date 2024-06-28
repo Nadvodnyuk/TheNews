@@ -2,7 +2,6 @@ package com.example.TheNews.service.facade.impl;
 
 import com.example.TheNews.entity.ArticleEntity;
 import com.example.TheNews.entity.Theme;
-import com.example.TheNews.entity.UserEntity;
 import com.example.TheNews.exception.NotFoundException;
 import com.example.TheNews.service.ArticleService;
 import com.example.TheNews.service.facade.ArticleFacade;

@@ -1,6 +1,4 @@
 package com.example.TheNews.service.facade;
-import com.example.TheNews.entity.ArticleEntity;
-import com.example.TheNews.entity.Theme;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import com.example.TheNews.dto.request.CreateArticleDto;
@@ -9,7 +7,6 @@ import com.example.TheNews.dto.response.ArticleDto;
 import com.example.TheNews.exception.NotFoundException;
 
 import java.util.List;
-import java.util.Set;
 
 @Service
 public interface ArticleFacade {

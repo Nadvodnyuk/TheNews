@@ -72,18 +72,22 @@ export default {
     };
   },
   computed: {
-    ...mapState(useCatalog, ["theme"]),
+    ...mapState(useCatalog, ["theme", "favorite", "blocked"]),
     formattedThemes() {
       this.themes = this.theme[0];
-      console.log(this.themes, this.theme)
+      console.log(this.themes, this.theme);
       return this.themes;
     },
   },
   methods: {
     openTopicsForm() {
       this.isFormVisible = true;
-      this.selectedFavoriteFlag = this.formattedThemes.map(() => false);
-      this.selectedDislikedFlag = this.formattedThemes.map(() => false);
+      this.selectedFavoriteFlag = this.formattedThemes.map((theme) =>
+        this.favorite.includes(theme)
+      );
+      this.selectedDislikedFlag = this.formattedThemes.map((theme) =>
+        this.blocked.includes(theme)
+      );
     },
     closeTopicsForm() {
       this.isFormVisible = false;
