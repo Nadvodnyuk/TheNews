@@ -208,6 +208,10 @@ export default {
   background-color: #f9f9f9;
 }
 
+.artTitle {
+  margin-bottom: 20px;
+}
+
 .artTitle,
 .artTags,
 .artText,

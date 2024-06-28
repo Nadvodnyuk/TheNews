@@ -1,6 +1,7 @@
 <script setup>
 import updateArticle from "../../components/updateArticle.vue";
 import createArticle from "../../components/createArticle.vue";
+import topicFilter from "../../components/topicFilter.vue";
 import comments from "../../components/comments.vue";
 </script>
 
@@ -8,6 +9,8 @@ import comments from "../../components/comments.vue";
   <div class="sub_header"></div>
   <div class="news_page">
     <createArticle v-if="role === 'ROLE_ADMIN'" class="createArticleBtn" />
+    <topicFilter v-if="role === 'ROLE_ADMIN'" class="topicFilterBtn" />
+
     <article
       class="post"
       v-for="article in articleAll"

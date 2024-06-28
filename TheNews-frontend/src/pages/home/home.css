@@ -2,7 +2,8 @@
   height: 110px;
 }
 
-.createArticleBtn {
+.createArticleBtn,
+.topicFilterBtn {
   margin-bottom: 20px;
 }
 
