@@ -1,12 +1,17 @@
 package com.example.TheNews.service.impl;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.example.TheNews.entity.Theme;
+import com.example.TheNews.entity.UserEntity;
+import com.example.TheNews.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import com.example.TheNews.entity.ArticleEntity;
 import com.example.TheNews.exception.NotFoundException;
@@ -18,6 +23,9 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
     private ArticleRepo articleRepo;
+
+    @Autowired
+    private UserRepo userRepo;
 
     //Для списка статей:
     public List<ArticleEntity> getAllLatestArticles() {
@@ -71,36 +79,46 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     //эксперименты
-    public List<ArticleEntity> getArticlesByUserPreferences(Set<Theme> favoriteTopics, Set<Theme> blockedTopics) {
-        // Получаем все статьи из базы данных
-        List<ArticleEntity> allArticles = articleRepo.findAll();
+    public List<ArticleEntity> getFilteredArticlesByUserPreferences(Authentication authentication) {
+        // Получаем все последние статьи за 24 часа
+        List<ArticleEntity> articlesLast24Hours = getAllLatestArticles();
 
-        // Фильтруем статьи по предпочитаемым и запрещенным темам пользователя
-        List<ArticleEntity> filteredArticles = allArticles.stream()
-                .filter(article -> {
-                    // Проверяем наличие хотя бы одной предпочитаемой темы в статье
-                    boolean containsFavoriteTopic = article.getTopics().stream()
-                            .anyMatch(favoriteTopics::contains);
+        // Проверяем, авторизован ли пользователь
+        if (authentication != null && authentication.isAuthenticated()) {
+            String username = authentication.getName();
+            Optional<UserEntity> userOptional = userRepo.findByUsername(username);
 
-                    // Проверяем наличие хотя бы одной запрещенной темы в статье
-                    boolean containsBlockedTopic = article.getTopics().stream()
-                            .anyMatch(blockedTopics::contains);
+            if (userOptional.isPresent()) {
+                UserEntity user = userOptional.get();
+                Set<Theme> favoriteTopics = user.getFavoriteTopics();
+                Set<Theme> blockedTopics = user.getBlockedTopics();
 
-                    // Возвращаем true только если статья не содержит запрещенные темы и содержит хотя бы одну предпочитаемую тему
-                    return !containsBlockedTopic && containsFavoriteTopic;
-                })
-                .collect(Collectors.toList());
+                // Фильтруем статьи
+                List<ArticleEntity> filteredArticles = articlesLast24Hours.stream()
+                        .filter(article -> {
+                            // Проверяем наличие хотя бы одной запрещенной темы в статье
+                            boolean containsBlockedTopic = article.getTopics().stream()
+                                    .anyMatch(blockedTopics::contains);
+                            // Исключаем статьи с запрещенными темами
+                            return !containsBlockedTopic;
+                        })
+                        .sorted((a1, a2) -> {
+                            // Сортируем статьи по количеству любимых тем
+                            long countA1 = a1.getTopics().stream().filter(favoriteTopics::contains).count();
+                            long countA2 = a2.getTopics().stream().filter(favoriteTopics::contains).count();
+                            return Long.compare(countA2, countA1); // чем больше совпадений, тем выше в списке
+                        })
+                        .collect(Collectors.toList());
+                Collections.reverse(filteredArticles);
+                return filteredArticles;
+            }
+        }
 
-        // Сортируем статьи по количеству совпадающих тем с предпочтениями пользователя (от большего к меньшему)
-
-        filteredArticles.sort((a1, a2) -> {
-            long countA1 = a1.getTopics().stream().filter(favoriteTopics::contains).count();
-            long countA2 = a2.getTopics().stream().filter(favoriteTopics::contains).count();
-            return Long.compare(countA2, countA1);
-        });
-
-        return filteredArticles;
+        // Если пользователь не авторизован или не найден, возвращаем все последние статьи за 24 часа
+        return articlesLast24Hours;
     }
+
+
 
     //Удаление статьи:
     public void delete(Long art_id) {

@@ -2,6 +2,7 @@ package com.example.TheNews.service.facade.impl;
 
 import com.example.TheNews.entity.ArticleEntity;
 import com.example.TheNews.entity.Theme;
+import com.example.TheNews.entity.UserEntity;
 import com.example.TheNews.exception.NotFoundException;
 import com.example.TheNews.service.ArticleService;
 import com.example.TheNews.service.facade.ArticleFacade;
@@ -11,6 +12,7 @@ import com.example.TheNews.dto.response.ArticleDto;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
@@ -73,8 +75,8 @@ public class ArticleFacadeImpl implements ArticleFacade {
     }
 
 
-    public List<ArticleDto> getArticlesByUserPreferencesFacade(Set<Theme> favoriteTopics, Set<Theme> blockedTopics) {
-        List<ArticleEntity> articles = articleService.getArticlesByUserPreferences(favoriteTopics, blockedTopics);
+    public List<ArticleDto> getArticlesByUserPreferencesFacade(Authentication authentication) {
+        List<ArticleEntity> articles = articleService.getFilteredArticlesByUserPreferences(authentication);
         Type listType = new TypeToken<List<ArticleDto>>() {
         }.getType();
         List<ArticleDto> ArticlesDto = new ModelMapper().map(articles, listType);

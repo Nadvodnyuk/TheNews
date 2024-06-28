@@ -91,7 +91,7 @@ public class ArticleServiceTests {
                 "Updated article",
                 "This is the updated article",
                 "Updated image",
-                EnumSet.of(Theme.WEATHER)));
+                EnumSet.of(Theme.POLITICS)));
     }
 
     @Test

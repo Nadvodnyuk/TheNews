@@ -3,14 +3,19 @@ package com.example.TheNews.controller;
 import com.example.TheNews.dto.request.CreateArticleDto;
 import com.example.TheNews.dto.request.EditArticleDto;
 import com.example.TheNews.entity.Theme;
+import com.example.TheNews.entity.UserEntity;
 import com.example.TheNews.exception.NotFoundException;
+import com.example.TheNews.repository.UserRepo;
+import com.example.TheNews.service.UserService;
 import com.example.TheNews.service.facade.ArticleFacade;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
 import java.util.Set;
 
 @CrossOrigin(origins = "http://localhost:8081")
@@ -63,7 +68,6 @@ public class ArticleController {
     public ResponseEntity<?> updateArticle(@PathVariable long article_id,
                                            @RequestBody EditArticleDto article) {
         try {
-            System.out.println("получили" + article.getTopics());
             articleFacade.editArticleFacade(article, article_id);
             return ResponseEntity.ok("Статья успешно обновлена");
         } catch (Exception e) {
@@ -83,13 +87,14 @@ public class ArticleController {
         }
     }
 
-    @GetMapping("/user/articles/filtered")
-    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/auth/articles/filtered")
     public ResponseEntity<?> getFilteredArticles(
-            @RequestParam Set<Theme> favoriteTopics,
-            @RequestParam Set<Theme> blockedTopics) {
+//            @RequestParam Set<Theme> favoriteTopics,
+//            @RequestParam Set<Theme> blockedTopics,
+            Authentication authentication) {
         try {
-            return ResponseEntity.ok(articleFacade.getArticlesByUserPreferencesFacade(favoriteTopics, blockedTopics));
+
+            return ResponseEntity.ok(articleFacade.getArticlesByUserPreferencesFacade(authentication));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e);
         }

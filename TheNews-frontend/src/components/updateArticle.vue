@@ -119,7 +119,7 @@ export default {
         isValid = false;
       }
 
-      if (!this.article.image_url) {
+      if (!this.article.image_url.trim()) {
         this.validationErrors.image_url = "Пожалуйста, выберите изображение";
         isValid = false;
       }

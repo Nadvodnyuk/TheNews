@@ -1,6 +1,7 @@
 package com.example.TheNews.service.facade;
 import com.example.TheNews.entity.ArticleEntity;
 import com.example.TheNews.entity.Theme;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import com.example.TheNews.dto.request.CreateArticleDto;
 import com.example.TheNews.dto.request.EditArticleDto;
@@ -27,5 +28,5 @@ public interface ArticleFacade {
     //Удаление статьи:
     void deleteFacade(Long art_id);
 
-    List<ArticleDto> getArticlesByUserPreferencesFacade(Set<Theme> favoriteTopics, Set<Theme> blockedTopics);
+    List<ArticleDto> getArticlesByUserPreferencesFacade(Authentication authentication);
 }
