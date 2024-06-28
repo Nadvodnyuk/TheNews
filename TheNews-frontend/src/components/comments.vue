@@ -138,7 +138,7 @@ export default {
 
     validateComment() {
       this.errors.comment =
-        this.comment_text.comment_text.length <= 100
+        this.comment_text.comment_text.length <= 1000
           ? ""
           : "Comment has more than 1000 characters.";
     },
