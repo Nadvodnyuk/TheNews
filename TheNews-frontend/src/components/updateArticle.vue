@@ -18,7 +18,15 @@
       <span v-if="validationErrors.title" class="error-message">{{
         validationErrors.title
       }}</span>
-      <input v-model="article.topics" placeholder="Теги" class="artTags" />
+      <!-- <input v-model="article.topics" placeholder="Теги" class="artTags" /> -->
+      <a-select
+        v-model="article.topics"
+        mode="multiple"
+        style="width: 100%"
+        placeholder="Теги"
+        :options="formattedThemes"
+        @change="handleTopicChange"
+      ></a-select>
       <span v-if="validationErrors.topics" class="error-message">{{
         validationErrors.topics
       }}</span>
@@ -57,13 +65,14 @@ import HomeDataService from "../services/HomeDataService";
 export default {
   data() {
     return {
+      themes: 0,
       isFormVisible: false,
       isArticleupdated: false,
       article: {
         title: "",
         article_text: "",
         image_url: "",
-        topics: "",
+        topics: [],
       },
       validationErrors: {
         title: "",
@@ -73,7 +82,11 @@ export default {
     };
   },
   computed: {
-    ...mapState(useCatalog, ["articleId"]),
+    ...mapState(useCatalog, ["articleId", "theme"]),
+    formattedThemes() {
+      this.themes = this.theme[0];
+      return this.themes.map((t) => ({ value: t, label: t }));
+    },
   },
 
   methods: {
@@ -96,7 +109,7 @@ export default {
         isValid = false;
       }
 
-      if (!this.article.topics.trim()) {
+      if (!this.article.topics.length) {
         this.validationErrors.topics = "Пожалуйста, введите теги статьи";
         isValid = false;
       }
@@ -118,13 +131,15 @@ export default {
       this.getArticle();
       this.isFormVisible = true;
     },
-
+    handleTopicChange(value) {
+      this.article.topics = value;
+    },
     closeupdateArticleForm() {
       this.isFormVisible = false;
       this.validationErrors = "";
     },
     handleFileUpload(event) {
-      this.article.image = event.target.files[0];
+      this.article.image_url = event.target.files[0];
     },
     updateArticleAndCloseForm() {
       if (!this.validateForm()) {

@@ -63,6 +63,7 @@ public class ArticleController {
     public ResponseEntity<?> updateArticle(@PathVariable long article_id,
                                            @RequestBody EditArticleDto article) {
         try {
+            System.out.println("получили" + article.getTopics());
             articleFacade.editArticleFacade(article, article_id);
             return ResponseEntity.ok("Статья успешно обновлена");
         } catch (Exception e) {

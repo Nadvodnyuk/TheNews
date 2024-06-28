@@ -57,10 +57,14 @@ public class ArticleFacadeImpl implements ArticleFacade {
     //Для изменения статьи
     public void editArticleFacade(EditArticleDto editArticleDto,  long article_id) {
         editArticleDto.setArticle_id(article_id);
+        Set<Theme> themes = editArticleDto.getTopics().stream()
+                .map(Theme::valueOf)
+                .collect(Collectors.toSet());
+        System.out.println("themes"+themes);
         articleService.editArticle(editArticleDto.getArticle_id(),
                 editArticleDto.getTitle(),
                 editArticleDto.getArticle_text(),
-                editArticleDto.getImage_url(),editArticleDto.getTopics());
+                editArticleDto.getImage_url(),themes);
     }
 
     //Удаление статьи:
