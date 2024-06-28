@@ -14,6 +14,5 @@ public class CreateArticleDto {
     private String title;
     private String article_text;
     private String image_url;
-    //private Set<Theme> topics;
     private List<String> topics;
 }

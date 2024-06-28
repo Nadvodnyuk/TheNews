@@ -1,11 +1,13 @@
 package com.example.TheNews.service.facade;
 
-import com.example.TheNews.dto.request.DeleteUserDto;
 import com.example.TheNews.dto.request.SignInDto;
+import com.example.TheNews.dto.request.ThemesDto;
 import com.example.TheNews.dto.response.SignInResponseDto;
 import com.example.TheNews.exception.NotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.stereotype.Service;
@@ -27,4 +29,6 @@ public interface UserFacade {
     void logOutFacade(HttpServletRequest request, HttpServletResponse response);
 
     long deleteFacade(long user_id);
+
+    void postThemesFacade (ThemesDto topicsRequest, Authentication authentication);
 }

@@ -1,8 +1,9 @@
 package com.example.TheNews.service.facade.impl;
 
-import com.example.TheNews.dto.request.DeleteUserDto;
 import com.example.TheNews.dto.request.SignInDto;
+import com.example.TheNews.dto.request.ThemesDto;
 import com.example.TheNews.dto.response.SignInResponseDto;
+import com.example.TheNews.entity.Theme;
 import com.example.TheNews.entity.UserEntity;
 import com.example.TheNews.exception.NotFoundException;
 import com.example.TheNews.service.JwtService;
@@ -18,6 +19,10 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class UserFacadeImpl implements UserFacade {
@@ -41,11 +46,13 @@ public class UserFacadeImpl implements UserFacade {
         UserEntity authenticatedUser = userService.authenticate(loginUserDto);
         String jwtToken = jwtService.generateToken(authenticatedUser);
         SignInResponseDto loginResponse = new SignInResponseDto();
+
         loginResponse.setUser_id(authenticatedUser. getUser_id());
         loginResponse.setName(authenticatedUser.getFirst_name()+" "+authenticatedUser.getLast_name());
         loginResponse.setRole(authenticatedUser.getRole());
         loginResponse.setToken(jwtToken);
         loginResponse.setExpiresIn(jwtService.getExpirationTime());
+
         return loginResponse;
     }
 
@@ -73,5 +80,20 @@ public class UserFacadeImpl implements UserFacade {
 
     public long deleteFacade(long user_id) {
         return (userService.delete(user_id));
+    }
+
+    public void postThemesFacade (ThemesDto topicsRequest, Authentication authentication){
+        List<String> favorite = topicsRequest.getFavorite();
+        List<String> disliked = topicsRequest.getDisliked();
+
+        System.out.println("Favorite topics: " + favorite);
+        System.out.println("Disliked topics: " + disliked);
+        Set<Theme> favoriteThemes = favorite.stream()
+                .map(Theme::valueOf)
+                .collect(Collectors.toSet());
+        Set<Theme> dislikedThemes = disliked.stream()
+                .map(Theme::valueOf)
+                .collect(Collectors.toSet());
+        userService.postThemesService(favoriteThemes, dislikedThemes, authentication);
     }
 }

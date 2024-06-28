@@ -9,7 +9,7 @@ import comments from "../../components/comments.vue";
   <div class="sub_header"></div>
   <div class="news_page">
     <createArticle v-if="role === 'ROLE_ADMIN'" class="createArticleBtn" />
-    <topicFilter v-if="role === 'ROLE_ADMIN'" class="topicFilterBtn" />
+    <topicFilter v-if="role === 'ROLE_USER'" class="topicFilterBtn" />
 
     <article
       class="post"
@@ -295,7 +295,6 @@ export default {
       try {
         await HomeDataService.getLikeNum(articleId).then((response) => {
           this.likeNum[articleId] = response.data;
-          console.log("getLikeNum", response.data);
         });
         this.setLikeNums(this.likeNum);
       } catch (e) {
@@ -307,7 +306,6 @@ export default {
       try {
         await HomeDataService.getCommentNum(articleId).then((response) => {
           this.commentNum[articleId] = response.data;
-          console.log("getcommentNum", response.data);
         });
         this.setCommentNums(this.commentNum);
       } catch (e) {
@@ -320,7 +318,6 @@ export default {
         try {
           await HomeDataService.isLiked(id, articleId).then((response) => {
             this.likedFlags[articleId] = response.data;
-            console.log("isLiked", response.data);
           });
         } catch (e) {
           console.log("e", e);

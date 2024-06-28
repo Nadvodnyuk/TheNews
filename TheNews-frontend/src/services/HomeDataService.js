@@ -33,7 +33,12 @@ class HomeDataService {
   }
 
   async getAllThemes() {
+    //admin
     return http.get("/admin/themes");
+  }
+  async saveTopics(topics) {
+    //user
+    return http.post('/user/themes', topics);
   }
 
   async getCommentNum(article_id) {

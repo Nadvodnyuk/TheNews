@@ -2,6 +2,7 @@ package com.example.TheNews.controller;
 
 import com.example.TheNews.dto.request.SignInDto;
 import com.example.TheNews.dto.request.SignUpDto;
+import com.example.TheNews.dto.request.ThemesDto;
 import com.example.TheNews.service.facade.UserFacade;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,7 +10,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:8081")
@@ -73,6 +77,17 @@ public class UserController {
     public ResponseEntity<?> deleteUser(@PathVariable long user_id) {
         try {
             return ResponseEntity.ok(userFacade.deleteFacade(user_id));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e);
+        }
+    }
+
+    @PostMapping("/user/themes")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<?> postThemes(@RequestBody ThemesDto topicsRequest, Authentication authentication) {
+        try {
+            userFacade.postThemesFacade(topicsRequest, authentication);
+            return ResponseEntity.ok("Data saved successfully");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e);
         }

@@ -1,6 +1,7 @@
 package com.example.TheNews.service.impl;
 
 import com.example.TheNews.dto.request.SignInDto;
+import com.example.TheNews.entity.Theme;
 import com.example.TheNews.entity.UserEntity;
 import com.example.TheNews.exception.NotFoundException;
 import com.example.TheNews.repository.UserRepo;
@@ -15,6 +16,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
 import static com.example.TheNews.entity.Role.ROLE_USER;
 
 @Service
@@ -82,5 +86,16 @@ public class UserServiceImpl implements UserService {
     public long delete(Long user_id) {
         userRepo.deleteById(user_id);
         return (user_id);
+    }
+
+    @Override
+    public void postThemesService(Set<Theme> favoriteThemes, Set<Theme> dislikedThemes, Authentication authentication) {
+        String username = authentication.getName();
+        Optional<UserEntity> userOptional = userRepo.findByUsername(username);
+
+        UserEntity user = userOptional.get();
+        user.setFavoriteTopics(favoriteThemes);
+        user.setBlockedTopics(dislikedThemes);
+        userRepo.save(user);
     }
 }

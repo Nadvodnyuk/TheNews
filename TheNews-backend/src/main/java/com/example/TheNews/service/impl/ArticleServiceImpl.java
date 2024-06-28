@@ -38,9 +38,8 @@ public class ArticleServiceImpl implements ArticleService {
     //Для создания статьи:
 
     public void createArticle(String title, String text, String imageUrl, Set<Theme> topics) {
-        // Создаем новую статью
         ArticleEntity article = new ArticleEntity();
-        // Устанавливаем заголовок, текст, картинку, дату публикации
+
         article.setTitle(title);
         article.setArticle_text(text);
         article.setImage_url(imageUrl);
@@ -48,7 +47,6 @@ public class ArticleServiceImpl implements ArticleService {
         article.setPublicationDate(currentDateTime);
         article.setTopics(topics);
 
-        // Сохраняем статью в базе данных
         articleRepo.save(article);
     }
 
@@ -63,10 +61,8 @@ public class ArticleServiceImpl implements ArticleService {
 
     //Для изменения статьи
     public void editArticle(long article_id, String title, String text, String imageUrl, Set<Theme> topics) {
-        // Ищем статью
         ArticleEntity article = articleRepo.findById(article_id).get();
 
-        // Устанавливаем заголовок, текст, картинку, дату публикации
         article.setTitle(title);
         article.setArticle_text(text);
         article.setImage_url(imageUrl);
@@ -74,16 +70,13 @@ public class ArticleServiceImpl implements ArticleService {
         article.setPublicationDate(currentDateTime);
         article.setTopics(topics);
 
-        // Сохраняем статью в базе данных
         articleRepo.save(article);
     }
 
-    //эксперименты
+
     public List<ArticleEntity> getFilteredArticlesByUserPreferences(Authentication authentication) {
-        // Получаем все последние статьи за 24 часа
         List<ArticleEntity> articlesLast24Hours = getAllLatestArticles();
 
-        // Проверяем, авторизован ли пользователь
         if (authentication != null && authentication.isAuthenticated()) {
             String username = authentication.getName();
             Optional<UserEntity> userOptional = userRepo.findByUsername(username);
@@ -93,20 +86,16 @@ public class ArticleServiceImpl implements ArticleService {
                 Set<Theme> favoriteTopics = user.getFavoriteTopics();
                 Set<Theme> blockedTopics = user.getBlockedTopics();
 
-                // Фильтруем статьи
                 List<ArticleEntity> filteredArticles = articlesLast24Hours.stream()
                         .filter(article -> {
-                            // Проверяем наличие хотя бы одной запрещенной темы в статье
                             boolean containsBlockedTopic = article.getTopics().stream()
                                     .anyMatch(blockedTopics::contains);
-                            // Исключаем статьи с запрещенными темами
                             return !containsBlockedTopic;
                         })
                         .sorted((a1, a2) -> {
-                            // Сортируем статьи по количеству любимых тем
                             long countA1 = a1.getTopics().stream().filter(favoriteTopics::contains).count();
                             long countA2 = a2.getTopics().stream().filter(favoriteTopics::contains).count();
-                            return Long.compare(countA2, countA1); // чем больше совпадений, тем выше в списке
+                            return Long.compare(countA2, countA1);
                         })
                         .collect(Collectors.toList());
                 Collections.reverse(filteredArticles);
@@ -114,7 +103,6 @@ public class ArticleServiceImpl implements ArticleService {
             }
         }
 
-        // Если пользователь не авторизован или не найден, возвращаем все последние статьи за 24 часа
         return articlesLast24Hours;
     }
 
