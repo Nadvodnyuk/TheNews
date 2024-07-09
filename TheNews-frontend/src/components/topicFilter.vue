@@ -58,7 +58,7 @@
 <script>
 import HomeDataService from "../services/HomeDataService";
 import { useCatalog } from "../store/catalog.js";
-import { mapState } from "pinia";
+import { mapState, mapActions } from "pinia";
 
 export default {
   data() {
@@ -76,10 +76,12 @@ export default {
     formattedThemes() {
       this.themes = this.theme[0];
       console.log(this.themes, this.theme);
+      console.log(this.favorite, this.blocked);
       return this.themes;
     },
   },
   methods: {
+    ...mapActions(useCatalog, ["setFavorite", "setBlocked", "setArticleAll"]),
     openTopicsForm() {
       this.isFormVisible = true;
       this.selectedFavoriteFlag = this.formattedThemes.map((theme) =>
@@ -92,6 +94,18 @@ export default {
     closeTopicsForm() {
       this.isFormVisible = false;
     },
+
+    async getAll() {
+      try {
+        await HomeDataService.getAll().then((response) => {
+          console.log(response.data);
+          this.setArticleAll(response.data);
+        });
+      } catch (e) {
+        this.error = "Проверьте все поля!";
+      }
+    },
+
     async saveTopicsForm() {
       this.selectedFavorite = this.formattedThemes.filter(
         (_, index) => this.selectedFavoriteFlag[index]
@@ -108,6 +122,9 @@ export default {
         disliked: this.selectedDisliked,
       })
         .then((response) => {
+          this.setFavorite(this.selectedFavorite);
+          this.setBlocked(this.selectedDisliked);
+          this.getAll();
           console.log("Data saved successfully", response.data);
         })
         .catch((error) => {

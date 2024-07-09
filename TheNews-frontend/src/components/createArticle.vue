@@ -131,7 +131,9 @@ export default {
       this.validationErrors = "";
     },
     handleTopicChange(value) {
+      console.log('value', value);
       this.article.topics = value;
+      console.log('this.article.topics',this.article.topics);
     },
     handleFileUpload(event) {
       this.article.image_url = event.target.files[0];

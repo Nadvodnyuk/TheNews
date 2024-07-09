@@ -45,12 +45,12 @@ export const useCatalog = defineStore("catalog-store", {
 
     setFavorite(favorite) {
       this.favorite = favorite;
-      console.log(this.favorite);
+      console.log('this.favorite', this.favorite);
     },
 
     setBlocked(blocked) {
       this.blocked = blocked;
-      console.log(this.blocked);
+      console.log('this.blocked', this.blocked);
     },
 
     setArticleId(articleId) {
@@ -58,7 +58,8 @@ export const useCatalog = defineStore("catalog-store", {
     },
 
     setArticleAll(articleAll) {
-      this.articleAll = articleAll.reverse();
+      this.articleAll = articleAll;
+      //.reverse()
     },
 
     setTheme(theme) {

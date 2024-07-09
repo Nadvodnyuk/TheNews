@@ -16,7 +16,7 @@ public class CommentEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long comment_id;
 
-    @Column(name = "comment_text")
+    @Column(name = "comment_text", length = 1000)
     private String comment_text;
 
     @Column(name = "comment_date")

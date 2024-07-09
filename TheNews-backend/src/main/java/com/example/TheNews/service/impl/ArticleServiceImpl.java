@@ -1,7 +1,6 @@
 package com.example.TheNews.service.impl;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -93,19 +92,26 @@ public class ArticleServiceImpl implements ArticleService {
                             return !containsBlockedTopic;
                         })
                         .sorted((a1, a2) -> {
-                            long countA1 = a1.getTopics().stream().filter(favoriteTopics::contains).count();
-                            long countA2 = a2.getTopics().stream().filter(favoriteTopics::contains).count();
-                            return Long.compare(countA2, countA1);
+                            boolean hasFavoriteTopicA1 = a1.getTopics().stream().anyMatch(favoriteTopics::contains);
+                            boolean hasFavoriteTopicA2 = a2.getTopics().stream().anyMatch(favoriteTopics::contains);
+
+                            if (hasFavoriteTopicA1 && !hasFavoriteTopicA2) {
+                                return -1;
+                            } else if (!hasFavoriteTopicA1 && hasFavoriteTopicA2) {
+                                return 1;
+                            } else {
+                                return a2.getPublicationDate().compareTo(a1.getPublicationDate());
+                            }
                         })
                         .collect(Collectors.toList());
-                Collections.reverse(filteredArticles);
+
                 return filteredArticles;
             }
         }
 
+        articlesLast24Hours.sort((a1, a2) -> a2.getPublicationDate().compareTo(a1.getPublicationDate()));
         return articlesLast24Hours;
     }
-
 
 
     //Удаление статьи:

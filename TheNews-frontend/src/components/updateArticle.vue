@@ -18,7 +18,6 @@
       <span v-if="validationErrors.title" class="error-message">{{
         validationErrors.title
       }}</span>
-      <!-- <input v-model="article.topics" placeholder="Теги" class="artTags" /> -->
       <a-select
         v-model="article.topics"
         mode="multiple"
@@ -132,7 +131,9 @@ export default {
       this.isFormVisible = true;
     },
     handleTopicChange(value) {
+      console.log("value update", value);
       this.article.topics = value;
+      console.log("this.article.topics update", this.article.topics);
     },
     closeupdateArticleForm() {
       this.isFormVisible = false;
@@ -157,6 +158,8 @@ export default {
           this.article.title = response.data.title;
           this.article.article_text = response.data.article_text;
           this.article.topics = response.data.topics;
+          // this.handleTopicChange(response.data.topics)
+          console.log("проверкаааа", this.article);
           this.article.image_url = response.data.image_url;
         });
       } catch (e) {

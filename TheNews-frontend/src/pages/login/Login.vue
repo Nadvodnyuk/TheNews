@@ -75,7 +75,7 @@ export default {
           localStorage.setItem("role", response.data.role);
           this.submitted = true;
         });
-
+        console.log(localStorage);
         this.$router.push("/");
       } catch (e) {
         this.error = "Проверьте все поля!";

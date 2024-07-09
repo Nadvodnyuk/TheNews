@@ -15,7 +15,6 @@
 
 <script>
 import HomeDataService from "../../services/HomeDataService";
-import { defineAsyncComponent } from "vue";
 import { useCatalog } from "../../store/catalog.js";
 import { mapState, mapActions } from "pinia";
 
@@ -30,9 +29,7 @@ export default {
     ...mapState(useCatalog, ["token"]),
   },
   methods: {
-    ...mapActions(useCatalog, ["setName"]),
-    ...mapActions(useCatalog, ["setToken"]),
-    ...mapActions(useCatalog, ["setRole"]),
+    ...mapActions(useCatalog, ["setName", "setToken","setRole", "setArticleAll"]),
     async logoutFoo() {
       try {
         const response = await HomeDataService.logout();
@@ -44,10 +41,24 @@ export default {
         this.setToken("");
         this.setRole("");
         this.$router.push("/");
+        localStorage.clear();
+        this.getAll();
       } catch (e) {
         this.error = "Не прошло!";
       }
     },
+
+    async getAll() {
+      try {
+        await HomeDataService.getAll().then((response) => {
+          console.log(response.data);
+          this.setArticleAll(response.data);
+        });
+      } catch (e) {
+        this.error = "Проверьте все поля!";
+      }
+    },
+
     async retrieveMe() {
       await HomeDataService.me()
         .then((response) => {
@@ -58,10 +69,6 @@ export default {
           console.log(e);
         });
     },
-    // scrollToTop() {
-    //     // Прокручиваем страницу наверх (координаты 0, 0)
-    //     window.scrollTo(0, 0);
-    // },
   },
   mounted() {},
 };

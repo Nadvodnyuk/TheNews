@@ -11,11 +11,12 @@ import com.example.TheNews.service.UserService;
 import com.example.TheNews.service.facade.CommentFacade;
 import com.example.TheNews.dto.request.CreateCommentDto;
 import com.example.TheNews.dto.response.CommentDto;
+import org.hibernate.Hibernate;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
-import java.lang.reflect.Type;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 
 @Service
@@ -47,9 +48,15 @@ public class CommentFacadeImpl implements CommentFacade {
     public List<CommentDto> getCommentsByArticleIdWithPaginationFacade(long article_c, int page) throws NotFoundException {
         ArticleEntity art = articleService.getOne(article_c);
         List<CommentEntity> threeCommentsEntity = commentService.getCommentsByArticleIdWithPagination(art, page);
-        Type listType = new TypeToken<List<CommentDto>>() {
-        }.getType();
-        List<CommentDto> threeComments = new ModelMapper().map(threeCommentsEntity, listType);
+
+        for (CommentEntity comment : threeCommentsEntity) {
+            Hibernate.initialize(comment.getUserC());
+        }
+
+        List<CommentDto> threeComments = threeCommentsEntity.stream()
+                .map(comment -> modelMapper.map(comment, CommentDto.class))
+                .collect(Collectors.toList());
+        System.out.println(threeComments);
         return threeComments;
     }
 

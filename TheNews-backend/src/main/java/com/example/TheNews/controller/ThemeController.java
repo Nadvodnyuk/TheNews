@@ -17,8 +17,8 @@ public class ThemeController {
     @Autowired
     private ThemeFacade themeFacade;
 
-    @GetMapping("/user/themes")
-    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/both/themes")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> getAllThemes() {
         try{
             return ResponseEntity.ok(themeFacade.getAllThemesFacade());

@@ -11,9 +11,9 @@ const router = createRouter(createWebHistory());
 const app = createApp(App);
 const store = createPinia();
 
-window.addEventListener("beforeunload", function () {
-  localStorage.removeItem("token");
-});
+// window.addEventListener("beforeunload", function () {
+//   localStorage.removeItem("token");
+// });
 
 app.config.globalProperties.axios = axios;
 app.use(router).use(Antd).use(store).mount("#app");

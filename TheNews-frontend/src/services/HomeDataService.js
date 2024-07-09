@@ -33,8 +33,7 @@ class HomeDataService {
   }
 
   async getAllThemes() {
-    //user
-    return http.get("/user/themes");
+    return http.get("/both/themes");
   }
   async saveTopics(topics) {
     //user
