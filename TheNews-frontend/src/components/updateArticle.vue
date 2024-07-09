@@ -9,7 +9,9 @@
     </button>
     <div v-if="isFormVisible" class="updateArtForm">
       <div class="updateFormHeader">
-        <div class="updateArtTitle"><h2>Форма редактирования статьи</h2></div>
+        <div class="updateArtTitle">
+          <h2>Форма редактирования статьи</h2>
+        </div>
         <div>
           <button @click="closeupdateArticleForm" class="closeBtn">✖</button>
         </div>
@@ -228,7 +230,8 @@ export default {
   background-color: white;
   width: 30px;
   align-items: center;
-  float: right; /* Помещаем кнопку вправо */
+  float: right;
+  /* Помещаем кнопку вправо */
   margin-right: 0px;
   text-align: center;
   padding-right: 30px;
@@ -262,7 +265,8 @@ export default {
 
 .artText {
   overflow: hidden;
-  resize: vertical; /* Разрешает вертикальное изменение размера поля */
+  resize: vertical;
+  /* Разрешает вертикальное изменение размера поля */
   overflow-y: auto;
   border-radius: 5px;
   min-height: 50px;
