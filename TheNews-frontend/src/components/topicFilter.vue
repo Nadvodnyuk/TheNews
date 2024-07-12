@@ -114,8 +114,8 @@ export default {
         (_, index) => this.selectedDislikedFlag[index]
       );
       this.isFormVisible = false;
-      console.log("Favorite", this.selectedFavorite);
-      console.log("Disliked", this.selectedDisliked);
+      // console.log("Favorite", this.selectedFavorite);
+      // console.log("Disliked", this.selectedDisliked);
 
       await HomeDataService.saveTopics({
         favorite: this.selectedFavorite,

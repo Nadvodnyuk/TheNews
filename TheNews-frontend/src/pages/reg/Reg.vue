@@ -50,9 +50,6 @@
 </template>
 
 <script>
-import axios from "axios";
-import { useCatalog } from "../../store/catalog.js";
-import { mapState, mapActions } from "pinia";
 import RegDataService from "../../services/RegDataService";
 
 export default {
@@ -85,10 +82,6 @@ export default {
       this.submitted = false;
       this.tutorial = {};
     },
-    // scrollToTop() {
-    //     // Прокручиваем страницу наверх (координаты 0, 0)
-    //     window.scrollTo(0, 0);
-    // },
   },
   mounted() {},
 };

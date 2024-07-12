@@ -14,6 +14,7 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.EnumSet;
+import java.util.List;
 import java.util.Set;
 
 @Configuration
@@ -25,8 +26,10 @@ public class DataInitializer {
     @Bean
     public CommandLineRunner loadData(ArticleService articleService) {
         return args -> {
-            if (articleRepo.count() == 0) { // Проверка наличия статей
-                Instant now = Instant.now();
+            Instant now = Instant.now();
+            Timestamp last24Hours = Timestamp.from(now.minus(24, ChronoUnit.HOURS));
+            List<ArticleEntity> recentArticles = articleRepo.findByPublicationDateAfter(last24Hours);
+            if (recentArticles.isEmpty()) {
                 Set<Theme> themes1 = EnumSet.of(Theme.WEATHER);
                 Set<Theme> themes2 = EnumSet.of(Theme.SCIENCE);
                 Set<Theme> themes3 = EnumSet.of(Theme.HEALTH);

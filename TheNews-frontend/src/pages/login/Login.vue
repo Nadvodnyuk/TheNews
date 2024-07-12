@@ -39,6 +39,7 @@
 import { useCatalog } from "../../store/catalog.js";
 import { mapActions } from "pinia";
 import LoginDataService from "../../services/LoginDataService";
+import HomeDataService from "../../services/HomeDataService";
 
 export default {
   name: "Login",
@@ -49,6 +50,10 @@ export default {
         password: null,
       },
       submitted: false,
+      intervalId: null,
+      timeoutId: null,
+      interval: 3600000,
+      remainingTime: 3600000,
     };
   },
   methods: {
@@ -61,29 +66,87 @@ export default {
       "setBlocked",
     ]),
     async submitForm() {
+      console.log("Submitting form...");
       try {
-        await LoginDataService.login(this.login).then((response) => {
-          console.log(response.data);
-          localStorage.setItem("token", response.data.token);
-          localStorage.setItem("name", response.data.name);
-          this.setId(response.data.user_id);
-          this.setName(response.data.name);
-          this.setToken(response.data.token);
-          this.setRole(response.data.role);
-          this.setFavorite(response.data.favoriteTopics);
-          this.setBlocked(response.data.blockedTopics);
-          localStorage.setItem("role", response.data.role);
-          this.submitted = true;
-        });
-        console.log(localStorage);
+        const response = await LoginDataService.login(this.login);
+        console.log("Login successful:", response.data);
+        sessionStorage.setItem("token", response.data.token);
+        sessionStorage.setItem("name", response.data.name);
+        this.setId(response.data.user_id);
+        this.setName(response.data.name);
+        this.setToken(response.data.token);
+        this.setRole(response.data.role);
+        this.setFavorite(response.data.favoriteTopics);
+        this.setBlocked(response.data.blockedTopics);
+        sessionStorage.setItem("role", response.data.role);
+        this.submitted = true;
+        this.startTimer();
         this.$router.push("/");
       } catch (e) {
+        console.error("Error:", e);
         this.error = "Проверьте все поля!";
       }
     },
-    newTutorial() {
-      this.submitted = false;
-      this.tutorial = {};
+    startTimer() {
+      console.log(`Токен действует ${this.interval / 60000} минут`);
+
+      if (!sessionStorage.getItem("token")) {
+        console.log("Токен отсутствует в sessionStorage.");
+        return;
+      }
+
+      this.timeoutId = setTimeout(async () => {
+        console.log("Logging out...");
+        try {
+          await HomeDataService.logout();
+          this.clearSessionStorage();
+          this.$router.push("/login");
+        } catch (error) {
+          console.error("Ошибка при выходе из аккаунта:", error);
+        }
+      }, this.interval);
+
+      this.intervalId = setInterval(() => {
+        this.remainingTime -= 600000;
+        if (this.remainingTime <= 0) {
+          clearInterval(this.intervalId);
+        }
+      }, 600000);
+
+      setInterval(() => {
+        if (!sessionStorage.getItem("token")) {
+          console.log(
+            "Токен отсутствует в sessionStorage."
+          );
+          this.stopTimer();
+        }
+      }, 60000);
+    },
+    stopTimer() {
+      if (this.timeoutId) {
+        clearTimeout(this.timeoutId);
+      }
+      if (this.intervalId) {
+        clearInterval(this.intervalId);
+      }
+    },
+    clearSessionStorage() {
+      sessionStorage.removeItem("token");
+      sessionStorage.removeItem("name");
+      sessionStorage.removeItem("role");
+      sessionStorage.removeItem("id");
+      this.setName("");
+      this.setToken("");
+      this.setRole("");
+      this.setId("");
+      sessionStorage.clear();
+    },
+  },
+  watch: {
+    remainingTime(time) {
+      if (time <= 0) {
+        this.stopTimer();
+      }
     },
   },
 };

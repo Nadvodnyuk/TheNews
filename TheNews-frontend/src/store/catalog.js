@@ -4,10 +4,10 @@ export const useCatalog = defineStore("catalog-store", {
   id: "news",
   state: () => {
     return {
-      id: localStorage.getItem("id") || "",
-      name: localStorage.getItem("name") || "",
-      token: localStorage.getItem("token") || "",
-      role: localStorage.getItem("role") || "",
+      id: sessionStorage.getItem("id") || "",
+      name: sessionStorage.getItem("name") || "",
+      token: sessionStorage.getItem("token") || "",
+      role: sessionStorage.getItem("role") || "",
       favorite: [],
       blocked: [],
       articleId: "",
@@ -18,39 +18,37 @@ export const useCatalog = defineStore("catalog-store", {
       commentAll: {},
       page: 1,
       commentPages: {},
-      theme: []
+      theme: [],
     };
   },
 
   actions: {
     setId(id) {
       this.id = id;
-      localStorage.setItem("id", id);
+      sessionStorage.setItem("id", id);
     },
 
     setName(name) {
       this.name = name;
-      localStorage.setItem("name", name);
+      sessionStorage.setItem("name", name);
     },
 
     setToken(token) {
       this.token = token;
-      localStorage.setItem("token", token);
+      sessionStorage.setItem("token", token);
     },
 
     setRole(role) {
       this.role = role;
-      localStorage.setItem("role", role);
+      sessionStorage.setItem("role", role);
     },
 
     setFavorite(favorite) {
       this.favorite = favorite;
-      console.log('this.favorite', this.favorite);
     },
 
     setBlocked(blocked) {
       this.blocked = blocked;
-      console.log('this.blocked', this.blocked);
     },
 
     setArticleId(articleId) {

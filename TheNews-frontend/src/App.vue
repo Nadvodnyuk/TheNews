@@ -22,8 +22,7 @@ import Footer from "./components/footer/TheFooter.vue";
 <script>
 export default {
   created() {
-    // localStorage.clear();
-    console.log(localStorage);
+    console.log(sessionStorage);
   },
 };
 </script>

@@ -67,6 +67,8 @@ export default {
       themes: 0,
       isFormVisible: false,
       isArticleCreated: false,
+      likeNum: {},
+      commentNum: {},
       article: {
         title: "",
         article_text: "",
@@ -81,14 +83,28 @@ export default {
     };
   },
   computed: {
-    ...mapState(useCatalog, ["theme"]),
+    ...mapState(useCatalog, [
+      "theme",
+      "likeNums",
+      "commentNums",
+      "commentFlags",
+      "commentAll",
+      "commentPages",
+    ]),
     formattedThemes() {
       this.themes = this.theme[0];
       return this.themes.map((t) => ({ value: t, label: t }));
     },
   },
   methods: {
-    ...mapActions(useCatalog, ["setArticleAll"]),
+    ...mapActions(useCatalog, [
+      "setArticleAll",
+      "setLikeNums",
+      "setCommentNums",
+      "setCommentFlags",
+      "setCommentAll",
+      "setCommentPages",
+    ]),
     validateForm() {
       let isValid = true;
       this.validationErrors = {
@@ -131,9 +147,9 @@ export default {
       this.validationErrors = "";
     },
     handleTopicChange(value) {
-      console.log('value', value);
+      console.log("value", value);
       this.article.topics = value;
-      console.log('this.article.topics',this.article.topics);
+      console.log("this.article.topics", this.article.topics);
     },
     handleFileUpload(event) {
       this.article.image_url = event.target.files[0];
@@ -145,15 +161,70 @@ export default {
       this.isFormVisible = false;
       this.isArticleCreated = true;
       this.createArticle();
+      this.article = {
+        title: "",
+        article_text: "",
+        image_url: "",
+        topics: [],
+      };
     },
     async getAll() {
       try {
+        let pages = {};
+        let comment = {};
         await HomeDataService.getAll().then((response) => {
-          console.log(response.data);
           this.setArticleAll(response.data);
+          this.likeNum = Object.fromEntries(
+            response.data.map((article) => [article.article_id, 0])
+          );
+          this.commentNum = Object.fromEntries(
+            response.data.map((article) => [article.article_id, 0])
+          );
+          this.commentFlag = Object.fromEntries(
+            response.data.map((article) => [article.article_id, false])
+          );
+          comment = Object.fromEntries(
+            response.data.map((article) => [article.article_id, []])
+          );
+          pages = Object.fromEntries(
+            response.data.map((article) => [article.article_id, 1])
+          );
+
+          response.data.forEach((article) => {
+            this.getLikeNum(article.article_id);
+            this.getCommentNum(article.article_id);
+          });
+
+          this.setLikeNums(this.likeNum);
+          this.setCommentNums(this.commentNum);
+          this.setCommentFlags(this.commentFlag);
+          this.setCommentAll(comment);
+          this.setCommentPages(pages);
         });
       } catch (e) {
         this.error = "Проверьте все поля!";
+      }
+    },
+
+    async getLikeNum(articleId) {
+      try {
+        await HomeDataService.getLikeNum(articleId).then((response) => {
+          this.likeNum[articleId] = response.data;
+        });
+        this.setLikeNums(this.likeNum);
+      } catch (e) {
+        console.log("e", e);
+      }
+    },
+
+    async getCommentNum(articleId) {
+      try {
+        await HomeDataService.getCommentNum(articleId).then((response) => {
+          this.commentNum[articleId] = response.data;
+        });
+        this.setCommentNums(this.commentNum);
+      } catch (e) {
+        console.log("e", e);
       }
     },
 

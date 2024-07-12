@@ -34,14 +34,15 @@ export default {
       try {
         const response = await HomeDataService.logout();
         console.log(response);
-        localStorage.removeItem("token");
-        localStorage.removeItem("name");
-        localStorage.removeItem("role");
+        sessionStorage.removeItem("token");
+        sessionStorage.removeItem("name");
+        sessionStorage.removeItem("role");
+        sessionStorage.removeItem("id");
         this.setName("");
         this.setToken("");
         this.setRole("");
         this.$router.push("/");
-        localStorage.clear();
+        sessionStorage.clear();
         this.getAll();
       } catch (e) {
         this.error = "Не прошло!";

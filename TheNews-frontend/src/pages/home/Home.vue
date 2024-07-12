@@ -187,6 +187,51 @@ export default {
       "commentPages",
       "articleId",
     ]),
+    async get() {
+      try {
+        await this.getAllThemes();
+        await HomeDataService.getAll().then((response) => {
+          let pages = {};
+          let comment = {};
+
+          this.setArticleAll(response.data);
+
+          this.likedFlags = Object.fromEntries(
+            response.data.map((article) => [article.article_id, false])
+          );
+          this.likeNum = Object.fromEntries(
+            response.data.map((article) => [article.article_id, 0])
+          );
+          this.commentNum = Object.fromEntries(
+            response.data.map((article) => [article.article_id, 0])
+          );
+          this.commentFlag = Object.fromEntries(
+            response.data.map((article) => [article.article_id, false])
+          );
+          comment = Object.fromEntries(
+            response.data.map((article) => [article.article_id, []])
+          );
+          pages = Object.fromEntries(
+            response.data.map((article) => [article.article_id, 1])
+          );
+
+          response.data.forEach((article) => {
+            this.getLikeNum(article.article_id);
+            this.getCommentNum(article.article_id);
+            this.isLiked(this.id, article.article_id);
+          });
+
+          this.setLikeNums(this.likeNum);
+          this.setCommentNums(this.commentNum);
+          this.setCommentFlags(this.commentFlag);
+          this.setCommentAll(comment);
+          this.setCommentPages(pages);
+          console.log("помогите")
+        });
+      } catch (e) {
+        console.log("e", e);
+      }
+    },
   },
   methods: {
     ...mapActions(useCatalog, [

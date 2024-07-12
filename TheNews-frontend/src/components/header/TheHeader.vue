@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     async retrieveMe() {
-      console.log(localStorage.getItem("token"));
+      console.log(sessionStorage.getItem("token"));
       await HomeDataService.me()
         .then((response) => {
           this.whoami = this.name;
@@ -54,10 +54,6 @@ export default {
           console.log(e);
         });
     },
-    // scrollToTop() {
-    //     // Прокручиваем страницу наверх (координаты 0, 0)
-    //     window.scrollTo(0, 0);
-    // },
   },
 };
 </script>
