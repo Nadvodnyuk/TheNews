@@ -65,7 +65,6 @@ import comments from "../../components/comments.vue";
             <button
               class="unstyled-button"
               @click="toggleLikedFlag(article.article_id)"
-              v-if="role === 'ROLE_USER'"
             >
               <img
                 class="mini"
@@ -80,13 +79,6 @@ import comments from "../../components/comments.vue";
                 v-show="likedFlags[article.article_id]"
               />
             </button>
-            <img
-              class="mini"
-              src="/img/heart.svg"
-              alt="mini like"
-              v-show="!likedFlags[article.article_id]"
-              v-if="role !== 'ROLE_USER'"
-            />
             <div class="unstyled-button">
               {{ likeNums[article.article_id] }}
             </div>
@@ -247,25 +239,11 @@ export default {
       "setTheme",
     ]),
 
-    validateComment() {
-      this.errors.comment =
-        this.myNewComment.length <= 100
-          ? ""
-          : "Comment has more than 1000 characters.";
-    },
-
     toggleExpandedArticle(articleId) {
       if (this.expandedArticleId === articleId) {
         this.expandedArticleId = null;
       } else {
         this.expandedArticleId = articleId;
-      }
-    },
-
-    submitComment() {
-      this.validateComment();
-      if (!this.errors.comment) {
-        console.log("Form submitted:", { comment: this.myNewComment });
       }
     },
 

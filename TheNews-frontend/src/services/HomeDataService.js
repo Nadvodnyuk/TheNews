@@ -49,7 +49,7 @@ class HomeDataService {
   async createComment(user_id, article_id, data) {
     //user
     return http.post(
-      `/user/comments/postComment?user_id=${user_id}&article_id=${article_id}`,
+      `/both/comments/postComment?user_id=${user_id}&article_id=${article_id}`,
       data
     );
   }
@@ -69,11 +69,11 @@ class HomeDataService {
   }
   async createLike(data) {
     //user
-    return http.post("/user/likes/postLike", data);
+    return http.post("/both/likes/postLike", data);
   }
   async deleteLike(userL, articleL) {
     //user
-    return http.delete(`/user/likes/${userL}/${articleL}`);
+    return http.delete(`/both/likes/${userL}/${articleL}`);
   }
 }
 

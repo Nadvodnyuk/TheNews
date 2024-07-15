@@ -160,7 +160,6 @@ export default {
           this.article.title = response.data.title;
           this.article.article_text = response.data.article_text;
           this.article.topics = response.data.topics;
-          // this.handleTopicChange(response.data.topics)
           console.log("проверкаааа", this.article);
           this.article.image_url = response.data.image_url;
         });

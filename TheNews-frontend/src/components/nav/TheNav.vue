@@ -29,7 +29,12 @@ export default {
     ...mapState(useCatalog, ["token"]),
   },
   methods: {
-    ...mapActions(useCatalog, ["setName", "setToken","setRole", "setArticleAll"]),
+    ...mapActions(useCatalog, [
+      "setName",
+      "setToken",
+      "setRole",
+      "setArticleAll",
+    ]),
     async logoutFoo() {
       try {
         const response = await HomeDataService.logout();
@@ -41,9 +46,9 @@ export default {
         this.setName("");
         this.setToken("");
         this.setRole("");
-        this.$router.push("/");
         sessionStorage.clear();
-        this.getAll();
+        await this.getAll();
+        window.location.reload();
       } catch (e) {
         this.error = "Не прошло!";
       }
@@ -71,7 +76,6 @@ export default {
         });
     },
   },
-  mounted() {},
 };
 </script>
 

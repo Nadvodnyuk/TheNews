@@ -45,8 +45,8 @@ public class LikeController {
     }
 
 
-    @PostMapping("/user/likes/postLike")
-    @PreAuthorize("hasRole('USER')")
+    @PostMapping("/both/likes/postLike")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> postLike(@RequestBody LikeDto likeDto) {
         try {
             likeFacade.putLikeFacade(likeDto);
@@ -57,8 +57,8 @@ public class LikeController {
     }
 
 
-    @DeleteMapping("/user/likes/{userL}/{articleL}")
-    @PreAuthorize("hasRole('USER')")
+    @DeleteMapping("/both/likes/{userL}/{articleL}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> deleteLike(@PathVariable long userL,
                                         @PathVariable long articleL) {
         try {

@@ -72,7 +72,16 @@ export default {
     };
   },
   computed: {
-    ...mapState(useCatalog, ["theme", "favorite", "blocked"]),
+    ...mapState(useCatalog, [
+      "theme",
+      "favorite",
+      "blocked",
+      "likeNums",
+      "commentNums",
+      "commentFlags",
+      "commentAll",
+      "commentPages",
+    ]),
     formattedThemes() {
       this.themes = this.theme[0];
       console.log(this.themes, this.theme);
@@ -81,7 +90,16 @@ export default {
     },
   },
   methods: {
-    ...mapActions(useCatalog, ["setFavorite", "setBlocked", "setArticleAll"]),
+    ...mapActions(useCatalog, [
+      "setFavorite",
+      "setBlocked",
+      "setArticleAll",
+      "setLikeNums",
+      "setCommentNums",
+      "setCommentFlags",
+      "setCommentAll",
+      "setCommentPages",
+    ]),
     openTopicsForm() {
       this.isFormVisible = true;
       this.selectedFavoriteFlag = this.formattedThemes.map((theme) =>
@@ -98,8 +116,33 @@ export default {
     async getAll() {
       try {
         await HomeDataService.getAll().then((response) => {
-          console.log(response.data);
           this.setArticleAll(response.data);
+          this.likeNum = Object.fromEntries(
+            response.data.map((article) => [article.article_id, 0])
+          );
+          this.commentNum = Object.fromEntries(
+            response.data.map((article) => [article.article_id, 0])
+          );
+          this.commentFlag = Object.fromEntries(
+            response.data.map((article) => [article.article_id, false])
+          );
+          let comment = Object.fromEntries(
+            response.data.map((article) => [article.article_id, []])
+          );
+          let pages = Object.fromEntries(
+            response.data.map((article) => [article.article_id, 1])
+          );
+
+          response.data.forEach((article) => {
+            this.getLikeNum(article.article_id);
+            this.getCommentNum(article.article_id);
+          });
+
+          this.setLikeNums(this.likeNum);
+          this.setCommentNums(this.commentNum);
+          this.setCommentFlags(this.commentFlag);
+          this.setCommentAll(comment);
+          this.setCommentPages(pages);
         });
       } catch (e) {
         this.error = "Проверьте все поля!";
@@ -114,8 +157,6 @@ export default {
         (_, index) => this.selectedDislikedFlag[index]
       );
       this.isFormVisible = false;
-      // console.log("Favorite", this.selectedFavorite);
-      // console.log("Disliked", this.selectedDisliked);
 
       await HomeDataService.saveTopics({
         favorite: this.selectedFavorite,

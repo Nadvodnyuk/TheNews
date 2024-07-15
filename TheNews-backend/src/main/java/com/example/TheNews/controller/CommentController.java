@@ -43,8 +43,8 @@ public class CommentController {
     }
 
     //ок
-    @PostMapping("/user/comments/postComment")
-    @PreAuthorize("hasRole('USER')")
+    @PostMapping("/both/comments/postComment")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> postComment(
             @RequestParam long user_id,
             @RequestParam long article_id,
