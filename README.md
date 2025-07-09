@@ -10,7 +10,7 @@
   - Spring Security (JWT для аутентификации)
   - Hibernate + JPA
   - JUnit и Mockito (тесты)
-  - PostgreSQL
+  - PostgreSQL (БД)
 
 **Frontend**
   - Vue.js
@@ -19,6 +19,8 @@
   - Pinia
   - Ant Design Vue
   - Axios
+
+Управление зависимостями: Maven (backend), npm (frontend)
 
 ## Требования к окружению
 
