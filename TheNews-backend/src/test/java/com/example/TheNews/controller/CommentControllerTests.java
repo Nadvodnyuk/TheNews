@@ -68,7 +68,7 @@ public class CommentControllerTests {
         int user_id = 1;
         int article_id = 1;
         doNothing().when(commentFacade).createCommentFacade(user_id, createCommentDto, article_id);
-        mockMvc.perform(post("/user/comments/postComment")
+        mockMvc.perform(post("/both/comments/postComment")
                         .param("user_id", String.valueOf(user_id))
                         .param("article_id", String.valueOf(article_id))
                         .contentType(MediaType.APPLICATION_JSON)

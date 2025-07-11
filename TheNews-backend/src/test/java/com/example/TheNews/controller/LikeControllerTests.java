@@ -57,7 +57,7 @@ public class LikeControllerTests {
         LikeDto likeDto = LikeDto.builder()
                 .userL(1).articleL(1).build();
 
-        mockMvc.perform(post("/user/likes/postLike")
+        mockMvc.perform(post("/both/likes/postLike")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(likeDto)))
                 .andExpect(status().isOk())
@@ -69,7 +69,7 @@ public class LikeControllerTests {
         LikeDto likeDto = LikeDto.builder()
                 .userL(1).articleL(1).build();
 
-        mockMvc.perform(delete("/user/likes/1/1"))
+        mockMvc.perform(delete("/both/likes/1/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("Лайк успешно удален"));
     }

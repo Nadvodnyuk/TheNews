@@ -21,6 +21,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.util.Arrays;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -54,11 +55,11 @@ public class ArticleControllerTests {
                 .like_num(3)
                 .comment_num(15).build();
 
-        when(articleFacade.getAllLatestArticlesFacade()).thenReturn(Arrays.asList(articleDto));
+        when(articleFacade.getArticlesByUserPreferencesFacade(any())).thenReturn(Arrays.asList(articleDto));
+
         mockMvc.perform(get("/auth/articles/all"))
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.size()",
-                        CoreMatchers.is(Arrays.asList(articleDto).size())));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.length()", CoreMatchers.is(1)));
     }
 
     @Test

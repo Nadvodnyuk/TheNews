@@ -16,6 +16,7 @@ import org.springframework.security.authentication.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -73,7 +74,8 @@ public class UserServiceTests {
 
     @Test
     public void UserService_allUsers_ReturnsList() {
-        List<UserEntity> allUsers = Mockito.mock(List.class);
+        List<UserEntity> allUsers = new ArrayList<>();
+        allUsers.add(new UserEntity());
         when(userRepo.findAll()).thenReturn(allUsers);
 
         List<UserEntity> users = userService.allUsers();
